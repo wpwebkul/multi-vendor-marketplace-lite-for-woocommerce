@@ -42,7 +42,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Hooks' ) ) {
 			add_action( 'wp_ajax_wkmp_del_zone', array( $function_handler, 'wkmp_del_zone' ) );
 
 			add_action( 'wp_ajax_wkmp_marketplace_attributes_variation', array( $function_handler, 'wkmp_marketplace_add_variation_attribute' ) );
-			add_action( 'wp_ajax_wkmp_attributes_variation_remove', array( $function_handler, 'wkmp_attributes_variation_remove' ) );
+			add_action( 'wp_ajax_wkmp_attributes_variation_remove', array( $function_handler, 'wkmp_attributes_remove_variation' ) );
 			add_action( 'wp_ajax_wkmp_productgallary_image_delete', array( $function_handler, 'wkmp_productgallary_image_delete' ) );
 			add_action( 'wp_ajax_wkmp_downloadable_file_add', array( $function_handler, 'wkmp_downloadable_file_add' ) );
 			add_action( 'wp_ajax_wkmp_product_sku_validation', array( $function_handler, 'wkmp_validate_seller_product_sku' ) );

@@ -509,7 +509,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		/**
 		 * Remove variation attribute.
 		 */
-		public function wkmp_attributes_variation_remove() {
+		public function wkmp_attributes_remove_variation() {
 			$result = array(
 				'success' => false,
 				'msg'     => esc_html__( 'Some error in removing, kindly reload the page and try again!!', 'wk-marketplace' ),

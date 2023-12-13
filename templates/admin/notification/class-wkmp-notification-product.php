@@ -89,14 +89,14 @@ if ( ! class_exists( 'WKMP_Notification_Product' ) ) {
 			<ul class="mp-notification-list">
 				<?php if ( $display ) { ?>
 					<?php foreach ( $display as $value ) { ?>
-						<li class="notification-link"><?php echo wp_kses_post( $value['content'] ); ?></li>
+						<li class="notification-link"><?php echo wp_kses_post( html_entity_decode( $value['content'] ) ); ?></li>
 					<?php } ?>
 				<?php } else { ?>
 					<?php esc_html_e( 'No data Found', 'wk-marketplace' ); ?>
 				<?php } ?>
 			</ul>
 			<?php
-			echo wp_kses_post( $notifications['pagination'] );
+			echo wp_kses_post( html_entity_decode( $notifications['pagination'] ) );
 		}
 	}
 }

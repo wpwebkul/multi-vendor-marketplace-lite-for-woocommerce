@@ -292,7 +292,7 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 			$show_info = empty( $show_info ) ? 0 : intval( $show_info );
 			if ( 200 === $show_info ) {
 				?>
-			<input type="hidden" data-lwd="2023-12-12-1650" data-wk_caching_version="<?php echo esc_attr( WK_CACHING_VERSION ); ?>" data-wk_caching_slug="wk_caching">
+			<input type="hidden" data-lwd="2023-12-13-1630" data-wk_caching_version="<?php echo esc_attr( WK_CACHING_VERSION ); ?>" data-wk_caching_slug="wk_caching">
 				<?php
 			}
 		}

@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 	<div id="wkmp_remove_notice_wrap" class="woocommerce-message notice inline wkmp_hide">
 	</div>
 	<div id="mp_attribute_variations">
-		<?php echo $this->wkmp_attributes_variation( $wk_pro_id ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<?php $this->wkmp_attributes_variation( $wk_pro_id ); ?>
 	</div>
 	<div class="input_fields_toolbar_variation">
 		<div id="mp-loader"></div>

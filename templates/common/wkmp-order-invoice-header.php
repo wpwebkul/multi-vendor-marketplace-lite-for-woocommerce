@@ -12,7 +12,7 @@ $suffix     = ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) ? '' : '.min';
 $asset_path = ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) ? 'build' : 'dist';
 ?>
 <!DOCTYPE html>
- <html>
+	<html>
 	<head>
 		<title><?php esc_html_e( 'Order Invoice', 'wk-marketplace' ); ?></title>
 		<link rel="stylesheet" href="<?php echo esc_url( WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/admin/css/invoice-style' . $suffix . '.css' ); ?>">

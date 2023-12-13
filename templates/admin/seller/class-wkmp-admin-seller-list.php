@@ -232,7 +232,7 @@ if ( ! class_exists( 'WKMP_Admin_Seller_List' ) ) {
 		 * @return string
 		 */
 		public function column_name( $item ) {
-			$click   = "return confirm('" . esc_html__( 'Are you sure?', 'wk-marketplace' ) . "')";
+			$click   = "return confirm('" . esc_html__( 'Are You sure you want to delete this Seller..?', 'wk-marketplace' ) . "')";
 			$actions = array(
 				'edit'   => sprintf( '<a class="wkmp-seller-edit-link" href="%s">%s</a>', get_edit_user_link( $item['sid'] ), esc_html__( 'Edit', 'wk-marketplace' ) ),
 				'manage' => sprintf( '<a class="wkmp-seller-edit-link" href="%s">%s</a>', admin_url( 'admin.php?page=wk-marketplace&tab-action=manage&seller-id=' . intval( $item['sid'] ) ), esc_html__( 'Manage', 'wk-marketplace' ) ),

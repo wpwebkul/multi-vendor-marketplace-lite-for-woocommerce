@@ -81,8 +81,8 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 		public function wkmp_front_scripts() {
 			global $wkmarketplace, $wp;
 
-			$suffix = ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) ? '' : '.min';
-			$path   = ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) ? 'build' : 'dist';
+			$suffix     = ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) ? '' : '.min';
+			$asset_path = ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) ? 'build' : 'dist';
 
 			$locale        = localeconv();
 			$decimal_point = isset( $locale['decimal_point'] ) ? $locale['decimal_point'] : '.';
@@ -171,7 +171,7 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 				'ajaxNonce' => wp_create_nonce( 'wkmp-front-nonce' ),
 			);
 
-			wp_enqueue_script( 'wkmp-front-script', WKMP_LITE_PLUGIN_URL . 'assets/' . $path . '/front/js/front' . $suffix . '.js', array( 'select2', 'wp-util' ), WKMP_LITE_SCRIPT_VERSION, true );
+			wp_enqueue_script( 'wkmp-front-script', WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/front/js/front' . $suffix . '.js', array( 'select2', 'wp-util' ), WKMP_LITE_SCRIPT_VERSION, true );
 			wp_enqueue_script( 'select2-js', plugins_url() . '/woocommerce/assets/js/select2/select2.min.js', array(), WKMP_LITE_SCRIPT_VERSION, true );
 
 			wp_localize_script(
@@ -179,7 +179,7 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 				'wkmpObj',
 				array(
 					'ajax'                 => $ajax_obj,
-					'commonConfirmMsg'     => esc_html__( 'Are you sure?', 'wk-marketplace' ),
+					'alert_msg'            => esc_html__( 'Are you sure?', 'wk-marketplace' ),
 					'mkt_tr'               => $mkt_tr_arr,
 					'wkmp_authorize_error' => esc_html__( 'You are not authorized to perform this action.', 'wk-marketplace' ),
 				)
@@ -198,10 +198,10 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 			wp_enqueue_style( 'dashicons' );
 
 			if ( $wkmarketplace->wkmp_is_woocommerce_page() || $wkmarketplace->wkmp_is_seller_page( $query_vars ) ) {
-				wp_enqueue_style( 'wkmp-front-style-css', WKMP_LITE_PLUGIN_URL . 'assets/' . $path . '/front/css/style' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION );
+				wp_enqueue_style( 'wkmp-front-style-css', WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/front/css/style' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION );
 
 				if ( $wkmarketplace->wkmp_is_seller_page( $query_vars ) ) {
-					wp_enqueue_style( 'wkmp-front-style', WKMP_LITE_PLUGIN_URL . 'assets/' . $path . '/front/css/front' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION );
+					wp_enqueue_style( 'wkmp-front-style', WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/front/css/front' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION );
 					wp_enqueue_style( 'select2-css', plugins_url() . '/woocommerce/assets/css/select2.css', array(), WKMP_LITE_SCRIPT_VERSION );
 				}
 			}
@@ -209,7 +209,7 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 			// Theme compatibility CSS.
 			if ( in_array( get_template(), array( 'flatsome', 'woodmart' ), true ) ) {
 				$rtl = is_rtl() ? '-rtl' : '';
-				wp_enqueue_style( 'wkmp-compatibility', WKMP_LITE_PLUGIN_URL . 'assets/' . $path . '/front/css/wkmp-theme-compatibility' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION );
+				wp_enqueue_style( 'wkmp-compatibility', WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/front/css/wkmp-theme-compatibility' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION );
 				if ( 'woodmart' === get_template() ) {
 					wp_enqueue_style( 'wkmp-page-my-account', get_template_directory_uri() . '/css/parts/woo-page-my-account' . $rtl . '.min.css', array(), '6.0.3' );
 				}

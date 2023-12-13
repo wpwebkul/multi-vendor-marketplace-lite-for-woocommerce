@@ -397,13 +397,13 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 		 * @return void
 		 */
 		public function wkmp_admin_scripts() {
-			$suffix = ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) ? '' : '.min';
-			$path   = ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) ? 'build' : 'dist';
+			$suffix     = ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) ? '' : '.min';
+			$asset_path = ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) ? 'build' : 'dist';
 
-			wp_enqueue_style( 'wkmp-admin-style', WKMP_LITE_PLUGIN_URL . 'assets/' . $path . '/admin/css/admin' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION );
+			wp_enqueue_style( 'wkmp-admin-style', WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/admin/css/admin' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION );
 			wp_enqueue_style( 'wkmp-admin-wc-style', plugins_url() . '/woocommerce/assets/client/admin/admin-layout/style.css', array(), WC_VERSION );
 
-			wp_enqueue_script( 'wkmp-admin-script', WKMP_LITE_PLUGIN_URL . 'assets/' . $path . '/admin/js/admin' . $suffix . '.js', array( 'select2' ), WKMP_LITE_SCRIPT_VERSION, true );
+			wp_enqueue_script( 'wkmp-admin-script', WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/admin/js/admin' . $suffix . '.js', array( 'select2' ), WKMP_LITE_SCRIPT_VERSION, true );
 
 			$ajax_obj = array(
 				'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
@@ -414,13 +414,14 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 				'wkmp-admin-script',
 				'wkmpObj',
 				array(
-					'ajax'             => $ajax_obj,
-					'text_required'    => esc_html__( 'This field is required', 'wk-marketplace' ),
-					'text_unique'      => esc_html__( 'This field must be unique', 'wk-marketplace' ),
-					'commonConfirmMsg' => esc_html__( 'Are you sure?', 'wk-marketplace' ),
-					'already_paid'     => esc_html__( 'Payment has already been done for order id: ', 'wk-marketplace' ),
-					'shop_name'        => esc_html__( 'Please fill shop name.', 'wk-marketplace' ),
-					'failed_btn'       => esc_html__( 'Failed', 'wk-marketplace' ),
+					'ajax'                 => $ajax_obj,
+					'text_required'        => esc_html__( 'This field is required', 'wk-marketplace' ),
+					'text_unique'          => esc_html__( 'This field must be unique', 'wk-marketplace' ),
+					'pay_confirm'          => esc_html__( 'Are you sure you want to pay?', 'wk-marketplace' ),
+					'order_status_confirm' => esc_html__( 'Are you sure you want to change status?', 'wk-marketplace' ),
+					'already_paid'         => esc_html__( 'Payment has already been done for order id: ', 'wk-marketplace' ),
+					'shop_name'            => esc_html__( 'Please fill shop name.', 'wk-marketplace' ),
+					'failed_btn'           => esc_html__( 'Failed', 'wk-marketplace' ),
 				)
 			);
 

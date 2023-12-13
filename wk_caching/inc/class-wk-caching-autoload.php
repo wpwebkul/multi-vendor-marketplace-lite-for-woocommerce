@@ -51,8 +51,8 @@ if ( ! class_exists( 'WK_Caching_Autoload' ) ) {
 				'includes',
 			);
 
-			foreach ( $all_paths as $path ) {
-				$file_path = $filepath . $path . '/' . $file_name;
+			foreach ( $all_paths as $the_path ) {
+				$file_path = $filepath . $the_path . '/' . $file_name;
 
 				if ( file_exists( $file_path ) ) {
 					require_once $file_path;

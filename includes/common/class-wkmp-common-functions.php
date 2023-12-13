@@ -637,13 +637,13 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 
 			$args = array( 'method' => 'post' );
 
-			$data['fist_name']        = \WK_Caching::wk_get_request_data( 'wkmp_first_name', $args );
-			$data['fist_name']        = $this->wkmp_replace_accents_characters_to_normal( $data['fist_name'] );
-			$data['last_name']        = \WK_Caching::wk_get_request_data( 'wkmp_last_name', $args );
-			$data['last_name']        = $this->wkmp_replace_accents_characters_to_normal( $data['last_name'] );
-			$data['shop_name']        = \WK_Caching::wk_get_request_data( 'wkmp_shop_name', $args );
-			$data['shop_name']        = $this->wkmp_replace_accents_characters_to_normal( $data['shop_name'] );
-			$data['billing_phone']    = \WK_Caching::wk_get_request_data( 'wkmp_shop_phone', $args );
+			$data['fist_name'] = \WK_Caching::wk_get_request_data( 'wkmp_first_name', $args );
+			$data['fist_name'] = $this->wkmp_replace_accents_characters_to_normal( $data['fist_name'] );
+			$data['last_name'] = \WK_Caching::wk_get_request_data( 'wkmp_last_name', $args );
+			$data['last_name'] = $this->wkmp_replace_accents_characters_to_normal( $data['last_name'] );
+			$data['shop_name'] = \WK_Caching::wk_get_request_data( 'wkmp_shop_name', $args );
+			$data['shop_name'] = $this->wkmp_replace_accents_characters_to_normal( $data['shop_name'] );
+
 			$data['billing_country']  = \WK_Caching::wk_get_request_data( 'wkmp_shop_country', $args );
 			$data['billing_postcode'] = \WK_Caching::wk_get_request_data( 'wkmp_shop_postcode', $args );
 
@@ -676,8 +676,10 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 				}
 			}
 
-			if ( ! empty( $data['billing_phone'] ) && ! \WC_Validation::is_phone( $data['billing_phone'] ) ) {
-				$errors['wkmp_shop_phone'] = esc_html__( 'Enter the valid phone no', 'wk-marketplace' );
+			if ( ! empty( $data['wkmp_shop_phone'] ) && ! \WC_Validation::is_phone( $data['wkmp_shop_phone'] ) ) {
+				$errors['wkmp_shop_phone'] = esc_html__( 'Enter the valid phone number', 'wk-marketplace' );
+			} elseif ( ( strlen( $data['wkmp_shop_phone'] ) < 4 || strlen( $data['wkmp_shop_phone'] ) > 15 ) ) {
+				$errors['wkmp_shop_phone'] = esc_html__( 'Enter the valid phone number of required length.', 'wk-marketplace' );
 			}
 
 			if ( ! empty( $data['billing_postcode'] ) && ! \WC_Validation::is_postcode( $data['billing_postcode'], $data['billing_country'] ) ) {
@@ -712,6 +714,8 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 			}
 
 			if ( empty( $errors ) ) {
+				$data['billing_phone'] = $data['wkmp_shop_phone'];
+				unset( $data['wkmp_shop_phone'] );
 				$this->wkmp_update_seller_profile( $data, $seller_id );
 			} else {
 				$_POST['wkmp_errors'] = $errors;

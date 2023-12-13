@@ -11,6 +11,9 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 $seller_info      = empty( $data['seller_info'] ) ? new stdClass() : $data['seller_info'];
 $ordered_products = empty( $data['ordered_products'] ) ? array() : $data['ordered_products'];
 $currency_symbol  = empty( $data['currency_symbol'] ) ? '' : $data['currency_symbol'];
+$city_country     = empty( $seller_info->billing_city ) ? '' : $seller_info->billing_city;
+$city_country    .= ( ! empty( $city_country ) && ! empty( $seller_info->billing_country ) ) ? ', ' : '';
+$city_country    .= empty( $seller_info->billing_country ) ? '' : $seller_info->billing_country;
 
 require_once WKMP_LITE_PLUGIN_FILE . '/templates/common/wkmp-order-invoice-header.php';
 ?>
@@ -26,7 +29,7 @@ require_once WKMP_LITE_PLUGIN_FILE . '/templates/common/wkmp-order-invoice-heade
 			<td>
 				<b><?php echo esc_html( $seller_info->shop_name ); ?></b><br>
 				<?php echo esc_html( $seller_info->first_name . ' ' . $seller_info->last_name ); ?><br>
-				<?php echo esc_html( $seller_info->billing_city . ' , ' . $seller_info->billing_country ); ?><br>
+				<?php echo esc_html( $city_country ); ?><br>
 				<b><?php esc_html_e( 'Email :', 'wk-marketplace' ); ?></b><?php echo esc_html( $seller_info->user_email ); ?><br>
 				<b><?php esc_html_e( 'Profile Link :', 'wk-marketplace' ); ?></b>
 				<a href="<?php echo esc_url( $data['store_url'] ); ?>" target="_blank"><?php echo esc_url( $data['store_url'] ); ?></a>

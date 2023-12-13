@@ -77,7 +77,8 @@ if ( ! class_exists( 'WKMP_Profile_Edit' ) ) {
 			$posted_data = array();
 
 			if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, 'wkmp-user-nonce-action' ) ) {
-				$posted_data['about_shop'] = empty( $_POST['wkmp_about_shop'] ) ? '' : stripslashes( wp_kses_post( $_POST['wkmp_about_shop'] ) );
+				$posted_data['about_shop']      = empty( $_POST['wkmp_about_shop'] ) ? '' : stripslashes( wp_kses_post( $_POST['wkmp_about_shop'] ) );
+				$posted_data['wkmp_shop_phone'] = \WK_Caching::wk_get_request_data( 'wkmp_shop_phone', array( 'method' => 'post' ) );
 				do_action( 'wkmp_validate_update_seller_profile', $posted_data, $this->seller_id );
 
 				$errors = isset( $_POST['wkmp_errors'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['wkmp_errors'] ) ) : array();

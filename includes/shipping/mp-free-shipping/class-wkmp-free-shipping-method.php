@@ -111,6 +111,7 @@ if ( ! class_exists( 'WKMP_Free_Shipping_Method' ) ) {
 			$matching_zone_ids        = array();
 			$ids_supported_methods    = array();
 			$allowed_shipping_methods = array( 0 );
+			$manage_shipping          = Shipping\WKMP_Manage_Shipping::get_instance();
 
 			foreach ( $package['contents'] as $values ) {
 				$product_id = $values['product_id'];
@@ -137,12 +138,12 @@ if ( ! class_exists( 'WKMP_Free_Shipping_Method' ) ) {
 
 			if ( 1 === count( $seller_ids ) ) {
 				if ( false === $matching_zone_id ) {
-					$matching_zone_id = $this->get_zone_id_from_package( $package, $seller_ids[0] );
+					$matching_zone_id = $manage_shipping->wkmp_get_zone_id_from_package( $package, $seller_ids[0] );
 					wp_cache_set( $cache_key, $matching_zone_id, 'shipping_zones' );
 				}
 			} else {
 				foreach ( $seller_ids as $s_value ) {
-					$matching_zone_id = $this->get_zone_id_from_package( $package, $s_value );
+					$matching_zone_id = $manage_shipping->wkmp_get_zone_id_from_package( $package, $s_value );
 					if ( null !== $matching_zone_id ) {
 						wp_cache_set( $cache_key, $matching_zone_id, 'shipping_zones' );
 						$matching_zone_ids[] = $matching_zone_id;
@@ -154,7 +155,7 @@ if ( ! class_exists( 'WKMP_Free_Shipping_Method' ) ) {
 				foreach ( $matching_zone_ids as $mz_value ) {
 					$ids_zone             = new WC_Shipping_Zone( $mz_value ? $mz_value : 0 );
 					$ids_shipping_methods = $ids_zone->get_shipping_methods( true );
-					foreach ( $ids_shipping_methods as $ids_key => $ids_value ) {
+					foreach ( $ids_shipping_methods as $ids_value ) {
 						$ids_supported_methods[ $mz_value ][] = $ids_value->id;
 					}
 				}
@@ -181,47 +182,6 @@ if ( ! class_exists( 'WKMP_Free_Shipping_Method' ) ) {
 			}
 
 			return $package['rates'];
-		}
-
-		/**
-		 * Function for getting zone id.
-		 *
-		 * @param array $package Package array.
-		 * @param array $seller_ids Seller ids.
-		 *
-		 * @return string
-		 */
-		public function get_zone_id_from_package( $package, $seller_ids = array() ) {
-			global $wpdb;
-			$seller_ids = is_array( $seller_ids ) ? $seller_ids : array( $seller_ids );
-			$country    = strtoupper( wc_clean( $package['destination']['country'] ) );
-			$state      = strtoupper( wc_clean( $package['destination']['state'] ) );
-			$continent  = strtoupper( wc_clean( WC()->countries->get_continent_code_for_country( $country ) ) );
-			$postcode   = wc_normalize_postcode( wc_clean( $package['destination']['postcode'] ) );
-			$seller_id  = count( $seller_ids ) > 0 ? $seller_ids[0] : 0;
-
-			// Work out criteria for our zone search.
-			$criteria   = array();
-			$criteria[] = $wpdb->prepare( "( ( location_type = 'country' AND location_code = %s )", $country );
-			$criteria[] = $wpdb->prepare( "OR ( location_type = 'state' AND location_code = %s )", $country . ':' . $state );
-			$criteria[] = $wpdb->prepare( "OR ( location_type = 'continent' AND location_code = %s )", $continent );
-			$criteria[] = 'OR ( location_type IS NULL ) )';
-
-			// Postcode range and wildcard matching.
-			$postcode_locations = $wpdb->get_results( "SELECT zone_id, location_code FROM {$wpdb->prefix}woocommerce_shipping_zone_locations WHERE location_type = 'postcode';" );
-
-			if ( $postcode_locations ) {
-				$zone_ids_with_postcode_rules = array_map( 'absint', wp_list_pluck( $postcode_locations, 'zone_id' ) );
-				$matches                      = wc_postcode_location_matcher( $postcode, $postcode_locations, 'zone_id', 'location_code', $country );
-				$do_not_match                 = array_unique( array_diff( $zone_ids_with_postcode_rules, array_keys( $matches ) ) );
-
-				if ( ! empty( $do_not_match ) ) {
-					$criteria[] = ' AND zones.zone_id NOT IN (' . implode( ',', $do_not_match ) . ')';
-				}
-			}
-
-			// Get matching zones.
-			return $wpdb->get_var( "SELECT zones.zone_id FROM {$wpdb->prefix}woocommerce_shipping_zones as zones LEFT OUTER JOIN {$wpdb->prefix}woocommerce_shipping_zone_locations as locations ON zones.zone_id = locations.zone_id AND location_type != 'postcode' JOIN {$wpdb->prefix}mpseller_meta as my_zones on zones.zone_id = my_zones.zone_id and my_zones.seller_id= $seller_id WHERE " . implode( ' ', $criteria ) . ' ORDER BY zone_order ASC LIMIT 1 ' ); // WPCS: unprepared SQL ok.
 		}
 
 		/**
@@ -255,6 +215,8 @@ if ( ! class_exists( 'WKMP_Free_Shipping_Method' ) ) {
 			$seller_cart_amount = array();
 
 			if ( 'yes' === $this->enabled ) {
+				$manage_shipping = Shipping\WKMP_Manage_Shipping::get_instance();
+
 				foreach ( $package['contents'] as $values ) {
 					$product_id = $values['product_id'];
 					$seller_id  = get_post_field( 'post_author', $product_id );
@@ -271,7 +233,7 @@ if ( ! class_exists( 'WKMP_Free_Shipping_Method' ) ) {
 					$seller_id      = ( is_array( $seller_details ) && count( $seller_details ) > 0 ) ? $seller_details[0] : 0;
 
 					if ( $seller_id > 0 ) {
-						$seller_zones     = $this->get_zone_id_from_package( $package, $seller_id );
+						$seller_zones     = $manage_shipping->wkmp_get_zone_id_from_package( $package, $seller_id );
 						$method           = false;
 						$zone             = new WC_Shipping_Zone( $seller_zones ? $seller_zones : 0 );
 						$shipping_methods = $zone->get_shipping_methods( true );

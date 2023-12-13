@@ -121,9 +121,9 @@ if ( ! class_exists( 'WKMP_Admin_Feedback' ) ) {
 				$data[] = array(
 					'id'             => $feedback->ID,
 					'shop_name'      => $shop_name,
-					'value_rating'   => '5/' . $feedback->value_r,
-					'price_rating'   => '5/' . $feedback->price_r,
-					'quality_rating' => '5/' . $feedback->quality_r,
+					'value_rating'   => $feedback->value_r . '/5',
+					'price_rating'   => $feedback->price_r . '/5',
+					'quality_rating' => $feedback->quality_r . '/5',
 					'summary'        => $feedback->review_summary,
 					'description'    => $feedback->review_desc,
 					'status'         => $status,

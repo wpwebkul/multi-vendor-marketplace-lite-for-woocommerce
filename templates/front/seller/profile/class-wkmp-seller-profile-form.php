@@ -66,7 +66,7 @@ if ( ! class_exists( 'WKMP_Seller_Profile_Form' ) ) {
 			$seller_info = $this->marketplace->wkmp_get_parsed_seller_info( $seller_id, $posted_data );
 
 			if ( ! empty( $errors ) ) {
-				wc_print_notice( esc_html__( 'Warning Please check the form carefully for the errors.', 'wk-marketplace' ), 'error' );
+				wc_print_notice( esc_html__( 'Warning Please check all the tabs of the form carefully for the errors.', 'wk-marketplace' ), 'error' );
 			}
 
 			$tabs = apply_filters(

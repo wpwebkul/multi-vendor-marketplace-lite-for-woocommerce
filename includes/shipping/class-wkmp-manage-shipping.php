@@ -360,7 +360,7 @@ if ( ! class_exists( 'WKMP_Manage_Shipping' ) ) {
 			$criteria[] = $wpdb->prepare( "OR ( location_type = 'continent' AND location_code = %s )", $continent );
 			$criteria[] = 'OR ( location_type IS NULL ) )';
 
-			// Postcode range and wildcard matching.
+			// Postcode range and wild card matching.
 			$postcode_locations = $wpdb->get_results( "SELECT zone_id, location_code FROM {$wpdb->prefix}woocommerce_shipping_zone_locations WHERE location_type = 'postcode';" );
 
 			if ( $postcode_locations ) {
@@ -383,13 +383,11 @@ if ( ! class_exists( 'WKMP_Manage_Shipping' ) ) {
 			{$wpdb->prefix}woocommerce_shipping_zone_locations as locations ON zones.zone_id = locations.zone_id AND location_type != 'postcode'
 			JOIN {$wpdb->prefix}mpseller_meta as my_zones on zones.zone_id = my_zones.zone_id and my_zones.seller_id IN ( %1s )
 			WHERE %2s  ORDER BY zone_order ASC LIMIT 1",
-				$seller_ids_str,
-				$criteria_str
+				stripslashes( $seller_ids_str ),
+				stripslashes( $criteria_str )
 			);
 
-			$res = $wpdb->get_var( stripslashes_deep( $query ) ); // WPCS: unprepared SQL.
-
-			return $res;
+			return $wpdb->get_var( stripslashes_deep( $query ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- No applicable variables for this query.
 		}
 	}
 }
