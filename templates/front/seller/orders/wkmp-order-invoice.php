@@ -8,21 +8,12 @@
 
 defined( 'ABSPATH' ) || exit; // Exit if access directly.
 
-$suffix = ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) ? '' : '.min';
+$seller_info      = empty( $data['seller_info'] ) ? new stdClass() : $data['seller_info'];
+$ordered_products = empty( $data['ordered_products'] ) ? array() : $data['ordered_products'];
+$currency_symbol  = empty( $data['currency_symbol'] ) ? '' : $data['currency_symbol'];
 
-extract( $data ); ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title><?php esc_html_e( 'Seller Order Invoice', 'wk-marketplace' ); ?></title>
-	<link rel="stylesheet" href="<?php echo esc_url( WKMP_LITE_PLUGIN_URL ) . 'assets/admin/build/css/invoice-style' . esc_attr( $suffix ) . '.css'; ?>">
-	<link rel="stylesheet" href="<?php echo esc_url( WKMP_LITE_PLUGIN_URL . 'assets/dist/common/css/font-awesome.min.css' ); ?>">
-</head>
-
-<body>
-<div class="mp-invoice-wrapper">
-	<button onclick="javascript:window.print()"><i class="fa fa-print"></i></button>
-	<h1><?php echo sprintf( /* translators: %d: Order number. */ esc_html__( 'Seller Order Invoice Of Order #%d', 'wk-marketplace' ), esc_html( $order_id ) ); ?></h1>
+require_once WKMP_LITE_PLUGIN_FILE . '/templates/common/wkmp-order-invoice-header.php';
+?>
 	<table class="table table-bordered">
 		<thead>
 		<tr>
@@ -38,13 +29,13 @@ extract( $data ); ?>
 				<?php echo esc_html( $seller_info->billing_city . ' , ' . $seller_info->billing_country ); ?><br>
 				<b><?php esc_html_e( 'Email :', 'wk-marketplace' ); ?></b><?php echo esc_html( $seller_info->user_email ); ?><br>
 				<b><?php esc_html_e( 'Profile Link :', 'wk-marketplace' ); ?></b>
-				<a href="<?php echo esc_url( $store_url ); ?>" target="_blank"><?php echo esc_url( $store_url ); ?></a>
+				<a href="<?php echo esc_url( $data['store_url'] ); ?>" target="_blank"><?php echo esc_url( $data['store_url'] ); ?></a>
 			</td>
 			<td>
-				<b><?php esc_html_e( 'Order Date :', 'wk-marketplace' ); ?></b><?php echo esc_html( $date_created ); ?><br>
+				<b><?php esc_html_e( 'Order Date :', 'wk-marketplace' ); ?></b><?php echo esc_html( $data['date_created'] ); ?><br>
 				<b><?php esc_html_e( 'Order ID :', 'wk-marketplace' ); ?> </b><?php echo esc_html( $order_id ); ?><br>
-				<b><?php esc_html_e( 'Payment Method :', 'wk-marketplace' ); ?></b><?php echo esc_html( $payment_method ); ?><br>
-				<b><?php esc_html_e( 'Shipping Method :', 'wk-marketplace' ); ?></b><?php echo esc_html( $shipping_method ); ?><br>
+				<b><?php esc_html_e( 'Payment Method :', 'wk-marketplace' ); ?></b><?php echo esc_html( $data['payment_method'] ); ?><br>
+				<b><?php esc_html_e( 'Shipping Method :', 'wk-marketplace' ); ?></b><?php echo esc_html( $data['shipping_method'] ); ?><br>
 			</td>
 		</tr>
 		</tbody>
@@ -57,15 +48,15 @@ extract( $data ); ?>
 		</tr>
 		<tr>
 			<td><b><?php esc_html_e( 'Name', 'wk-marketplace' ); ?></b></td>
-			<td data-title="<?php esc_attr_e( 'Name', 'wk-marketplace' ); ?>"><?php echo esc_html( $customer_details['name'] ); ?></td>
+			<td data-title="<?php esc_attr_e( 'Name', 'wk-marketplace' ); ?>"><?php echo esc_html( $data['customer_details']['name'] ); ?></td>
 		</tr>
 		<tr>
 			<td><b><?php esc_html_e( 'Email', 'wk-marketplace' ); ?></b></td>
-			<td data-title="<?php esc_attr_e( 'Email', 'wk-marketplace' ); ?>"><?php echo esc_html( $customer_details['email'] ); ?></td>
+			<td data-title="<?php esc_attr_e( 'Email', 'wk-marketplace' ); ?>"><?php echo esc_html( $data['customer_details']['email'] ); ?></td>
 		</tr>
 		<tr class="alt-table-row">
 			<td><b><?php esc_html_e( 'Telephone', 'wk-marketplace' ); ?></b></td>
-			<td data-title="<?php esc_attr_e( 'Telephone', 'wk-marketplace' ); ?>"><?php echo esc_html( $customer_details['telephone'] ); ?></td>
+			<td data-title="<?php esc_attr_e( 'Telephone', 'wk-marketplace' ); ?>"><?php echo esc_html( $data['customer_details']['telephone'] ); ?></td>
 		</tr>
 		</tbody>
 	</table>
@@ -103,17 +94,16 @@ extract( $data ); ?>
 				<td class="text-right"><?php echo esc_html( $currency_symbol . $product['total_price'] ); ?></td>
 			</tr>
 		<?php } ?>
-
 		<tr>
 			<td class="text-right" colspan="3"><b><?php esc_html_e( 'SubTotal', 'wk-marketplace' ); ?></b></td>
-			<td class="text-right"><?php echo esc_html( $currency_symbol . $sub_total ); ?></td>
+			<td class="text-right"><?php echo esc_html( $currency_symbol . $data['sub_total'] ); ?></td>
 		</tr>
 		<?php
-		if ( $total_discount > 0 ) {
+		if ( $data['total_discount'] > 0 ) {
 			?>
 		<tr>
 			<td class="text-right" colspan="3"><b><?php esc_html_e( 'Discount', 'wk-marketplace' ); ?></b></td>
-			<td class="text-right"><?php echo esc_html( $currency_symbol . $total_discount ); ?></td>
+			<td class="text-right"><?php echo esc_html( $currency_symbol . $data['total_discount'] ); ?></td>
 		</tr>
 			<?php
 		}
@@ -146,13 +136,12 @@ extract( $data ); ?>
 			<td class="text-right" colspan="3"><b><?php esc_html_e( 'Total', 'wk-marketplace' ); ?></b></td>
 			<?php
 			if ( ! empty( $refund_data['refunded_amount'] ) ) {
-
 				?>
 				<td class="text-right"><strong>
 						<del><?php echo esc_html( $currency_symbol . $subtotal_refunded ); ?></del>
-					</strong><?php echo esc_html( $currency_symbol . apply_filters( 'wkmp_add_order_fee_to_total', round( floatval( $total ), 2 ), $order_id ) ); ?></td>
+					</strong><?php echo esc_html( $currency_symbol . apply_filters( 'wkmp_add_order_fee_to_total', round( floatval( $data['total'] ), 2 ), $order_id ) ); ?></td>
 			<?php } else { ?>
-				<td class="text-right"><?php echo esc_html( $currency_symbol . apply_filters( 'wkmp_add_order_fee_to_total', $total, $order_id ) ); ?></td>
+				<td class="text-right"><?php echo esc_html( $currency_symbol . apply_filters( 'wkmp_add_order_fee_to_total', $data['total'], $order_id ) ); ?></td>
 			<?php } ?>
 		</tr>
 		<?php if ( ! empty( $refund_data['refunded_amount'] ) ) { ?>
@@ -174,14 +163,13 @@ extract( $data ); ?>
 		<tbody>
 		<tr>
 			<td>
-				<address> <?php echo wp_kses_post( $billing_address ); ?> </address>
+				<address> <?php echo wp_kses_post( $data['billing_address'] ); ?> </address>
 			</td>
 			<td>
-				<address> <?php echo wp_kses_post( $shipping_address ); ?> </address>
+				<address> <?php echo wp_kses_post( $data['shipping_address'] ); ?> </address>
 			</td>
 		</tr>
 		</tbody>
 	</table>
-</div>
-</body>
-</html>
+<?php
+require_once WKMP_LITE_PLUGIN_FILE . '/templates/common/wkmp-order-invoice-footer.php';

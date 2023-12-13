@@ -122,8 +122,8 @@ if ( ! class_exists( 'WKMP_Product_List' ) ) {
 				} else {
 					$posted_data['seller_id'] = empty( $posted_data['seller_id'] ) ? ( empty( $this->seller_id ) ? get_current_user_id() : $this->seller_id ) : $posted_data['seller_id'];
 
-					$posted_data['product_desc'] = empty( $_POST['product_desc'] ) ? '' : $_POST['product_desc'];
-					$posted_data['short_desc']   = empty( $_POST['short_desc'] ) ? '' : $_POST['short_desc'];
+					$posted_data['product_desc'] = empty( $_POST['product_desc'] ) ? '' : wp_kses_post( $_POST['product_desc'] );
+					$posted_data['short_desc']   = empty( $_POST['short_desc'] ) ? '' : wp_kses_post( $_POST['short_desc'] );
 
 					$this->wkmp_add_new_product( $posted_data );
 				}

@@ -94,7 +94,7 @@ settings_errors();
 $pro_disabled = $wkmarketplace->wkmp_is_pro_module_disabled();
 ?>
 <p><?php esc_html_e( 'Endpoints are appended to your page URLs to handle specific actions on the WooCommerce pages. They should be unique. To avoid any collision, we recommend you to use prefix: ', 'wk-marketplace' ); ?><strong><?php echo esc_html( '"seller-"' ); ?></strong></p>
-<p><?php esc_html_e( 'Already registered WooCommerce endpoints: ', 'wk-marketplace' ); ?><strong><?php echo implode( ', ', $wc_endpoints ); ?></strong></p>
+<p><?php esc_html_e( 'Already registered WooCommerce endpoints: ', 'wk-marketplace' ); ?><strong><?php echo wp_kses_post( implode( ', ', $wc_endpoints ) ); ?></strong></p>
 
 <form method="post" action="options.php" id="wkmp-endpoint-form">
 	<?php
@@ -111,7 +111,19 @@ $pro_disabled = $wkmarketplace->wkmp_is_pro_module_disabled();
 						<label for=""><?php esc_html_e( 'Endpoint', 'wk-marketplace' ); ?></label>
 					</th>
 					<td class="forminp">
-						<?php echo wc_help_tip( /* translators: %s: Endpoint name. */ sprintf( esc_html__( 'Endpoint for "My Account → %s" page.', 'wk-marketplace' ), esc_html( $value['title'] ) ) ); ?>
+						<?php
+						echo wp_kses(
+							wc_help_tip( /* translators: %s: Endpoint name. */ sprintf( esc_html__( 'Endpoint for "My Account → %s" page.', 'wk-marketplace' ), esc_html( $value['title'] ) ) ),
+							array(
+								'span' => array(
+									'tabindex'   => array(),
+									'aria-label' => array(),
+									'data-tip'   => array(),
+									'class'      => array(),
+								),
+							)
+						);
+						?>
 						<input type="text" etype="endpoint" class="regular-text mp-endpoints-text" name="<?php echo esc_attr( $endpoint_name ); ?>" value="<?php echo esc_attr( get_option( $endpoint_name, $value['slug'] ) ); ?>" required>
 					</td>
 				</tr>
@@ -120,7 +132,19 @@ $pro_disabled = $wkmarketplace->wkmp_is_pro_module_disabled();
 						<label for=""><?php esc_html_e( 'Title', 'wk-marketplace' ); ?></label>
 					</th>
 					<td class="forminp">
-						<?php echo wc_help_tip( sprintf( /* translators: %s: username. */ esc_html__( 'Title for "My Account → %s" page.', 'wk-marketplace' ), esc_html( $value['title'] ) ) ); ?>
+						<?php
+						echo wp_kses(
+							wc_help_tip( sprintf( /* translators: %s: username. */ esc_html__( 'Title for "My Account → %s" page.', 'wk-marketplace' ), esc_html( $value['title'] ) ) ),
+							array(
+								'span' => array(
+									'tabindex'   => array(),
+									'aria-label' => array(),
+									'data-tip'   => array(),
+									'class'      => array(),
+								),
+							)
+						);
+						?>
 						<input type="text" class="regular-text" name="<?php echo esc_attr( $endpoint_name . '_name' ); ?>" value="<?php echo esc_attr( get_option( $endpoint_name . '_name', esc_attr( $value['title'] ) ) ); ?>" required>
 					</td>
 				</tr>

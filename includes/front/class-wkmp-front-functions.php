@@ -191,6 +191,7 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 			if ( $dashboard && array_key_exists( $dashboard, $query_vars ) ) {
 				wp_enqueue_script( 'jquery' );
 				wp_enqueue_script( 'mp_chart_script', WKMP_LITE_PLUGIN_URL . 'assets/dist/common/js/Chart.min.js', array(), WKMP_LITE_SCRIPT_VERSION, false );
+				wp_enqueue_script( 'mp_graph_loader_script', WKMP_LITE_PLUGIN_URL . 'assets/dist/common/js/loader.js', array(), WKMP_LITE_SCRIPT_VERSION, false );
 			}
 
 			wp_dequeue_style( 'bootstrap-css' );
@@ -346,31 +347,34 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 		 * @return $data
 		 */
 		public function wkmp_new_user_data( $data ) {
-			$allowed_roles = array( 'customer', 'seller' );
+			$nonce_value = \WK_Caching::wk_get_request_data( 'woocommerce-register-nonce', array( 'method' => 'post' ) );
 
-			$args = array( 'method' => 'post' );
-			$role = \WK_Caching::wk_get_request_data( 'role', $args );
-			$role = ( ! empty( $role ) && in_array( $role, $allowed_roles, true ) ) ? $role : 'customer';
+			if ( ! empty( $nonce_value ) && wp_verify_nonce( $nonce_value, 'woocommerce-register' ) ) {
+				$allowed_roles = array( 'customer', 'seller' );
 
-			if ( 'seller' === $role && $this->query_handler->wkmp_validate_seller_registration() ) {
+				$args = array( 'method' => 'post' );
+				$role = \WK_Caching::wk_get_request_data( 'role', $args );
+				$role = ( ! empty( $role ) && in_array( $role, $allowed_roles, true ) ) ? $role : 'customer';
 
-				$first_name = \WK_Caching::wk_get_request_data( 'wkmp_firstname', $args );
-				$last_name  = \WK_Caching::wk_get_request_data( 'wkmp_lastname', $args );
-				$shop_name  = \WK_Caching::wk_get_request_data( 'wkmp_shopname', $args );
-				$shop_url   = \WK_Caching::wk_get_request_data( 'wkmp_shopurl', $args );
-				$shop_phone = \WK_Caching::wk_get_request_data( 'wkmp_shopphone', $args );
-				$register   = \WK_Caching::wk_get_request_data( 'register', $args );
+				if ( 'seller' === $role && $this->query_handler->wkmp_validate_seller_registration() ) {
+					$first_name = \WK_Caching::wk_get_request_data( 'wkmp_firstname', $args );
+					$last_name  = \WK_Caching::wk_get_request_data( 'wkmp_lastname', $args );
+					$shop_name  = \WK_Caching::wk_get_request_data( 'wkmp_shopname', $args );
+					$shop_url   = \WK_Caching::wk_get_request_data( 'wkmp_shopurl', $args );
+					$shop_phone = \WK_Caching::wk_get_request_data( 'wkmp_shopphone', $args );
+					$register   = \WK_Caching::wk_get_request_data( 'register', $args );
 
-				$data['role']      = $role;
-				$data['firstname'] = $first_name;
-				$data['lastname']  = $last_name;
-				$data['nicename']  = $shop_url;
-				$data['storename'] = $shop_name;
-				$data['phone']     = $shop_phone;
-				$data['register']  = $register;
+					$data['role']      = $role;
+					$data['firstname'] = $first_name;
+					$data['lastname']  = $last_name;
+					$data['nicename']  = $shop_url;
+					$data['storename'] = $shop_name;
+					$data['phone']     = $shop_phone;
+					$data['register']  = $register;
+				}
+
+				return $data;
 			}
-
-			return $data;
 		}
 
 		/**
@@ -386,7 +390,9 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 		 * @throws \Exception Success Message.
 		 */
 		public function wkmp_process_registration( $user_id, $data ) {
-			if ( isset( $data['register'] ) && $this->query_handler->wkmp_validate_seller_registration() ) {
+			$nonce_value = \WK_Caching::wk_get_request_data( 'woocommerce-register-nonce', array( 'method' => 'post' ) );
+
+			if ( ! empty( $nonce_value ) && wp_verify_nonce( $nonce_value, 'woocommerce-register' ) && isset( $data['register'] ) && $this->query_handler->wkmp_validate_seller_registration() ) {
 				if ( isset( $data['user_login'] ) && isset( $data['firstname'] ) && isset( $data['lastname'] ) && isset( $data['user_login'] ) && isset( $data['nicename'] ) && isset( $data['storename'] ) ) {
 					$user_login   = $data['user_login'];
 					$first_name   = $data['firstname'];

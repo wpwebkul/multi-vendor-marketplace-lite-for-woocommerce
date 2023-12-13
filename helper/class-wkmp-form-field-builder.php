@@ -229,14 +229,24 @@ if ( ! class_exists( 'WKMP_Form_Field_Builder' ) ) {
 			<th>
 				<label for="<?php echo esc_attr( $field['label'] ); ?>"><?php echo esc_html( $field['label'] ); ?>
 					<?php
-					echo htmlspecialchars_decode( $required ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo wp_kses( $required, array( 'span' => array( 'class' => array() ) ) );
 					?>
 				</label>
 			</th>
 			<td>
 			<?php
 			if ( ! empty( $field['description'] ) ) {
-				echo wc_help_tip( wp_kses_post( $field['description'] ), true ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses(
+					wc_help_tip( wp_kses_post( $field['description'] ), true ),
+					array(
+						'span' => array(
+							'tabindex'   => array(),
+							'aria-label' => array(),
+							'data-tip'   => array(),
+							'class'      => array(),
+						),
+					)
+				);
 			}
 		}
 	}

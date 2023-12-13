@@ -37,11 +37,11 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Hooks' ) ) {
 			add_action( 'wp_ajax_wkmp_save_shipping_cost', array( $function_handler, 'wkmp_save_shipping_cost' ) );
 			add_action( 'wp_ajax_wkmp_delete_shipping_class', array( $function_handler, 'wkmp_delete_shipping_class' ) );
 			add_action( 'wp_ajax_wkmp_add_shipping_class', array( $function_handler, 'wkmp_add_shipping_class' ) );
-			add_action( 'wp_ajax_wkmp_add_shipping_method', array( $function_handler, 'wkmp_add_shipping_method' ) );
+			add_action( 'wp_ajax_wkmp_add_shipping_method', array( $function_handler, 'wkmp_seller_add_shipping_method' ) );
 			add_action( 'wp_ajax_wkmp_delete_shipping_method', array( $function_handler, 'wkmp_delete_shipping_method' ) );
 			add_action( 'wp_ajax_wkmp_del_zone', array( $function_handler, 'wkmp_del_zone' ) );
 
-			add_action( 'wp_ajax_wkmp_marketplace_attributes_variation', array( $function_handler, 'wkmp_marketplace_attributes_variation' ) );
+			add_action( 'wp_ajax_wkmp_marketplace_attributes_variation', array( $function_handler, 'wkmp_marketplace_add_variation_attribute' ) );
 			add_action( 'wp_ajax_wkmp_attributes_variation_remove', array( $function_handler, 'wkmp_attributes_variation_remove' ) );
 			add_action( 'wp_ajax_wkmp_productgallary_image_delete', array( $function_handler, 'wkmp_productgallary_image_delete' ) );
 			add_action( 'wp_ajax_wkmp_downloadable_file_add', array( $function_handler, 'wkmp_downloadable_file_add' ) );

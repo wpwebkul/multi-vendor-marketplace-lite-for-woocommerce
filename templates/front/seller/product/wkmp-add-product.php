@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 
 			$content = '';
 
-			echo wp_editor( $content, 'product_desc', $settings ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			wp_editor( $content, 'product_desc', $settings );
 
 			$reg_val = '';
 			$sel_val = '';
@@ -137,7 +137,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 
 			$short_content = '';
 
-			echo wp_editor( $short_content, 'short_desc', $settings ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			wp_editor( $short_content, 'short_desc', $settings );
 			?>
 			<div id="short_desc_error" class="error-class"></div>
 		</div>

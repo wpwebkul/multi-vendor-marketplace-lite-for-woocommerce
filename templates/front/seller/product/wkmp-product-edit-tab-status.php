@@ -91,7 +91,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 									<input type="text" class="input_text" placeholder="<?php esc_attr_e( 'http://', 'wk-marketplace' ); ?>" name="_mp_dwnld_file_urls[]" value="<?php echo esc_attr( $file['file'] ); ?>" />
 								</td>
 								<td class="file_url_choose" width="25%">
-									<a href="#" class="button upload_file_button upload_downloadable_file" data-choose="<?php esc_attr_e( 'Choose file', 'wk-marketplace' ); ?>" data-update="<?php esc_attr_e( 'Insert file URL', 'wk-marketplace' ); ?>"><?php echo str_replace( ' ', '&nbsp;', esc_html__( 'Choose file', 'wk-marketplace' ) ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
+									<a href="#" class="button upload_file_button upload_downloadable_file" data-choose="<?php esc_attr_e( 'Choose file', 'wk-marketplace' ); ?>" data-update="<?php esc_attr_e( 'Insert file URL', 'wk-marketplace' ); ?>"><?php esc_html_e( 'Choose file', 'wk-marketplace' ); ?></a>
 								</td>
 								<td width="1%">
 									<a href="#" id="delprod" class="mp-action delete"><?php esc_html_e( 'Delete', 'wk-marketplace' ); ?></a>
@@ -108,16 +108,19 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 			<?php
 			$download_limit  = isset( $meta_arr['_download_limit'] ) ? $meta_arr['_download_limit'] : '';
 			$download_expiry = isset( $meta_arr['_download_expiry '] ) ? $meta_arr['_download_expiry '] : '';
+
+			$download_limit_value  = ( '-1' === $download_limit ) ? $download_limit : '';
+			$download_expiry_value = ( '-1' === $download_expiry ) ? $download_expiry : '';
 			?>
 			<p class="form-field _download_limit_field wkmp_profile_input">
 				<label for="_download_limit"><?php esc_html_e( 'Download limit', 'wk-marketplace' ); ?></label>
-				<input type="number" class="short wkmp_product_input" style="padding: 3px 5px;" name="_download_limit" id="_download_limit" value="<?php echo ( '-1' === $download_limit ) ? '' : esc_attr( $download_limit ); ?>" placeholder="<?php esc_attr_e( 'Unlimited', 'wk-marketplace' ); ?>" step="1" min="0"/>
+				<input type="number" class="short wkmp_product_input" style="padding: 3px 5px;" name="_download_limit" id="_download_limit" value="<?php echo esc_attr( $download_limit_value ); ?>" placeholder="<?php esc_attr_e( 'Unlimited', 'wk-marketplace' ); ?>" step="1" min="0"/>
 				<span class="description"><?php esc_html_e( 'Leave blank for unlimited re-downloads.', 'wk-marketplace' ); ?></span>
 			</p>
 
 			<p class="form-field _download_expiry_field ">
 				<label for="_download_expiry"><?php esc_html_e( 'Download expiry', 'wk-marketplace' ); ?></label>
-				<input type="number" class="short wkmp_product_input" style="padding: 3px 5px;" name="_download_expiry" id="_download_expiry" value="<?php echo ( '-1' === $download_expiry ) ? '' : esc_attr( $download_expiry ); ?>" placeholder="<?php esc_attr_e( 'Never', 'wk-marketplace' ); ?>" step="1" min="0"/>
+				<input type="number" class="short wkmp_product_input" style="padding: 3px 5px;" name="_download_expiry" id="_download_expiry" value="<?php echo esc_attr( $download_expiry_value ); ?>" placeholder="<?php esc_attr_e( 'Never', 'wk-marketplace' ); ?>" step="1" min="0"/>
 				<span class="description"><?php esc_html_e( 'Enter the number of days before a download link expires, or leave blank.', 'wk-marketplace' ); ?></span>
 			</p>
 		</div>

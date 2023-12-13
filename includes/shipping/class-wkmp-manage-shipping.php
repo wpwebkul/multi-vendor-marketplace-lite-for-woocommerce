@@ -364,19 +364,32 @@ if ( ! class_exists( 'WKMP_Manage_Shipping' ) ) {
 			$postcode_locations = $wpdb->get_results( "SELECT zone_id, location_code FROM {$wpdb->prefix}woocommerce_shipping_zone_locations WHERE location_type = 'postcode';" );
 
 			if ( $postcode_locations ) {
-				$zone_ids_with_postcode_rules = array_map( 'absint', wp_list_pluck( $postcode_locations, 'zone_id' ) );
-				$matches                      = wc_postcode_location_matcher( $postcode, $postcode_locations, 'zone_id', 'location_code', $country );
-				$do_not_match                 = array_unique( array_diff( $zone_ids_with_postcode_rules, array_keys( $matches ) ) );
+				$zone_postcode_rules = array_map( 'absint', wp_list_pluck( $postcode_locations, 'zone_id' ) );
+				$matches             = wc_postcode_location_matcher( $postcode, $postcode_locations, 'zone_id', 'location_code', $country );
+				$do_not_match        = array_unique( array_diff( $zone_postcode_rules, array_keys( $matches ) ) );
 
 				if ( ! empty( $do_not_match ) ) {
-					$criteria[] = 'AND zones.zone_id NOT IN (' . implode( ',', $do_not_match ) . ')';
+					$do_not_match_str = implode( ' ', $do_not_match );
+					$criteria[]       = $wpdb->prepare( 'AND zones.zone_id NOT IN (%1s)', $do_not_match_str );
 				}
 			}
 
 			$seller_ids_str = implode( ',', $seller_ids );
+			$criteria_str   = implode( ' ', $criteria );
 
 			// Get matching zones.
-			return $wpdb->get_var( "SELECT zones.zone_id FROM {$wpdb->prefix}woocommerce_shipping_zones as zones LEFT OUTER JOIN {$wpdb->prefix}woocommerce_shipping_zone_locations as locations ON zones.zone_id = locations.zone_id AND location_type != 'postcode' JOIN {$wpdb->prefix}mpseller_meta as my_zones on zones.zone_id = my_zones.zone_id and my_zones.seller_id IN ( $seller_ids_str ) WHERE " . implode( ' ', $criteria ) . ' ORDER BY zone_order ASC LIMIT 1 ' ); // WPCS: unprepared SQL ok.
+			$query = $wpdb->prepare(
+				"SELECT zones.zone_id FROM {$wpdb->prefix}woocommerce_shipping_zones as zones LEFT OUTER JOIN
+			{$wpdb->prefix}woocommerce_shipping_zone_locations as locations ON zones.zone_id = locations.zone_id AND location_type != 'postcode'
+			JOIN {$wpdb->prefix}mpseller_meta as my_zones on zones.zone_id = my_zones.zone_id and my_zones.seller_id IN ( %1s )
+			WHERE %2s  ORDER BY zone_order ASC LIMIT 1",
+				$seller_ids_str,
+				$criteria_str
+			);
+
+			$res = $wpdb->get_var( stripslashes_deep( $query ) ); // WPCS: unprepared SQL.
+
+			return $res;
 		}
 	}
 }

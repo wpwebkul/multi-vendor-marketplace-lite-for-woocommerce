@@ -42,7 +42,9 @@ if ( ! is_account_page() ) {
 		<div class="wkmp-error-class" id="wkmp-seller-lastname-error"></div>
 		</p>
 		<?php
+
 		$shopname_visibility = get_option( 'wkmp_shop_name_visibility', 'required' );
+
 		if ( 'remove' !== $shopname_visibility ) {
 			?>
 			<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
@@ -53,6 +55,7 @@ if ( ! is_account_page() ) {
 		}
 
 		$shopurl_visibility = get_option( 'wkmp_shop_url_visibility', 'required' );
+
 		if ( 'remove' !== $shopurl_visibility ) {
 			?>
 			<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
@@ -62,7 +65,9 @@ if ( ! is_account_page() ) {
 			</p>
 			<?php
 		}
+
 		$mkp_show_hide_field = apply_filters( 'wkmp_show_mp_phone_registration_field', true );
+
 		if ( $mkp_show_hide_field ) {
 			?>
 		<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
@@ -93,5 +98,4 @@ if ( ! is_account_page() ) {
 		<?php
 	}
 	?>
-
 </div>

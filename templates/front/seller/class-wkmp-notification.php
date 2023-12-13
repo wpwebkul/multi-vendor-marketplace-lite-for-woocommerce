@@ -265,11 +265,30 @@ if ( ! class_exists( 'WKMP_Notification' ) ) {
 			<ul class="mp-notification-list">
 				<?php if ( $display ) { ?>
 					<?php foreach ( $display as $value ) { ?>
-						<li class="notification-link"><?php echo html_entity_decode( $value['content'], ENT_QUOTES, 'UTF-8' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></li>
-					<?php } ?>
-				<?php } else { ?>
-					<?php esc_html_e( 'No data Found!', 'wk-marketplace' ); ?>
-				<?php } ?>
+						<li class="notification-link">
+						<?php
+						echo wp_kses(
+							html_entity_decode( $value['content'], ENT_QUOTES, 'UTF-8' ),
+							array(
+								'li'     => array(
+									'class' => array(),
+								),
+								'strong' => array(),
+								'a'      => array(
+									'href'   => array(),
+									'target' => array(),
+								),
+
+							)
+						);
+						?>
+						</li>
+						<?php
+					}
+				} else {
+					esc_html_e( 'No data Found!', 'wk-marketplace' );
+				}
+				?>
 			</ul>
 			<?php
 		}

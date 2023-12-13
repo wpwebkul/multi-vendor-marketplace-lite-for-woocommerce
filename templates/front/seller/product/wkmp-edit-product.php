@@ -130,7 +130,6 @@ if ( $post_row_data && intval( $product_auth ) === get_current_user_id() ) {
 			<input type="submit" name="add_product_sub" id="add_product_sub" value="<?php esc_attr_e( 'Update', 'wk-marketplace' ); ?>" class="button"/></td>
 		</form>
 	</div><!-- add-product-form end here -->
-	<?php unset( $_POST ); //phpcs:ignore WordPress.Security.NonceVerification.Missing ?>
 <?php } elseif ( empty( $product_auth ) ) { ?>
 	<h2> <?php esc_html_e( 'This product is no longer exist.', 'wk-marketplace' ); ?> </h2>
 	<a href="<?php echo esc_url( get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ) . get_option( '_wkmp_product_list_endpoint', 'seller-products' ) ); ?>"><?php esc_html_e( 'Go to product list.', 'wk-marketplace' ); ?></a>

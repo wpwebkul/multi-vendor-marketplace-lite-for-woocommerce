@@ -17,7 +17,27 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 				<label for="mp_seller_product_categories"><?php esc_html_e( 'Product categories', 'wk-marketplace' ); ?></label>
 			</td>
 			<td>
-	<?php echo str_replace( '<select', '<select  style="width:100%" data-placeholder="' . __( 'Choose category(s)', 'wk-marketplace' ) . '" multiple="multiple" ', $product_categories ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php
+			echo wp_kses(
+				str_replace( '<select', '<select style="width:100%" data-placeholder="' . esc_attr__( 'Choose category(s)', 'wk-marketplace' ) . '" multiple="multiple" ', $product_categories ),
+				array(
+					'select' => array(
+						'data-placeholder' => array(),
+						'multiple'         => array(),
+						'id'               => array(),
+						'name'             => array(),
+						'class'            => array(),
+						'style'            => array(),
+						'tabindex'         => array(),
+						'aria-hidden'      => array(),
+					),
+					'option' => array(
+						'value'    => array(),
+						'selected' => array(),
+					),
+				)
+			);
+			?>
 			</td>
 		</tr>
 		<tr>

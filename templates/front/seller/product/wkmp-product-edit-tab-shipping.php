@@ -38,17 +38,6 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 				<input placeholder="<?php esc_attr_e( 'Height', 'wk-marketplace' ); ?>" class="input-text wc_input_decimal last" size="6" type="text" name="_height" value="<?php echo esc_attr( wc_format_localized_decimal( get_post_meta( $wk_pro_id, '_height', true ) ) ); ?>"/>
 			</span>
 			<?php
-
-			echo wp_kses(
-				wc_help_tip( esc_html__( 'LxWxH in decimal form.', 'wk-marketplace' ) ),
-				array(
-					'span' => array(
-						'tabindex'   => array(),
-						'aria-label' => array(),
-						'data-tip'   => array(),
-					),
-				)
-			);
 		}
 		?>
 	</div>
@@ -88,17 +77,6 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 			);
 			wp_dropdown_categories( $args );
 		}
-
-		echo wp_kses(
-			wc_help_tip( esc_html__( 'Shipping classes are used by certain shipping methods to group similar products.', 'wk-marketplace' ) ),
-			array(
-				'span' => array(
-					'tabindex'   => array(),
-					'aria-label' => array(),
-					'data-tip'   => array(),
-				),
-			)
-		);
 		do_action( 'marketplace_product_options_shipping', $wk_pro_id );
 		?>
 	</div>

@@ -7,7 +7,7 @@ Stable tag: 1.0.0
 Requires PHP: 7.4
 Tested up to PHP: 8.2
 WC requires at least: 5.0
-WC tested up to: 8.3
+WC tested up to: 8.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WPML Compatible: no
@@ -233,7 +233,7 @@ For any Query please generate a ticket at https://webkul.com/ticket/
 
 == Changelog ==
 
-= 1.0.0 - 2023-11-15 =
+= 1.0.0 - 2023-12-22 =
 Initial public release
 
 = 0.9.1 - 2023-12-06 =

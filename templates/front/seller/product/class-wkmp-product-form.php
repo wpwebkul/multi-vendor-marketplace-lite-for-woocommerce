@@ -8,6 +8,8 @@
 
 namespace WkMarketplace\Templates\Front\Seller\Product;
 
+use WK_Caching;
+
 defined( 'ABSPATH' ) || exit; // Exit if access directly.
 
 if ( ! class_exists( 'WKMP_Product_Form' ) ) {
@@ -205,8 +207,8 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 				$posted_data['sell_pr_id']      = \WK_Caching::wk_get_request_data( 'sell_pr_id', $args );
 				$posted_data['wk-mp-stock-qty'] = \WK_Caching::wk_get_request_data( 'wk-mp-stock-qty', $args );
 
-				$posted_data['product_desc'] = empty( $_POST['product_desc'] ) ? '' : $_POST['product_desc'];
-				$posted_data['short_desc']   = empty( $_POST['short_desc'] ) ? '' : $_POST['short_desc'];
+				$posted_data['product_desc'] = empty( $_POST['product_desc'] ) ? '' : wp_kses_post( $_POST['product_desc'] );
+				$posted_data['short_desc']   = empty( $_POST['short_desc'] ) ? '' : wp_kses_post( $_POST['short_desc'] );
 
 				$this->wkmp_product_add_update( $posted_data );
 			} elseif ( $nonce_failed ) {
@@ -254,6 +256,7 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 				$product_array = $wpdb_obj->get_results( $wpdb_obj->prepare( "SELECT * FROM {$wpdb_obj->prefix}posts WHERE post_type = 'product' AND post_status = 'publish' AND post_author = %d ORDER BY ID DESC", $this->seller_id ) );
 
 				require_once __DIR__ . '/wkmp-edit-product.php';
+				unset( $_POST );
 			}
 		}
 
@@ -627,81 +630,115 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 			$var_regu_price         = array();
 			$var_sale_price         = array();
 
-			foreach ( $var_attr_ids as $var_id ) {
-				$var_regu_price[ $var_id ] = is_numeric( $posted_data['wkmp_variable_regular_price'][ $var_id ] ) ? $posted_data['wkmp_variable_regular_price'][ $var_id ] : '';
+			$args = array(
+				'method' => 'post',
+				'flag'   => 'array',
+			);
 
-				if ( isset( $posted_data['wkmp_variable_sale_price'][ $var_id ] ) && is_numeric( $posted_data['wkmp_variable_sale_price'][ $var_id ] ) && $posted_data['wkmp_variable_sale_price'][ $var_id ] < $posted_data['wkmp_variable_regular_price'][ $var_id ] ) {
-					$var_sale_price[ $var_id ] = $posted_data['wkmp_variable_sale_price'][ $var_id ];
+			$mp_attr_names       = WK_Caching::wk_get_request_data( 'mp_attribute_name', $args );
+			$is_downloadables    = WK_Caching::wk_get_request_data( 'wkmp_variable_is_downloadable', $args );
+			$vars_is_virtual     = WK_Caching::wk_get_request_data( 'wkmp_variable_is_virtual', $args );
+			$sales_from          = WK_Caching::wk_get_request_data( 'wkmp_variable_sale_price_dates_from', $args );
+			$sales_to            = WK_Caching::wk_get_request_data( 'wkmp_variable_sale_price_dates_to', $args );
+			$backorders          = WK_Caching::wk_get_request_data( 'wkmp_variable_backorders', $args );
+			$manage_stocks       = WK_Caching::wk_get_request_data( 'wkmp_variable_manage_stock', $args );
+			$stocks_status       = WK_Caching::wk_get_request_data( 'wkmp_variable_stock_status', $args );
+			$variable_skus       = WK_Caching::wk_get_request_data( 'wkmp_variable_sku', $args );
+			$download_file_urls  = WK_Caching::wk_get_request_data( '_mp_variation_downloads_files_url', $args );
+			$download_file_names = WK_Caching::wk_get_request_data( '_mp_variation_downloads_files_name', $args );
+
+			$args['filter']   = 'float';
+			$regular_prices   = WK_Caching::wk_get_request_data( 'wkmp_variable_regular_price', $args );
+			$sale_prices      = WK_Caching::wk_get_request_data( 'wkmp_variable_sale_price', $args );
+			$variable_widths  = WK_Caching::wk_get_request_data( 'wkmp_variable_width', $args );
+			$variable_heights = WK_Caching::wk_get_request_data( 'wkmp_variable_height', $args );
+			$variable_lengths = WK_Caching::wk_get_request_data( 'wkmp_variable_length', $args );
+			$variable_weights = WK_Caching::wk_get_request_data( 'wkmp_variable_weight', $args );
+
+			$args['filter']   = 'int';
+			$downloads_expiry = WK_Caching::wk_get_request_data( 'wkmp_variable_download_expiry', $args );
+			$downloads_limit  = WK_Caching::wk_get_request_data( 'wkmp_variable_download_limit', $args );
+			$variable_stocks  = WK_Caching::wk_get_request_data( 'wkmp_variable_stock', $args );
+			$variable_img_ids = WK_Caching::wk_get_request_data( 'upload_var_img', $args );
+			$var_menu_orders  = WK_Caching::wk_get_request_data( 'wkmp_variation_menu_order', $args );
+
+			foreach ( $var_attr_ids as $var_id ) {
+				$var_regu_price[ $var_id ] = is_numeric( $regular_prices[ $var_id ] ) ? $regular_prices[ $var_id ] : '';
+
+				if ( isset( $sale_prices[ $var_id ] ) && is_numeric( $sale_prices[ $var_id ] ) && $sale_prices[ $var_id ] < $var_regu_price[ $var_id ] ) {
+					$var_sale_price[ $var_id ] = $sale_prices[ $var_id ];
 				} else {
 					$var_sale_price[ $var_id ] = '';
 				}
 
-				foreach ( $posted_data['mp_attribute_name'][ $var_id ] as $variation_type ) {
-					$variation_data[ 'attribute_' . sanitize_title( $variation_type ) ][] = trim( $posted_data[ 'attribute_' . $variation_type ][ $var_id ] );
+				foreach ( $mp_attr_names[ $var_id ] as $variation_type ) {
+					$args['filter'] = '';
+					$attr_names     = WK_Caching::wk_get_request_data( 'attribute_' . $variation_type, $args );
+					$variation_data[ 'attribute_' . sanitize_title( $variation_type ) ][] = trim( $attr_names[ $var_id ] );
 				}
 				$downloadable_variable = 'no';
-				if ( isset( $posted_data['wkmp_variable_is_downloadable'][ $var_id ] ) ) {
-					$downloadable_variable = ( 'yes' === $posted_data['wkmp_variable_is_downloadable'][ $var_id ] ) ? 'yes' : $downloadable_variable;
+				if ( isset( $is_downloadables[ $var_id ] ) ) {
+					$downloadable_variable = ( 'yes' === $is_downloadables[ $var_id ] ) ? 'yes' : $downloadable_variable;
 				}
 
 				$virtual_variable = 'no';
-				if ( isset( $posted_data['wkmp_variable_is_virtual'] ) && isset( $posted_data['wkmp_variable_is_virtual'][ $var_id ] ) ) {
-					$virtual_variable = ( 'yes' === $posted_data['wkmp_variable_is_virtual'][ $var_id ] ) ? 'yes' : $virtual_variable;
+				if ( isset( $vars_is_virtual[ $var_id ] ) ) {
+					$virtual_variable = ( 'yes' === $vars_is_virtual[ $var_id ] ) ? 'yes' : $virtual_variable;
 				}
 
 				if ( 'yes' === $downloadable_variable ) {
-					if ( isset( $posted_data['wkmp_variable_download_expiry'][ $var_id ] ) && is_numeric( $posted_data['wkmp_variable_download_expiry'][ $var_id ] ) ) {
-						$downloadable_variable = $posted_data['wkmp_variable_download_expiry'][ $var_id ];
+					if ( isset( $downloads_expiry[ $var_id ] ) && is_numeric( $downloads_expiry[ $var_id ] ) ) {
+						$downloadable_variable = $downloads_expiry[ $var_id ];
 					}
-					if ( isset( $posted_data['wkmp_variable_download_limit'][ $var_id ] ) && is_numeric( $posted_data['wkmp_variable_download_limit'][ $var_id ] ) ) {
-						$downloadable_variable = $posted_data['wkmp_variable_download_limit'][ $var_id ];
+					if ( isset( $downloads_limit[ $var_id ] ) && is_numeric( $downloads_limit[ $var_id ] ) ) {
+						$downloadable_variable = $downloads_limit[ $var_id ];
 					}
 				}
 
-				if ( isset( $posted_data['wkmp_variable_sale_price'][ $var_id ] ) && is_numeric( $posted_data['wkmp_variable_sale_price'][ $var_id ] ) && $posted_data['wkmp_variable_sale_price'][ $var_id ] < $posted_data['wkmp_variable_regular_price'][ $var_id ] ) {
-					$variation_data['_sale_price'][] = $posted_data['wkmp_variable_sale_price'][ $var_id ];
+				if ( isset( $var_sale_price[ $var_id ] ) && is_numeric( $var_sale_price[ $var_id ] ) && $var_sale_price[ $var_id ] < $var_regu_price[ $var_id ] ) {
+					$variation_data['_sale_price'][] = $var_sale_price[ $var_id ];
 				} else {
 					$variation_data['_sale_price'][] = '';
 				}
 
-				if ( '' === $posted_data['wkmp_variable_sale_price'][ $var_id ] ) {
-					$variation_data['_price'][] = is_numeric( $posted_data['wkmp_variable_regular_price'][ $var_id ] ) ? $posted_data['wkmp_variable_regular_price'][ $var_id ] : '';
+				if ( '' === $var_sale_price[ $var_id ] ) {
+					$variation_data['_price'][] = is_numeric( $var_regu_price[ $var_id ] ) ? $var_regu_price[ $var_id ] : '';
 				} else {
-					$variation_data['_price'][] = is_numeric( $posted_data['wkmp_variable_sale_price'][ $var_id ] ) ? $posted_data['wkmp_variable_sale_price'][ $var_id ] : '';
+					$variation_data['_price'][] = is_numeric( $var_sale_price[ $var_id ] ) ? $var_sale_price[ $var_id ] : '';
 				}
 
-				$variation_data['_regular_price'][] = is_numeric( $posted_data['wkmp_variable_regular_price'][ $var_id ] ) ? $posted_data['wkmp_variable_regular_price'][ $var_id ] : '';
+				$variation_data['_regular_price'][] = is_numeric( $var_regu_price[ $var_id ] ) ? $var_regu_price[ $var_id ] : '';
 
-				if ( isset( $posted_data['wkmp_variable_sale_price_dates_to'] ) ) {
-					$variation_data['_sale_price_dates_to'][] = $posted_data['wkmp_variable_sale_price_dates_to'][ $var_id ];
+				if ( ! empty( $sales_to ) ) {
+					$variation_data['_sale_price_dates_to'][] = $sales_to[ $var_id ];
 				}
 
-				if ( isset( $posted_data['wkmp_variable_sale_price_dates_from'] ) ) {
-					$variation_data['_sale_price_dates_from'][] = $posted_data['wkmp_variable_sale_price_dates_from'][ $var_id ];
+				if ( isset( $sales_from ) ) {
+					$variation_data['_sale_price_dates_from'][] = $sales_from[ $var_id ];
 				}
 
-				$variation_data['_backorders'][] = $posted_data['wkmp_variable_backorders'][ $var_id ];
+				$variation_data['_backorders'][] = $backorders[ $var_id ];
 
 				$manage_stock = 'no';
-				if ( isset( $posted_data['wkmp_variable_manage_stock'] ) && isset( $posted_data['wkmp_variable_manage_stock'][ $var_id ] ) ) {
-					$manage_stock = ( 'yes' === $posted_data['wkmp_variable_manage_stock'][ $var_id ] ) ? 'yes' : $manage_stock;
+				if ( isset( $manage_stocks ) && isset( $manage_stocks[ $var_id ] ) ) {
+					$manage_stock = ( 'yes' === $manage_stocks[ $var_id ] ) ? 'yes' : $manage_stock;
 				}
 
 				$variation_data['_manage_stock'][] = $manage_stock;
 
 				if ( 'yes' === $manage_stock ) {
-					$variation_data['_stock'][] = $posted_data['wkmp_variable_stock'][ $var_id ];
+					$variation_data['_stock'][] = $variable_stocks[ $var_id ];
 				} else {
 					$variation_data['_stock'][]        = '';
-					$variation_data['_stock_status'][] = $posted_data['wkmp_variable_stock_status'][ $var_id ];
+					$variation_data['_stock_status'][] = $stocks_status[ $var_id ];
 				}
 
-				$var_sku_check = wp_strip_all_tags( $posted_data['wkmp_variable_sku'][ $var_id ] );
+				$var_sku_check = wp_strip_all_tags( $variable_skus[ $var_id ] );
 
-				if ( isset( $posted_data['wkmp_variable_sku'][ $var_id ] ) && ! empty( $posted_data['wkmp_variable_sku'][ $var_id ] ) ) {
+				if ( isset( $variable_skus[ $var_id ] ) && ! empty( $variable_skus[ $var_id ] ) ) {
 					$var_data = $wpdb_obj->get_results( $wpdb_obj->prepare( "SELECT meta_id FROM {$wpdb_obj->prefix}postmeta WHERE meta_key='_sku' AND meta_value=%s AND post_id != %d", $var_sku_check, $var_id ) );
 
-					if ( empty( $var_data ) && ! in_array( $posted_data['wkmp_variable_sku'][ $var_id ], $temp_var_sku, true ) ) {
+					if ( empty( $var_data ) && ! in_array( $variable_skus[ $var_id ], $temp_var_sku, true ) ) {
 						$variation_data['_sku'][] = $var_sku_check;
 						$temp_var_sku[]           = $var_sku_check;
 					} else {
@@ -712,12 +749,12 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 					$variation_data['_sku'][] = '';
 				}
 
-				$variation_data['_width'][]        = is_numeric( $posted_data['wkmp_variable_width'][ $var_id ] ) ? $posted_data['wkmp_variable_width'][ $var_id ] : '';
-				$variation_data['_height'][]       = is_numeric( $posted_data['wkmp_variable_height'][ $var_id ] ) ? $posted_data['wkmp_variable_height'][ $var_id ] : '';
-				$variation_data['_length'][]       = is_numeric( $posted_data['wkmp_variable_length'][ $var_id ] ) ? $posted_data['wkmp_variable_length'][ $var_id ] : '';
+				$variation_data['_width'][]        = is_numeric( $variable_widths[ $var_id ] ) ? $variable_widths[ $var_id ] : '';
+				$variation_data['_height'][]       = is_numeric( $variable_heights[ $var_id ] ) ? $variable_heights[ $var_id ] : '';
+				$variation_data['_length'][]       = is_numeric( $variable_lengths[ $var_id ] ) ? $variable_lengths[ $var_id ] : '';
 				$variation_data['_virtual'][]      = $virtual_variable;
 				$variation_data['_downloadable'][] = $downloadable_variable;
-				$thumbnail_id                      = $posted_data['upload_var_img'][ $var_id ];
+				$thumbnail_id                      = $variable_img_ids[ $var_id ];
 
 				if ( ! empty( $thumbnail_id ) ) {
 					$variation_data['_thumbnail_id'][] = $thumbnail_id;
@@ -725,15 +762,15 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 					$variation_data['_thumbnail_id'][] = 0;
 				}
 
-				$variation_data['_weight'][]     = is_numeric( $posted_data['wkmp_variable_weight'][ $var_id ] ) ? $posted_data['wkmp_variable_weight'][ $var_id ] : '';
-				$variation_data['_menu_order'][] = is_numeric( $posted_data['wkmp_variation_menu_order'][ $var_id ] ) ? $posted_data['wkmp_variation_menu_order'][ $var_id ] : '';
+				$variation_data['_weight'][]     = is_numeric( $variable_weights[ $var_id ] ) ? $variable_weights[ $var_id ] : '';
+				$variation_data['_menu_order'][] = is_numeric( $var_menu_orders[ $var_id ] ) ? $var_menu_orders[ $var_id ] : '';
 
 				/* variation for download able product */
 				if ( 'yes' === $downloadable_variable ) {
-					$variation_files = $posted_data['_mp_variation_downloads_files_url'][ $var_id ];
-					$variation_names = $posted_data['_mp_variation_downloads_files_name'][ $var_id ];
+					$variation_files = $download_file_urls[ $var_id ];
+					$variation_names = $download_file_names[ $var_id ];
 
-					if ( isset( $posted_data['_mp_variation_downloads_files_url'][ $var_id ] ) && count( $posted_data['_mp_variation_downloads_files_url'][ $var_id ] ) > 0 ) {
+					if ( isset( $download_file_urls[ $var_id ] ) && count( $download_file_urls[ $var_id ] ) > 0 ) {
 						$files = array();
 
 						if ( ! empty( $variation_files ) ) {
@@ -971,13 +1008,22 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 
 			if ( ! empty( $field['description'] ) ) {
 				if ( isset( $field['desc_tip'] ) && false !== $field['desc_tip'] ) {
-					echo wc_help_tip( $field['description'] );
+					echo wp_kses(
+						wc_help_tip( $field['description'] ),
+						array(
+							'span' => array(
+								'tabindex'   => array(),
+								'aria-label' => array(),
+								'data-tip'   => array(),
+								'class'      => array(),
+							),
+						)
+					);
 				} else {
 					echo '<span class="description">' . wp_kses_post( $field['description'] ) . '</span>';
 				}
 			}
 			echo '</p>';
 		}
-
 	}
 }

@@ -196,7 +196,7 @@ if ( empty( $mp_page_title ) ) {
 	<!-- About shop -->
 	<div class="mp-about-shop">
 		<p><b><?php esc_html_e( 'About', 'wk-marketplace' ); ?></b></p>
-		<p><?php echo isset( $seller_info->about_shop ) ? $seller_info->about_shop : ''; ?></p>
+		<p><?php echo isset( $seller_info->about_shop ) ? wp_kses_post( $seller_info->about_shop ) : ''; ?></p>
 	</div>
 
 	<?php do_action( 'mkt_before_seller_review_data' ); ?>

@@ -332,7 +332,7 @@ if ( class_exists( 'WP_Filesystem_Direct' ) && ! class_exists( 'WK_Caching_File'
 			if ( parent::is_writable( $this->upload_dir ) ) {
 				if ( false === $this->is_dir( $this->wk_core_dir ) ) {
 					$this->mkdir( $this->wk_core_dir );
-					$file_handle = @fopen( trailingslashit( $this->wk_core_dir ) . '/.htaccess', 'w' ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_read_fopen
+					$file_handle = fopen( trailingslashit( $this->wk_core_dir ) . '/.htaccess', 'w' ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_read_fopen
 					if ( $file_handle ) {
 						fwrite( $file_handle, 'deny from all' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fwrite
 						fclose( $file_handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fclose

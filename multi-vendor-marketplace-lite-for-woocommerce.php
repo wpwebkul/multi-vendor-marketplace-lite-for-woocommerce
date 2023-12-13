@@ -14,7 +14,7 @@
  * Requires PHP: 7.4
  * Tested up to PHP: 8.2
  * WC requires at least: 5.0
- * WC tested up to: 8.3
+ * WC tested up to: 8.4
  *
  * Blog URI: https://webkul.com/blog/marketplace-for-woocommerce-lite/
  *

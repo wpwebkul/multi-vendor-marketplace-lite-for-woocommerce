@@ -23,12 +23,12 @@ if ( ! class_exists( 'WKMarketplace' ) ) {
 		/**
 		 * WKMP_Pro_Global_Helper class.
 		 */
-		class WKMP_Pro_Global_Helper extends ProIncludes\WKMarketplace_Pro_Globals{ }
+		class WKMP_Pro_Global_Helper extends ProIncludes\WKMarketplace_Pro_Globals{}
 	} else {
 		/**
 		 * WKMP_Pro_Global_Helper class.
 		 */
-		class WKMP_Pro_Global_Helper { }
+		class WKMP_Pro_Global_Helper {}
 	}
 
 	/**
@@ -749,7 +749,7 @@ if ( ! class_exists( 'WKMarketplace' ) ) {
 				$seller_info['wkmp_last_name']       = empty( $posted_data['wkmp_last_name'] ) ? ( empty( $user_meta['last_name'][0] ) ? '' : $user_meta['last_name'][0] ) : $posted_data['wkmp_last_name'];
 				$seller_info['wkmp_shop_name']       = empty( $posted_data['wkmp_shop_name'] ) ? ( empty( $user_meta['shop_name'][0] ) ? '' : $user_meta['shop_name'][0] ) : $posted_data['wkmp_shop_name'];
 				$seller_info['wkmp_shop_url']        = empty( $posted_data['wkmp_shop_url'] ) ? $shop_slug : $posted_data['wkmp_shop_url'];
-				$seller_info['wkmp_about_shop']      = empty( $_POST['wkmp_about_shop'] ) ? ( empty( $user_meta['about_shop'][0] ) ? '' : $user_meta['about_shop'][0] ) : wp_kses_post( stripslashes( $_POST['wkmp_about_shop'] ) ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				$seller_info['wkmp_about_shop']      = empty( $posted_data['wkmp_about_shop'] ) ? ( empty( $user_meta['about_shop'][0] ) ? '' : $user_meta['about_shop'][0] ) : $posted_data['wkmp_about_shop'];
 				$seller_info['wkmp_shop_address_1']  = empty( $posted_data['wkmp_shop_address_1'] ) ? ( empty( $user_meta['billing_address_1'][0] ) ? '' : $user_meta['billing_address_1'][0] ) : $posted_data['wkmp_shop_address_1'];
 				$seller_info['wkmp_shop_address_2']  = empty( $posted_data['wkmp_shop_address_2'] ) ? ( empty( $user_meta['billing_address_2'][0] ) ? '' : $user_meta['billing_address_2'][0] ) : $posted_data['wkmp_shop_address_2'];
 				$seller_info['wkmp_shop_city']       = empty( $posted_data['wkmp_shop_city'] ) ? ( empty( $user_meta['billing_city'][0] ) ? '' : $user_meta['billing_city'][0] ) : $posted_data['wkmp_shop_city'];

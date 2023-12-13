@@ -343,7 +343,7 @@ if ( ! class_exists( 'WKMP_Seller_Order_List' ) ) {
 					$tip .= wc_price( $amt, array( 'currency' => $order->get_currency() ) );
 					$tip .= '</p>';
 
-					return sprintf( '%s %s', $result, wc_help_tip( $tip, true ) );
+					return wp_sprintf( '%s %s', $result, wc_help_tip( $tip, true ) );
 				}
 			}
 
@@ -406,10 +406,10 @@ if ( ! class_exists( 'WKMP_Seller_Order_List' ) ) {
 				$tip .= ' ';
 				$tip .= '</p>';
 
-				return sprintf( '%s %s', $total_seller_amount, wc_help_tip( $tip, true ) );
+				return wp_sprintf( '%s %s', $total_seller_amount, wc_help_tip( $tip, true ) );
 			}
 
-			return sprintf( '%s', $total_seller_amount );
+			return wp_sprintf( '%s', $total_seller_amount );
 		}
 
 		/**

@@ -305,9 +305,9 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		/**
 		 * Add shipping method to zone
 		 */
-		public function wkmp_add_shipping_method() {
+		public function wkmp_seller_add_shipping_method() {
 
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'manage_options' ) ) {
+			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 				$zone_id     = \WK_Caching::wk_get_request_data( 'zone-id', array( 'method' => 'post' ) );
 				$zone_status = $this->wkmp_is_valid_seller_zone_id( $zone_id );
 				$confirm     = 'unauthorized';
@@ -429,8 +429,8 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		 *
 		 * @param int $var_id Variable id.
 		 */
-		public function wkmp_marketplace_attributes_variation( $var_id ) {
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'manage_options' ) ) {
+		public function wkmp_marketplace_add_variation_attribute( $var_id ) {
+			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 
 				$wk_pro_id = \WK_Caching::wk_get_request_data(
 					'product',

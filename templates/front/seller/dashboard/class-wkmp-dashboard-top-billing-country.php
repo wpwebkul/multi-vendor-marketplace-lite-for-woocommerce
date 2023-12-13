@@ -75,8 +75,6 @@ if ( ! class_exists( 'WKMP_Dashboard_Top_Billing_Country' ) ) {
 
 			if ( count( $array_data ) > 1 ) {
 				?>
-				<script src="<?php echo esc_url( WKMP_LITE_PLUGIN_URL . 'assets/dist/common/js/loader.js' ); ?>"></script>
-
 				<script>
 					var data_array = <?php echo wp_json_encode( $array_data ); ?>;
 

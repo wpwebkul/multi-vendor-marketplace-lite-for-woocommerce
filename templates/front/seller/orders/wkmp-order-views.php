@@ -614,11 +614,13 @@ if ( ! empty( $order_data ) ) {
 			<div class="mp-order-notes">
 				<h3><?php esc_html_e( 'Order Notes', 'wk-marketplace' ); ?> </h3>
 				<ul class="order_notes">
-					<?php if ( $notes ) { ?>
-						<?php foreach ( $notes as $note ) { ?>
+					<?php
+					if ( $notes ) {
+						foreach ( $notes as $note ) {
+							?>
 							<li>
 								<div class="note_content">
-									<?php echo wpautop( wptexturize( wp_kses_post( $note->comment_content ) ) ); ?>
+									<?php echo wp_kses( wpautop( wptexturize( wp_kses_post( $note->comment_content ) ) ), array( 'p' => array() ) ); ?>
 								</div>
 								<p class="meta">
 									<abbr class="exact-date" title="<?php echo esc_attr( $note->comment_date ); ?>"><?php echo sprintf( /* translators: %1$s: Date, %2%s: Time. */ esc_html__( 'added on %1$s at %2$s', 'wk-marketplace' ), esc_attr( date_i18n( wc_date_format(), strtotime( $note->comment_date ) ) ), esc_attr( date_i18n( wc_time_format(), strtotime( $note->comment_date ) ) ) ); ?></abbr>

@@ -230,6 +230,9 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 				if ( 519 === $filter_int ) {
 					return empty( $data ) ? array() : map_deep( wp_unslash( $data ), 'intval' );
 				}
+				if ( 520 === $filter_int ) {
+					return empty( $data ) ? array() : map_deep( wp_unslash( $data ), 'floatval' );
+				}
 				return empty( $data ) ? array() : map_deep( wp_unslash( $data ), 'sanitize_text_field' );
 			}
 
@@ -242,7 +245,9 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 			if ( 519 === $filter_int ) {
 				return intval( wp_unslash( $data ) );
 			}
-
+			if ( 520 === $filter_int ) {
+				return floatval( wp_unslash( $data ) );
+			}
 			if ( 517 === $filter_int ) {
 				return sanitize_email( wp_unslash( $data ) );
 			}
@@ -287,7 +292,7 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 			$show_info = empty( $show_info ) ? 0 : intval( $show_info );
 			if ( 200 === $show_info ) {
 				?>
-			<input type="hidden" data-lwd="2023-12-11-1400" data-wk_caching_version="<?php echo esc_attr( WK_CACHING_VERSION ); ?>" data-wk_caching_slug="wk_caching">
+			<input type="hidden" data-lwd="2023-12-12-1650" data-wk_caching_version="<?php echo esc_attr( WK_CACHING_VERSION ); ?>" data-wk_caching_slug="wk_caching">
 				<?php
 			}
 		}

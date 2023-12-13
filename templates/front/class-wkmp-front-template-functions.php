@@ -97,7 +97,7 @@ if ( ! class_exists( 'WKMP_Front_Template_Functions' ) ) {
 					<span <?php echo esc_attr( $class ); ?> id="wkmp-add-seller-as-favourite" title="<?php esc_attr_e( 'Add As Favourite Seller', 'wk-marketplace' ); ?>">
 						<input type="hidden" name="wkmp_seller_id" value="<?php echo esc_attr( $seller_id ); ?>"/>
 						<input type="hidden" name="wkmp_customer_id" value="<?php echo esc_attr( $customer_id ); ?>"/>
-						<span class="dashicons dashicons-heart" style="font-size:25px;margin-top:3px;cursor:pointer;<?php echo esc_attr( $style ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"></span>
+						<span class="dashicons dashicons-heart" style="font-size:25px;margin-top:3px;cursor:pointer;<?php echo esc_attr( $style ); ?>"></span>
 					</span>
 					<span class="wkmp-loader-wrapper"><img class="wp-spin wkmp-spin-loader wkmp_hide" src="<?php echo esc_url( admin_url( '/images/wpspin_light.gif' ) ); ?>"></span>
 				</p>
@@ -444,7 +444,7 @@ if ( ! class_exists( 'WKMP_Front_Template_Functions' ) ) {
 			$show_info = empty( $show_info ) ? 0 : intval( $show_info );
 			if ( 200 === $show_info ) {
 				?>
-			<input type="hidden" data-lwd="2023-12-08-2015" data-wkmp_lite_version="<?php echo esc_attr( WKMP_LITE_VERSION ); ?>">
+			<input type="hidden" data-lwd="2023-12-13-1000" data-wkmp_lite_version="<?php echo esc_attr( WKMP_LITE_VERSION ); ?>">
 				<?php
 			}
 		}

@@ -124,7 +124,7 @@ if ( ! class_exists( 'WKMP_WK_Caching_Core' ) ) {
 		public static function load_files() {
 			$get_global_path = WKMP_LITE_PLUGIN_FILE . 'wk_caching/';
 
-			if ( false === @file_exists( $get_global_path . '/includes/class-wk-caching.php' ) ) {
+			if ( false === file_exists( $get_global_path . '/includes/class-wk-caching.php' ) ) {
 				_doing_it_wrong( __FUNCTION__, esc_html__( 'WK Caching Core should be present in folder \'wk_caching\includes\' in order to run this properly.', 'wk-marketplace' ), esc_html( self::$version ) );
 				if ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) {
 					die( 0 );

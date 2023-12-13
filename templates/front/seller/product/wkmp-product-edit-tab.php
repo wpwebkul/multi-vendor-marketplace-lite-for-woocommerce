@@ -64,7 +64,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 			$content = html_entity_decode( $post_row_data[0]->post_content );
 		}
 
-		wp_editor( $content, 'product_desc', $settings ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wp_editor( $content, 'product_desc', $settings );
 		?>
 		<div id="long_desc_error" class="error-class"></div>
 	</div>
@@ -191,7 +191,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 			$short_content = html_entity_decode( $post_row_data[0]->post_excerpt );
 		}
 
-		wp_editor( $short_content, 'short_desc', $settings ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wp_editor( $short_content, 'short_desc', $settings );
 		?>
 		<div id="short_desc_error" class="error-class"></div>
 	</div>

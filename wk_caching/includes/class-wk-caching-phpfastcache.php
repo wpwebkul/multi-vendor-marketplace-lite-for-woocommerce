@@ -1,6 +1,6 @@
 <?php
 /**
- * This object cache helper.
+ * This PHP fastcache helper.
  *
  * @package WK_Caching
  */

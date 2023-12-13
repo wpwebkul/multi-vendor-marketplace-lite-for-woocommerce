@@ -240,7 +240,7 @@ if ( ! class_exists( 'WKMP_Seller_Profile_Form' ) ) {
 							if ( ! empty( $seller_info['wkmp_about_shop'] ) ) {
 								$content = html_entity_decode( wp_unslash( $seller_info['wkmp_about_shop'] ) );
 							}
-							wp_editor( $content, 'wkmp_about_shop', $settings ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							wp_editor( $content, 'wkmp_about_shop', $settings );
 							?>
 						</div>
 

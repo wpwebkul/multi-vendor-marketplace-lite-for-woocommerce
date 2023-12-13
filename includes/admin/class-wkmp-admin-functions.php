@@ -453,7 +453,7 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 				'load-' . $hook,
 				function () {
 					if ( is_user_logged_in() && is_admin() ) {
-						$order_id = \WK_Caching::wk_get_request_data( 'order_id', array( 'filter' => 'int' ) );
+						$order_id = \WK_Caching::wk_get_request_data( 'order_id' );
 						$order_id = base64_decode( $order_id ); //phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 						$this->wkmp_admin_end_invoice( $order_id );
 					} else {

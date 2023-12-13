@@ -289,7 +289,7 @@ if ( ! class_exists( 'WKMP_Admin_Template_Functions' ) ) {
 			);
 			?>
 			<p class="search-box">
-				<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_attr( $text ); ?>:</label>
+				<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( $text ); ?>:</label>
 				<input placeholder="<?php echo esc_attr( $placeholder ); ?>" type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s" value="<?php _admin_search_query(); ?>" />
 			<?php
 			submit_button( $text, '', '', false, $button_attrs );
@@ -305,7 +305,7 @@ if ( ! class_exists( 'WKMP_Admin_Template_Functions' ) ) {
 		 * @return void
 		 */
 		public function wkmp_show_upgrade_lock_icon() {
-			echo '<i title="' . esc_html__( 'Upgrade to Pro', 'wk-marketplace' ) . '" class="wkmp_pro_lock"></i>';
+			echo '<i title="' . esc_attr__( 'Upgrade to Pro', 'wk-marketplace' ) . '" class="wkmp_pro_lock"></i>';
 		}
 
 		/**
