@@ -98,6 +98,12 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 			$dynamic_sku_enabled = get_user_meta( $seller_id, '_wkmp_enable_seller_dynamic_sku', true );
 			$dynamic_sku_prefix  = get_user_meta( $seller_id, '_wkmp_dynamic_sku_prefix', true );
 
+			$wc_product_types = wc_get_product_types();
+			$allowed_types    = apply_filters( 'wkmp_allowed_product_types', array( 'simple', 'variable', 'grouped', 'external' ) );
+			$final_types      = array_intersect_key( $wc_product_types, array_flip( $allowed_types ) );
+			$seller_types     = get_option( '_wkmp_seller_allowed_product_types', array() );
+			$mp_product_types = empty( $seller_types ) ? $final_types : array_intersect_key( $final_types, array_flip( $seller_types ) );
+
 			if ( ! $allowed_cat ) {
 				$allowed_cat = get_option( '_wkmp_seller_allowed_categories', array() );
 			}
@@ -125,10 +131,7 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 			?>
 			<div class="form wkmp_container add-product-form">
 				<?php
-				$nonce_first           = \WK_Caching::wk_get_request_data( 'wkmp_select_type_cat_nonce_name', array( 'method' => 'post' ) );
-				$mp_product_type       = wc_get_product_types();
-				$allowed_product_types = get_option( '_wkmp_seller_allowed_product_types', array() );
-				$allowed_product_types = empty( $allowed_product_types ) ? array() : $allowed_product_types;
+				$nonce_first = \WK_Caching::wk_get_request_data( 'wkmp_select_type_cat_nonce_name', array( 'method' => 'post' ) );
 
 				if ( ! empty( $nonce_first ) && wp_verify_nonce( $nonce_first, 'wkmp_select_type_cat_nonce_action' ) ) {
 					$product_cats = \WK_Caching::wk_get_request_data(
@@ -564,7 +567,7 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 							$args['flag']   = '';
 							$args['filter'] = '';
 
-							$thumbnail_id = \WK_Caching::wk_get_request_data( '_mp_dwnld_file_urls', $args );
+							$thumbnail_id = \WK_Caching::wk_get_request_data( 'product_thumb_image_mp', $args );
 
 							if ( ! empty( $thumbnail_id ) ) {
 								update_post_meta( $sell_pr_id, '_thumbnail_id', $thumbnail_id );
@@ -648,6 +651,7 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 			$download_file_names = WK_Caching::wk_get_request_data( '_mp_variation_downloads_files_name', $args );
 
 			$args['filter']   = 'float';
+			$args['default']  = '';
 			$regular_prices   = WK_Caching::wk_get_request_data( 'wkmp_variable_regular_price', $args );
 			$sale_prices      = WK_Caching::wk_get_request_data( 'wkmp_variable_sale_price', $args );
 			$variable_widths  = WK_Caching::wk_get_request_data( 'wkmp_variable_width', $args );
@@ -695,19 +699,19 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 					}
 				}
 
-				if ( isset( $var_sale_price[ $var_id ] ) && is_numeric( $var_sale_price[ $var_id ] ) && $var_sale_price[ $var_id ] < $var_regu_price[ $var_id ] ) {
-					$variation_data['_sale_price'][] = $var_sale_price[ $var_id ];
+				if ( isset( $sale_prices[ $var_id ] ) && is_numeric( $sale_prices[ $var_id ] ) && $sale_prices[ $var_id ] < $regular_prices[ $var_id ] ) {
+					$variation_data['_sale_price'][] = $sale_prices[ $var_id ];
 				} else {
 					$variation_data['_sale_price'][] = '';
 				}
 
-				if ( '' === $var_sale_price[ $var_id ] ) {
-					$variation_data['_price'][] = is_numeric( $var_regu_price[ $var_id ] ) ? $var_regu_price[ $var_id ] : '';
+				if ( empty( $sale_prices[ $var_id ] ) ) {
+					$variation_data['_price'][] = is_numeric( $regular_prices[ $var_id ] ) ? $regular_prices[ $var_id ] : '';
 				} else {
-					$variation_data['_price'][] = is_numeric( $var_sale_price[ $var_id ] ) ? $var_sale_price[ $var_id ] : '';
+					$variation_data['_price'][] = is_numeric( $sale_prices[ $var_id ] ) ? $sale_prices[ $var_id ] : '';
 				}
 
-				$variation_data['_regular_price'][] = is_numeric( $var_regu_price[ $var_id ] ) ? $var_regu_price[ $var_id ] : '';
+				$variation_data['_regular_price'][] = is_numeric( $regular_prices[ $var_id ] ) ? $regular_prices[ $var_id ] : '';
 
 				if ( ! empty( $sales_to ) ) {
 					$variation_data['_sale_price_dates_to'][] = $sales_to[ $var_id ];

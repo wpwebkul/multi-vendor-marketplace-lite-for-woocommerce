@@ -86,7 +86,7 @@ if ( ! class_exists( 'WKMP_Front_Hooks' ) ) {
 			$seller_user = get_user_by( 'ID', $seller_id );
 
 			if ( is_a( $seller_user, 'WP_User' ) && in_array( 'wk_marketplace_seller', $seller_user->roles, true ) ) {
-				$seller_template = Seller\WKMP_Seller_Template_Functions::get_instance();
+				$seller_template = Seller\WKMP_Seller_Template_Functions::get_instance( $seller_id );
 				$dashboard       = get_option( '_wkmp_dashboard_endpoint', 'seller-dashboard' );
 				$product_list    = get_option( '_wkmp_product_list_endpoint', 'seller-products' );
 				$add_product     = get_option( '_wkmp_add_product_endpoint', 'seller-add-product' );

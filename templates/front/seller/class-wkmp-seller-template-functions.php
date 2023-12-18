@@ -3,6 +3,7 @@
  * Seller template functions.
  *
  * @package Multi Vendor Marketplace
+ *
  * @version 5.0.0
  */
 
@@ -14,7 +15,6 @@ use WkMarketplace\Templates\Front\Seller\Orders\WKMP_Orders;
 use WkMarketplace\Templates\Front\Seller\Product\WKMP_Product_List;
 
 if ( ! class_exists( 'WKMP_Seller_Template_Functions' ) ) {
-
 	/**
 	 * Seller template functions class.
 	 */
@@ -27,27 +27,51 @@ if ( ! class_exists( 'WKMP_Seller_Template_Functions' ) ) {
 		private $seller_id = '';
 
 		/**
-		 * Instance variable
+		 * Instance variable.
 		 *
 		 * @var $instance
 		 */
 		protected static $instance = null;
 
 		/**
-		 * Constructor of the class
+		 * Constructor of the class.
+		 *
+		 * @param int $seller_id Seller Id.
 		 */
-		public function __construct() {
-			$this->seller_id = get_current_user_id();
+		public function __construct( $seller_id ) {
+			$this->seller_id = empty( $seller_id ) ? get_current_user_id() : $seller_id;
+		}
+
+		/**
+		 * Set seller Id.
+		 *
+		 * @param int $seller_id Seller id.
+		 *
+		 * @return void
+		 */
+		public function set_seller_id( $seller_id ) {
+			$this->seller_id = $seller_id;
+		}
+
+		/**
+		 * Get seller Id.
+		 *
+		 * @return int
+		 */
+		public function get_seller_id() {
+			return empty( $this->seller_id ) ? get_current_user_id() : intval( $this->seller_id );
 		}
 
 		/**
 		 * Ensures only one instance of this class is loaded or can be loaded.
 		 *
+		 * @param int $seller_id Seller Id.
+		 *
 		 * @return object
 		 */
-		public static function get_instance() {
+		public static function get_instance( $seller_id = 0 ) {
 			if ( ! static::$instance ) {
-				static::$instance = new self();
+				static::$instance = new self( $seller_id );
 			}
 			return static::$instance;
 		}
@@ -178,7 +202,6 @@ if ( ! class_exists( 'WKMP_Seller_Template_Functions' ) ) {
 				$profile = Profile\WKMP_Profile_Edit::get_instance();
 				$profile->wkmp_seller_profile_form( $this->seller_id );
 			}
-
 		}
 
 		/**

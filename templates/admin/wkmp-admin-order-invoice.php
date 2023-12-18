@@ -64,12 +64,12 @@ foreach ( $get_item as $key => $value ) {
 
 				<tr>
 					<td><b><?php esc_html_e( 'Email: ', 'wk-marketplace' ); ?></b></td>
-					<td data-title="Email"><?php echo esc_html( $admin_order->get_billing_email() ); ?></td>
+					<td data-title="Email"><a href="mailto:<?php echo esc_attr( $admin_order->get_billing_email() ); ?>"><?php echo esc_html( $admin_order->get_billing_email() ); ?></a></td>
 				</tr>
 
 				<tr class="alt-table-row">
 					<td><b><?php esc_html_e( 'Telephone: ', 'wk-marketplace' ); ?></b></td>
-					<td data-title="Telephone"><?php echo esc_html( $admin_order->get_billing_phone() ); ?></td>
+					<td data-title="Telephone"><a href="tel:<?php echo esc_attr( $admin_order->get_billing_phone() ); ?>"><?php echo esc_html( $admin_order->get_billing_phone() ); ?></a></td>
 				</tr>
 				</tbody>
 			</table>

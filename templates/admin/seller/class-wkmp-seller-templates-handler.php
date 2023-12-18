@@ -109,9 +109,8 @@ if ( ! class_exists( 'WKMP_Seller_Templates_Handler' ) ) {
 			$url         = admin_url( 'admin.php?page=' . $page_name . '&tab-action=' . $tab_action . '&seller-id=' . $seller_id );
 			?>
 			<div class="wrap">
-				<h1 class="wp-heading-inline"><?php esc_html_e( 'Seller - ', 'wk-marketplace' ); ?>
-					<?php echo esc_html( $wkmarketplace->wkmp_get_user_display_name( $seller_id ) ); ?>
-				</h1>
+				<h1 class="wp-heading-inline"><?php echo wp_sprintf( /* translators: %s: Seller display name. */ esc_html__( 'Seller - %s', 'wk-marketplace' ), esc_html( $wkmarketplace->wkmp_get_user_display_name( $seller_id ) ) ); ?></h1>
+				<a class="page-title-action" href="<?php echo esc_url( admin_url( 'admin.php?page=wk-marketplace' ) ); ?>"><?php esc_html_e( 'Back', 'wk-marketplace' ); ?></a>
 				<nav class="nav-tab-wrapper wkmp-admin-seller-list-manage-nav">
 					<?php
 					foreach ( $config_tabs as $name => $label ) {
@@ -134,7 +133,6 @@ if ( ! class_exists( 'WKMP_Seller_Templates_Handler' ) ) {
 			$obj     = WKMP_Admin_Seller_List::get_instance();
 			$wk_page = \WK_Caching::wk_get_request_data( 'page' );
 			$success = \WK_Caching::wk_get_request_data( 'success', array( 'filter' => 'int' ) );
-
 			?>
 			<div class="wrap wkmp-admin-seller-list-wrap">
 				<h1 class="wp-heading-inline"><?php esc_html_e( 'Sellers', 'wk-marketplace' ); ?></h1>
@@ -142,15 +140,15 @@ if ( ! class_exists( 'WKMP_Seller_Templates_Handler' ) ) {
 				<p class="description"><?php esc_html_e( 'List of Shop Vendors associated with this Marketplace.', 'wk-marketplace' ); ?></p>
 
 				<?php
-				if ( ! is_null( $success ) ) {
-					$message      = ( $success && $success > 1 ) ? esc_html__( 'Kindly approve the seller first.', 'wk-marketplace' ) : esc_html__( 'Please select atleast one Seller.', 'wk-marketplace' );
+				if ( in_array( $success, array( 1, 2, 404 ), true ) ) {
+					$message      = ( 2 === $success ) ? esc_html__( 'Kindly approve the seller first.', 'wk-marketplace' ) : esc_html__( 'Please select atleast one Seller.', 'wk-marketplace' );
 					$notice_class = 'notice-error';
-					if ( $success && 1 === intval( $success ) ) {
+					if ( 1 === intval( $success ) ) {
 						$message      = esc_html__( 'Seller deleted successfully.', 'wk-marketplace' );
 						$notice_class = 'notice-success';
 					}
 					?>
-					<div class="notice my-acf-notice is-dismissible <?php echo esc_attr( $notice_class ); ?>">
+					<div class="notice wkmp-admin-notice is-dismissible <?php echo esc_attr( $notice_class ); ?>">
 						<p><?php echo esc_html( $message ); ?></p>
 					</div>
 					<?php
@@ -209,13 +207,13 @@ if ( ! class_exists( 'WKMP_Seller_Templates_Handler' ) ) {
 					$notice_class = 'notice-success';
 				}
 				?>
-				<div class="notice my-acf-notice is-dismissible <?php echo esc_attr( $notice_class ); ?>">
+				<div class="notice wkmp-admin-notice is-dismissible <?php echo esc_attr( $notice_class ); ?>">
 					<p><?php echo esc_html( $message ); ?></p>
 				</div>
 				<?php
 			}
 			?>
-			<div class="notice my-acf-notice is-dismissible notice-success wkmp-hide"></div>
+			<div class="notice wkmp-admin-notice is-dismissible notice-success wkmp-hide"></div>
 			<form method="get">
 				<input type="hidden" name="page" value="<?php echo esc_attr( $page_name ); ?>"/>
 				<input type="hidden" name="tab-action" value="<?php echo esc_attr( $tab_action ); ?>"/>

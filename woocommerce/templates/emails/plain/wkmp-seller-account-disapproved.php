@@ -9,15 +9,15 @@
 
 defined( 'ABSPATH' ) || exit; // Exit if access directly.
 
-$msg         = utf8_decode( esc_html__( 'Your account has been Disapproved by admin ', 'wk-marketplace' ) );
+$msg         = esc_html__( 'Your account has been Disapproved by admin ', 'wk-marketplace' );
 $admin       = get_option( 'admin_email' );
-$reference   = utf8_decode( esc_html__( 'If you have any query, please contact us at -', 'wk-marketplace' ) );
-$thanks_msg  = utf8_decode( esc_html__( 'Thanks for choosing Marketplace.', 'wk-marketplace' ) );
+$reference   = esc_html__( 'If you have any query, please contact us at -', 'wk-marketplace' );
+$thanks_msg  = esc_html__( 'Thanks for choosing Marketplace.', 'wk-marketplace' );
 $footer_text = apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) );
 
-echo '= ' . wp_kses_post( utf8_decode( $email_heading ) ) . " =\n\n";
+echo '= ' . wp_kses_post( mb_convert_encoding( $email_heading, 'UTF-8' ) ) . " =\n\n";
 
-echo esc_html__( 'Hi', 'wk-marketplace' ) . ', ' . wp_kses_post( utf8_decode( $user_email ) ) . " \n\n";
+echo esc_html__( 'Hi', 'wk-marketplace' ) . ', ' . wp_kses_post( mb_convert_encoding( $user_email, 'UTF-8' ) ) . " \n\n";
 
 echo wp_kses_post( $msg ) . "\n\n";
 

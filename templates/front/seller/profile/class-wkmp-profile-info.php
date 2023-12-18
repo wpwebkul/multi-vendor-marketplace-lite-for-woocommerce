@@ -123,7 +123,7 @@ if ( ! class_exists( 'WKMP_Profile_Info' ) ) {
 
 								<div class="wkmp_profile_data">
 									<label><?php esc_html_e( 'E-Mail', 'wk-marketplace' ); ?></label> :
-									<span> <?php echo esc_html( $user_email ); ?> </span>
+									<span> <a href="mailto:<?php echo esc_attr( $user_email ); ?>"> <?php echo esc_html( $user_email ); ?> </a></span>
 								</div>
 
 								<div class="wkmp_profile_data">

@@ -86,7 +86,7 @@ if ( ! class_exists( 'WKMP_Admin_Seller_List' ) ) {
 			$current_page = $this->get_pagenum();
 
 			$orderby    = \WK_Caching::wk_get_request_data( 'orderby', array( 'default' => 'user_nicename' ) );
-			$sort_order = \WK_Caching::wk_get_request_data( 'order', array( 'default' => 'desc' ) );
+			$sort_order = \WK_Caching::wk_get_request_data( 'order', array( 'default' => 'ASC' ) );
 
 			$filter_data = apply_filters(
 				'wkmp_admin_seller_list_filter_data',
@@ -280,9 +280,9 @@ if ( ! class_exists( 'WKMP_Admin_Seller_List' ) ) {
 				check_admin_referer( 'bulk-' . $this->_args['plural'] );
 
 				$seller_ids = \WK_Caching::wk_get_request_data( 'seller-id', array( 'flag' => 'array' ) );
-				$success    = 0;
+				$success    = 404;
 
-				if ( is_iterable( $seller_ids ) ) {
+				if ( ! empty( $seller_ids ) && is_iterable( $seller_ids ) ) {
 					foreach ( $seller_ids as $seller_id ) {
 						$this->seller_db_obj->wkmp_delete_seller( $seller_id );
 					}

@@ -32,10 +32,10 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Hooks' ) ) {
 
 			add_action( 'wp_ajax_wkmp_add_favourite_seller', array( $function_handler, 'wkmp_update_favourite_seller' ) );
 
-			add_action( 'wp_ajax_wkmp_get_state_by_country_code', array( $function_handler, 'wkmp_get_state_by_country_code' ) );
+			add_action( 'wp_ajax_wkmp_get_state_by_country_code', array( $function_handler, 'wkmp_get_seller_state_by_country_code' ) );
 
-			add_action( 'wp_ajax_wkmp_save_shipping_cost', array( $function_handler, 'wkmp_save_shipping_cost' ) );
-			add_action( 'wp_ajax_wkmp_delete_shipping_class', array( $function_handler, 'wkmp_delete_shipping_class' ) );
+			add_action( 'wp_ajax_wkmp_save_shipping_cost', array( $function_handler, 'wkmp_seller_save_shipping_cost' ) );
+			add_action( 'wp_ajax_wkmp_delete_shipping_class', array( $function_handler, 'wkmp_seller_delete_shipping_class' ) );
 			add_action( 'wp_ajax_wkmp_add_shipping_class', array( $function_handler, 'wkmp_add_shipping_class' ) );
 			add_action( 'wp_ajax_wkmp_add_shipping_method', array( $function_handler, 'wkmp_seller_add_shipping_method' ) );
 			add_action( 'wp_ajax_wkmp_delete_shipping_method', array( $function_handler, 'wkmp_delete_shipping_method' ) );

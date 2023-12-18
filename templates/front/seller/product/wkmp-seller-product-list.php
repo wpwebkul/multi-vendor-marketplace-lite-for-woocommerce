@@ -12,17 +12,17 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 <form method="GET" id="wkmp-product-list-form" style="margin-bottom:unset;">
 	<div class="wkmp-table-action-wrap">
 		<div class="wkmp-action-section left">
-			<input type="text" name="wkmp_search" placeholder="<?php esc_attr_e( 'Search Product', 'wk-marketplace' ); ?>" value="<?php echo isset( $filter_name ) ? esc_attr( wp_unslash( $filter_name ) ) : ''; ?>">
-			<?php wp_nonce_field( 'wkmp_product_search_nonce_action', 'wkmp_product_search_nonce' ); ?>
-			<input type="submit" value="<?php esc_attr_e( 'Search', 'wk-marketplace' ); ?>" data-action="search"/>
-		</div>
-		<div class="wkmp-action-section right wkmp-text-right">
-			<?php if ( $wkmp_min_order_enabled || $wkmp_product_qty_limit_enabled ) { ?>
-				<a id="wkmp_product_misc_settings" class="wkmp-minimum-order settings" href="javascript:void(0);"><?php esc_html_e( 'Miscellaneous Settings', 'wk-marketplace' ); ?></a>
-			<?php } ?>
 			<button type="button" data-form_id="#wkmp-delete-product" class="button wkmp-bulk-delete" title="<?php esc_attr_e( 'Delete', 'wk-marketplace' ); ?>">
 				<span class="dashicons dashicons-trash"></span></button>&nbsp;&nbsp;
 			<a href="<?php echo esc_url( get_permalink() . get_option( '_wkmp_add_product_endpoint', 'seller-add-product' ) ); ?>" class="button add-product" title="<?php esc_attr_e( 'Add Product', 'wk-marketplace' ); ?>"><span class="dashicons dashicons-plus-alt"></span></a>
+			<?php if ( $wkmp_min_order_enabled || $wkmp_product_qty_limit_enabled ) { ?>
+				<a id="wkmp_product_misc_settings" class="wkmp-minimum-order settings" href="javascript:void(0);"><?php esc_html_e( 'Miscellaneous Settings', 'wk-marketplace' ); ?></a>
+			<?php } ?>
+		</div>
+		<div class="wkmp-action-section right wkmp-text-right">
+			<input type="text" name="wkmp_search" placeholder="<?php esc_attr_e( 'Search Product', 'wk-marketplace' ); ?>" value="<?php echo isset( $filter_name ) ? esc_attr( wp_unslash( $filter_name ) ) : ''; ?>">
+			<?php wp_nonce_field( 'wkmp_product_search_nonce_action', 'wkmp_product_search_nonce' ); ?>
+			<input type="submit" value="<?php esc_attr_e( 'Search', 'wk-marketplace' ); ?>" data-action="search"/>
 		</div>
 	</div>
 </form>
@@ -35,10 +35,9 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 				<td style="width:1px;"><input type="checkbox" id="wkmp-checked-all"></td>
 				<td><?php esc_html_e( 'Image', 'wk-marketplace' ); ?></td>
 				<td><?php esc_html_e( 'Name', 'wk-marketplace' ); ?></td>
-				<td><?php esc_html_e( 'Stock', 'wk-marketplace' ); ?></td>
-				<td><?php esc_html_e( 'Status', 'wk-marketplace' ); ?></td>
 				<td><?php esc_html_e( 'Price', 'wk-marketplace' ); ?></td>
-				<td style="width:17%;"><?php esc_html_e( 'Action', 'wk-marketplace' ); ?></td>
+				<td><?php esc_html_e( 'Status', 'wk-marketplace' ); ?></td>
+				<td><?php esc_html_e( 'Stock', 'wk-marketplace' ); ?></td>
 			</tr>
 			</thead>
 			<tbody>
@@ -50,30 +49,27 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 						<td><input type="checkbox" name="selected[]" value="<?php echo esc_attr( $product['product_id'] ); ?>"/></td>
 						<td><img src="<?php echo esc_url( $product['image'] ); ?>" height="50" width="60" class="wkmp-img-thumbnail" style="display:unset;"/></td>
 						<td>
-							<?php
-							if ( 'publish' === strtolower( $product['status'] ) ) {
-								?>
-								<a href="<?php echo esc_url( $product['product_href'] ); ?>"><?php echo esc_html( $product['name'] ); ?></a>
+							<a class="wkmp-seller-product-name" href="<?php echo esc_url( $product['edit'] ); ?>"><?php echo esc_html( $product['name'] ); ?></a>
+							<div class="wkmp-row-actions wkmp_hide">
+								<a class="wkmp-seller-product-edit" href="<?php echo esc_url( $product['edit'] ); ?>"><?php esc_html_e( 'Edit |', 'wk-marketplace' ); ?></a>
 								<?php
-							} else {
-								echo esc_attr( $product['name'] );
-							}
-							?>
+								if ( 'publish' === strtolower( $product['status'] ) ) {
+									?>
+									<a class="wkmp-seller-product-view" href="<?php echo esc_url( $product['product_href'] ); ?>"><?php esc_html_e( 'View |', 'wk-marketplace' ); ?></a>
+									<?php
+								}
+								?>
+								<a href="javascript:void(0);" data-product_id="<?php echo esc_attr( $product['product_id'] ); ?>" class="wkmp_delete_seller_product"><?php esc_html_e( 'Delete', 'wk-marketplace' ); ?></a>
+							</div>
 						</td>
-						<td class="woocommerce-orders-table__cell" data-title="<?php esc_attr_e( 'Stock', 'wk-marketplace' ); ?>"><?php echo esc_html( $product['stock'] ); ?>
+						<td><?php echo wp_kses_post( $product['price'] ); ?></td>
+						<td data-title="<?php esc_attr_e( 'Status', 'wk-marketplace' ); ?>"><?php echo esc_html( $product['status'] ); ?></td>
+						<td data-title="<?php esc_attr_e( 'Stock', 'wk-marketplace' ); ?>"><?php echo esc_html( $product['stock'] ); ?>
 							<?php
 							if ( ! empty( $product['stock_quantity'] ) ) {
 								echo esc_attr( '(' . $product['stock_quantity'] . ')' );
 							}
 							?>
-						</td>
-						<td class="woocommerce-orders-table__cell" data-title="<?php esc_attr_e( 'Status', 'wk-marketplace' ); ?>"><?php echo esc_html( $product['status'] ); ?></td>
-						<td>
-							<?php echo wp_kses_post( $product['price'] ); ?>
-						</td>
-						<td>
-							<a href="<?php echo esc_url( $product['edit'] ); ?>" class="button"><span class="dashicons dashicons-edit"></span></a>
-							<a href="javascript:void(0);" data-product_id="<?php echo esc_attr( $product['product_id'] ); ?>" class="button wkmp_delete_seller_product"><span class="dashicons dashicons-trash"></span></a>
 						</td>
 					</tr>
 					<?php

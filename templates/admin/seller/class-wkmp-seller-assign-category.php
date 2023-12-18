@@ -80,7 +80,7 @@ if ( ! class_exists( 'WKMP_Seller_Assign_Category' ) ) {
 
 				do_action( 'wkmp_seller_misc_settings_saved', $category_data, $this->seller_id );
 				?>
-				<div class="notice notice-success my-acf-notice is-dismissible">
+				<div class="notice notice-success wkmp-admin-notice is-dismissible">
 					<p><?php esc_html_e( 'Settings are saved successfully.', 'wk-marketplace' ); ?></p>
 				</div>
 				<?php

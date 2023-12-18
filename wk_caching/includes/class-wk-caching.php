@@ -102,7 +102,7 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 		 * Define constants.
 		 */
 		public static function define_constants() {
-			defined( 'WK_CACHING_VERSION' ) || define( 'WK_CACHING_VERSION', '1.0.6' );
+			defined( 'WK_CACHING_VERSION' ) || define( 'WK_CACHING_VERSION', '1.0.7' );
 			defined( 'WKMP_ALLOWED_WKMP_SELLER_DATA_COUNT' ) || define( 'WKMP_ALLOWED_WKMP_SELLER_DATA_COUNT', '-005.03' ); // Adding negative decimal values to avoid search. We'll use absint where we'll use it.
 		}
 

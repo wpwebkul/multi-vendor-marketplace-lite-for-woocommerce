@@ -49,7 +49,7 @@ if ( ! class_exists( 'WKMP_Common_Hooks' ) ) {
 
 			add_action( 'draft_to_publish', array( $function_handler, 'wkmp_action_on_product_approve' ), 10, 1 );
 			add_action( 'wp_trash_post', array( $function_handler, 'wkmp_action_on_product_disapprove' ), 10, 1 );
-			add_action( 'save_post', array( $function_handler, 'wkmp_save_version_meta' ), 10, 3 );
+			add_action( 'save_post', array( $function_handler, 'wkmp_save_product_seller_and_qty' ), 10, 3 );
 
 			add_action( 'personal_options_update', array( $function_handler, 'wkmp_save_extra_user_profile_fields' ) );
 			add_action( 'edit_user_profile_update', array( $function_handler, 'wkmp_save_extra_user_profile_fields' ) );

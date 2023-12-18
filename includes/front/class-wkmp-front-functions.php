@@ -178,10 +178,11 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 				'wkmp-front-script',
 				'wkmpObj',
 				array(
-					'ajax'                 => $ajax_obj,
-					'alert_msg'            => esc_html__( 'Are you sure?', 'wk-marketplace' ),
-					'mkt_tr'               => $mkt_tr_arr,
-					'wkmp_authorize_error' => esc_html__( 'You are not authorized to perform this action.', 'wk-marketplace' ),
+					'ajax'                    => $ajax_obj,
+					'delete_product_alert'    => esc_html__( 'Are you sure you want to delete product(s)?', 'wk-marketplace' ),
+					'delete_fav_seller_alert' => esc_html__( 'Are you sure you want to delete favorite seller(s)?', 'wk-marketplace' ),
+					'mkt_tr'                  => $mkt_tr_arr,
+					'wkmp_authorize_error'    => esc_html__( 'You are not authorized to perform this action.', 'wk-marketplace' ),
 				)
 			);
 
@@ -669,7 +670,7 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 
 			if ( ! $seller_info && ( false !== strpos( $main_page, $store ) || false !== strpos( $main_page, $products ) || false !== strpos( $main_page, $feedbacks ) || false !== strpos( $main_page, $add_feedback ) ) ) {
 				$query_vars = explode( '/', $main_page );
-				$seller_id  = ( is_array( $query_vars ) && 2 === count( $query_vars ) ) ? $query_vars[1] : 0;
+				$seller_id  = ( is_array( $query_vars ) && count( $query_vars ) > 1 ) ? $query_vars[1] : 0;
 				if ( ! is_numeric( $seller_id ) || ( is_numeric( $seller_id ) && empty( get_user_by( 'ID', $seller_id ) ) ) ) {
 					$seller_id = $wkmarketplace->wkmp_get_seller_id_by_shop_address( $seller_id );
 				}
@@ -679,6 +680,11 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 			$page_name = get_query_var( 'pagename' );
 
 			if ( ! empty( $page_name ) && $seller_info && $page_name === $wkmarketplace->seller_page_slug ) {
+				$template_seller_id = $this->seller_template->get_seller_id();
+				if ( $template_seller_id !== $seller_id ) {
+					$this->seller_template->set_seller_id( $seller_id );
+				}
+
 				if ( 'invoice' === $main_page ) {
 					$this->seller_template->wkmp_seller_order_invoice( $seller_id );
 				} elseif ( false !== strpos( $main_page, $store ) ) {

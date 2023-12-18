@@ -73,6 +73,7 @@ if ( ! class_exists( 'WKMP_Admin_Hooks' ) ) {
 			add_filter( 'plugin_row_meta', array( $handler, 'wkmp_plugin_row_meta' ), 10, 2 );
 			add_filter( 'wk_allow_settings_update_to_demo_admin', array( $handler, 'wkmp_add_settings_groups_for_demo_admin' ) );
 			add_filter( 'comments_list_table_query_args', array( $handler, 'wkmp_hide_other_comments_on_seller_dashboard' ) );
+			add_filter( 'editable_roles', array( $handler, 'wkmp_remove_seller_from_change_role_to' ) );
 		}
 
 		/**

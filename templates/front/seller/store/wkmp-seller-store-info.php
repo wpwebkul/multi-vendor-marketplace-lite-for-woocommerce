@@ -163,13 +163,12 @@ if ( empty( $mp_page_title ) ) {
 	<div class="mp-seller-recent-product">
 		<h3><?php esc_html_e( 'Recent Product from Seller', 'wk-marketplace' ); ?></h3>
 		<?php
-		$page_no    = ( get_query_var( 'pagenum' ) ) ? get_query_var( 'pagenum' ) : 1;
 		$query_args = array(
 			'author'         => $this->seller_id,
 			'post_type'      => 'product',
 			'post_status'    => 'publish',
 			'posts_per_page' => 9,
-			'paged'          => $page_no,
+			'paged'          => $store_paged,
 		);
 
 		$query_args = apply_filters( 'mp_seller_collection_product_args', $query_args );
@@ -237,25 +236,33 @@ if ( empty( $mp_page_title ) ) {
 						<div class="rating">
 							<span><b><?php esc_html_e( 'Value', 'wk-marketplace' ); ?></b></span>
 							<div class="star-rating">
-								<?php for ( $i = 1; $i <= 5; $i ++ ) { ?>
-									<?php if ( $i <= $review->value_r ) { ?>
+								<?php
+								for ( $i = 1; $i <= 5; $i ++ ) {
+									if ( $i <= $review->value_r ) {
+										?>
 										<div class="star star-full" aria-hidden="true"></div>
 									<?php } else { ?>
 										<div class="star star-empty" aria-hidden="true"></div>
-									<?php } ?>
-								<?php } ?>
+										<?php
+									}
+								}
+								?>
 							</div>
 						</div>
 						<div>
 							<span><b><?php esc_html_e( 'Quality', 'wk-marketplace' ); ?></b></span>
 							<div class="star-rating">
-								<?php for ( $i = 1; $i <= 5; $i ++ ) { ?>
-									<?php if ( $i <= $review->quality_r ) { ?>
+								<?php
+								for ( $i = 1; $i <= 5; $i ++ ) {
+									if ( $i <= $review->quality_r ) {
+										?>
 										<div class="star star-full" aria-hidden="true"></div>
 									<?php } else { ?>
 										<div class="star star-empty" aria-hidden="true"></div>
-									<?php } ?>
-								<?php } ?>
+										<?php
+									}
+								}
+								?>
 							</div>
 						</div>
 					</div>
@@ -269,13 +276,12 @@ if ( empty( $mp_page_title ) ) {
 				<?php
 				$count ++;
 			}
-			?>
-			<?php if ( count( $reviews ) > 5 ) { ?>
+			if ( count( $reviews ) > 5 ) {
+				?>
 				<div class="mp-review-page-link">
 					<a href="<?php echo esc_url( $all_review ); ?>" class="button"><?php esc_html_e( 'View All Reviews', 'wk-marketplace' ); ?></a>
 				</div>
 			<?php } ?>
 		</div>
 	<?php } ?>
-
 </div>

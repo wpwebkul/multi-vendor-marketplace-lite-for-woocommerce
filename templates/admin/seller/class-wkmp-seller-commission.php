@@ -63,13 +63,13 @@ if ( ! class_exists( 'WKMP_Seller_Commission' ) ) {
 					$commission_data = array( 'wkmp_seller_commission' => $commission );
 					do_action( 'wkmp_save_seller_commission', $commission_data, $this->seller_id );
 					?>
-					<div class="notice notice-success my-acf-notice is-dismissible">
+					<div class="notice notice-success wkmp-admin-notice is-dismissible">
 						<p><?php esc_html_e( 'Commission saved successfully.', 'wk-marketplace' ); ?></p>
 					</div>
 					<?php
 				} else {
 					?>
-					<div class="notice notice-error my-acf-notice is-dismissible">
+					<div class="notice notice-error wkmp-admin-notice is-dismissible">
 						<p><?php echo sprintf( /* translators: %s: Commission. */ esc_html__( 'Invalid default commission value %s. Must be between 0 & 100.', 'wk-marketplace' ), esc_attr( $commission ) ); ?></p>
 					</div>
 					<?php

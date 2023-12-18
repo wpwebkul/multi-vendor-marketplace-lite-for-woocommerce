@@ -9,6 +9,8 @@
 
 defined( 'ABSPATH' ) || exit; // Exit if access directly.
 
+use WkMarketplace\Includes\Shipping;
+
 if ( ! class_exists( 'WKMP_Free_Shipping_Method' ) ) {
 	/**
 	 * Marketplace Free shipping class.

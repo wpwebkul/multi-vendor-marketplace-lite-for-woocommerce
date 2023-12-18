@@ -66,22 +66,24 @@ if ( ! class_exists( 'WKMP_Seller_Order_Data' ) ) {
 			$sort_order = empty( $filter_data['sorting_order'] ) ? 'desc' : $filter_data['sorting_order'];
 			$mp_ids     = $wpdb_obj->get_col( $wpdb_obj->prepare( "SELECT mp.order_id FROM {$wpdb_obj->prefix}mporders mp WHERE mp.seller_id = %d", $seller_id ) );
 
-			$order_ids = wc_get_orders(
-				array(
-					'return'   => 'ids',
-					'status'   => array( 'wc-completed' ),
-					'post__in' => $mp_ids,
-					'orderby'  => 'ID',
-					'order'    => $sort_order,
-					'limit'    => $filter_data['limit'],
-					'offset'   => $filter_data['start'],
-				)
-			);
+			if ( ! empty( $mp_ids ) ) {
+				$order_ids = wc_get_orders(
+					array(
+						'return'   => 'ids',
+						'status'   => array( 'wc-completed' ),
+						'post__in' => $mp_ids,
+						'orderby'  => 'ID',
+						'order'    => $sort_order,
+						'limit'    => $filter_data['limit'],
+						'offset'   => $filter_data['start'],
+					)
+				);
 
-			$mp_commission = Common\WKMP_Commission::get_instance();
+				$mp_commission = Common\WKMP_Commission::get_instance();
 
-			foreach ( $order_ids as $order_id ) {
-				$data[] = $mp_commission->wkmp_get_seller_final_order_info( $order_id, $seller_id );
+				foreach ( $order_ids as $order_id ) {
+					$data[] = $mp_commission->wkmp_get_seller_final_order_info( $order_id, $seller_id );
+				}
 			}
 
 			return apply_filters( 'wkmp_get_seller_orders', $data, $seller_id );

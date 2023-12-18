@@ -14,15 +14,10 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 		<label for="product_type"><?php esc_html_e( 'Product Type: ', 'wk-marketplace' ); ?></label>
 		<select name="product_type" id="product_type" class="mp-toggle-select">
 			<?php
-			$allowed_product_types = get_option( '_wkmp_seller_allowed_product_types', array() );
-			$allowed_product_types = empty( $allowed_product_types ) ? array() : $allowed_product_types;
-
 			foreach ( $mp_product_types as $key => $pro_type ) {
-				if ( in_array( $key, $allowed_product_types, true ) ) {
-					?>
-					<option value="<?php echo esc_attr( $key ); ?>" <?php echo ( $key === $product->get_type() ) ? 'selected="selected"' : ''; ?>><?php echo esc_html( $pro_type ); ?></option>
-					<?php
-				}
+				?>
+				<option value="<?php echo esc_attr( $key ); ?>" <?php echo ( $key === $product->get_type() ) ? 'selected="selected"' : ''; ?>><?php echo esc_html( $pro_type ); ?></option>
+				<?php
 			}
 			?>
 		</select>

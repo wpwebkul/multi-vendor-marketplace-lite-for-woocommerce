@@ -97,7 +97,7 @@ if ( ! class_exists( 'WKMP_Admin_Ajax_Functions' ) ) {
 		/**
 		 * Check my shop values.
 		 */
-		public function wkmp_check_myshop_value() {
+		public function wkmp_check_slug_for_seller_shop() {
 			if ( check_ajax_referer( 'wkmp-admin-nonce', 'wkmp_nonce', false ) && current_user_can( 'manage_options' ) ) {
 				$url_slug = \WK_Caching::wk_get_request_data( 'shop_slug', array( 'method' => 'post' ) );
 				$check    = false;

@@ -36,7 +36,7 @@ if ( ! class_exists( 'WKMP_Admin_Ajax_Hooks' ) ) {
 			$function_handler = WKMP_Admin_Ajax_Functions::get_instance();
 
 			add_action( 'wp_ajax_wkmp_admin_replied_to_seller', array( $function_handler, 'wkmp_admin_replied_to_seller' ) );
-			add_action( 'wp_ajax_wkmp_check_myshop', array( $function_handler, 'wkmp_check_myshop_value' ) );
+			add_action( 'wp_ajax_wkmp_check_myshop', array( $function_handler, 'wkmp_check_slug_for_seller_shop' ) );
 			add_action( 'wp_ajax_wkmp_change_seller_dashboard', array( $function_handler, 'wkmp_change_seller_to_frontend_dashboard' ) );
 			add_action( 'wp_ajax_wkmp_update_seller_order_status', array( $function_handler, 'wkmp_seller_order_status_update' ) );
 		}

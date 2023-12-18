@@ -63,7 +63,15 @@ if ( ! class_exists( 'WKMP_Seller_Profile' ) ) {
 							</tr>
 							<tr>
 								<td><p><b><?php esc_html_e( 'Email: ', 'wk-marketplace' ); ?></b></p></td>
-								<td><p><?php echo empty( $this->seller_info->user_email ) ? '' : esc_html( $this->seller_info->user_email ); ?></p></td>
+								<td><p>
+								<?php
+								if ( ! empty( $this->seller_info->user_email ) ) {
+									?>
+									<a class="wkmp-seller-detail-email" href="mailto:<?php echo esc_attr( $this->seller_info->user_email ); ?>"><?php echo esc_html( $this->seller_info->user_email ); ?></a>
+									<?php
+								}
+								?>
+								</p></td>
 							</tr>
 							<tr>
 								<td><p><b><?php esc_html_e( 'Display name: ', 'wk-marketplace' ); ?></b></p></td>

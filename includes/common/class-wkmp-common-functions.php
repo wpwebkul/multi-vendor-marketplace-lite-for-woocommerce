@@ -379,11 +379,11 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 		 *
 		 * @hooked 'save_post' Action hook.
 		 */
-		public function wkmp_save_version_meta( $post_id, $post, $update ) {
+		public function wkmp_save_product_seller_and_qty( $post_id, $post, $update ) {
 			$nonce = \WK_Caching::wk_get_request_data( 'wkmp_seller_meta_box_nonce', array( 'method' => 'post' ) );
 
 			if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, 'wkmp_save_meta_box_seller' ) ) {
-				$seller_id = \WK_Caching::wk_get_request_data( 'seller_id', array( 'filter' => 'int' ) );
+				$seller_id = \WK_Caching::wk_get_request_data( 'seller_id', array( 'method' => 'post' ) );
 
 				if ( ! empty( $seller_id ) ) {
 					$wpdb_obj   = $this->wpdb;
@@ -679,7 +679,7 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 			if ( ! empty( $data['wkmp_shop_phone'] ) && ! \WC_Validation::is_phone( $data['wkmp_shop_phone'] ) ) {
 				$errors['wkmp_shop_phone'] = esc_html__( 'Enter the valid phone number', 'wk-marketplace' );
 			} elseif ( ( strlen( $data['wkmp_shop_phone'] ) < 4 || strlen( $data['wkmp_shop_phone'] ) > 15 ) ) {
-				$errors['wkmp_shop_phone'] = esc_html__( 'Enter the valid phone number of required length.', 'wk-marketplace' );
+				$errors['wkmp_shop_phone'] = esc_html__( 'Enter the valid phone number of required length from 4 to 15 characters.', 'wk-marketplace' );
 			}
 
 			if ( ! empty( $data['billing_postcode'] ) && ! \WC_Validation::is_postcode( $data['billing_postcode'], $data['billing_country'] ) ) {

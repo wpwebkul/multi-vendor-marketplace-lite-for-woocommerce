@@ -84,15 +84,15 @@ if ( ! class_exists( 'WKMP_Admin_Template_Functions' ) ) {
 			<h1><?php esc_html_e( 'Product List', 'wk-marketplace' ); ?></h1>
 
 			<?php
-			if ( ! is_null( $success ) ) {
+			if ( in_array( $success, array( 1, 2, 404 ), true ) ) {
 				$message      = esc_html__( 'Please select atleast one product.', 'wk-marketplace' );
 				$notice_class = 'notice-error';
-				if ( $success ) {
+				if ( 404 !== $success ) {
 					$message      = ( $success > 1 ) ? esc_html__( 'Product assigned successfully.', 'wk-marketplace' ) : esc_html__( 'Product trashed successfully. You can restore them from woocommerce product page.', 'wk-marketplace' );
 					$notice_class = 'notice-success';
 				}
 				?>
-				<div class="notice my-acf-notice is-dismissible <?php echo esc_attr( $notice_class ); ?>">
+				<div class="notice wkmp-admin-notice is-dismissible <?php echo esc_attr( $notice_class ); ?>">
 					<p><?php echo esc_html( $message ); ?></p>
 				</div>
 				<?php
@@ -131,16 +131,16 @@ if ( ! class_exists( 'WKMP_Admin_Template_Functions' ) ) {
 			?>
 			<h1><?php esc_html_e( 'Manage Feedback', 'wk-marketplace' ); ?></h1>
 			<?php
-			if ( ! is_null( $success ) ) {
+			if ( in_array( $success, array( 1, 2, 3, 404 ), true ) ) {
 				$message      = esc_html__( 'Please select atleast one feedback.', 'wk-marketplace' );
 				$notice_class = 'notice-error';
-				if ( $success ) {
+				if ( 404 !== $success ) {
 					$message      = ( $success > 1 ) ? esc_html__( 'Feedback has been disapproved successfully.', 'wk-marketplace' ) : esc_html__( 'Feedback has been approved successfully.', 'wk-marketplace' );
 					$message      = ( $success > 2 ) ? esc_html__( 'Feedback has been deleted successfully.', 'wk-marketplace' ) : $message;
 					$notice_class = 'notice-success';
 				}
 				?>
-				<div class="notice my-acf-notice is-dismissible <?php echo esc_attr( $notice_class ); ?>">
+				<div class="notice wkmp-admin-notice is-dismissible <?php echo esc_attr( $notice_class ); ?>">
 					<p><?php echo esc_html( $message ); ?></p>
 				</div>
 				<?php
@@ -177,7 +177,7 @@ if ( ! class_exists( 'WKMP_Admin_Template_Functions' ) ) {
 					$notice_class = 'notice-success';
 				}
 				?>
-				<div class="notice my-acf-notice is-dismissible <?php echo esc_attr( $notice_class ); ?>">
+				<div class="notice wkmp-admin-notice is-dismissible <?php echo esc_attr( $notice_class ); ?>">
 					<p><?php echo esc_html( $message ); ?></p>
 				</div>
 				<?php

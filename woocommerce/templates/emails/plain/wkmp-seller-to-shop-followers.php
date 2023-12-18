@@ -13,7 +13,7 @@ global $wpdb;
 
 if ( $data ) {
 	$footer_text = apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) );
-	echo sprintf( /* translators: %s Customer first name */ esc_html__( 'Hi %s,', 'wk-marketplace' ), esc_html( utf8_decode( $data ) ) ) . "\n\n";
+	echo sprintf( /* translators: %s Customer first name */ esc_html__( 'Hi %s,', 'wk-marketplace' ), esc_html( mb_convert_encoding( $data, 'UTF-8' ) ) ) . "\n\n";
 
 	if ( ! empty( $additional_content ) ) {
 		echo wp_kses_post( $additional_content );

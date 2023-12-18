@@ -115,35 +115,6 @@ if ( ! class_exists( 'WKMP_Seller_Store_Info' ) ) {
 		}
 
 		/**
-		 * Seller product collection.
-		 *
-		 * @param int $seller_id Seller Id.
-		 *
-		 * @return void
-		 */
-		public function wkmp_seller_store_collection( $seller_id ) {
-			$this->seller_id = empty( $seller_id ) ? ( empty( $this->seller_id ) ? get_current_user_id() : $this->seller_id ) : $seller_id;
-
-			$end_point = get_option( '_wkmp_seller_product_endpoint', 'seller-products' );
-			$main_page = get_query_var( 'main_page' );
-
-			if ( ! empty( $end_point ) && ! empty( $main_page ) && false !== strpos( $main_page, $end_point ) ) {
-				$query_vars      = explode( '/', $main_page );
-				$this->seller_id = ( is_array( $query_vars ) && count( $query_vars ) > 1 ) ? $query_vars[1] : 0;
-				$store_paged     = ( is_array( $query_vars ) && count( $query_vars ) > 3 && 'page' === $query_vars[2] ) ? $query_vars[3] : 1;
-
-				if ( ! is_numeric( $this->seller_id ) || ( is_numeric( $this->seller_id ) && empty( get_user_by( 'ID', $this->seller_id ) ) ) ) {
-					$this->seller_id = $this->marketplace->wkmp_get_seller_id_by_shop_address( $this->seller_id );
-				}
-			}
-
-			if ( $this->seller_id > 0 ) {
-				$seller_info = $this->marketplace->wkmp_get_seller_info( $this->seller_id );
-				require_once __DIR__ . '/wkmp-seller-store-collection.php';
-			}
-		}
-
-		/**
 		 * Add seller feedback.
 		 *
 		 * @param int $seller_id Seller Id.
@@ -281,7 +252,8 @@ if ( ! class_exists( 'WKMP_Seller_Store_Info' ) ) {
 
 			if ( ! empty( $end_point ) && ! empty( $main_page ) && false !== strpos( $main_page, $end_point ) ) {
 				$query_vars      = explode( '/', $main_page );
-				$this->seller_id = ( is_array( $query_vars ) && 2 === count( $query_vars ) ) ? $query_vars[1] : 0;
+				$this->seller_id = ( is_array( $query_vars ) && count( $query_vars ) > 1 ) ? $query_vars[1] : 0;
+				$store_paged     = ( is_array( $query_vars ) && count( $query_vars ) > 3 && 'page' === $query_vars[2] ) ? $query_vars[3] : 1;
 
 				if ( ! is_numeric( $this->seller_id ) || ( is_numeric( $this->seller_id ) && empty( get_user_by( 'ID', $this->seller_id ) ) ) ) {
 					$this->seller_id = $this->marketplace->wkmp_get_seller_id_by_shop_address( $this->seller_id );
@@ -395,6 +367,35 @@ if ( ! class_exists( 'WKMP_Seller_Store_Info' ) ) {
 				do_action( 'wkmp_after_seller_store_info', $seller_data );
 			} else {
 				esc_html_e( 'No seller info', 'wk-marketplace' );
+			}
+		}
+
+		/**
+		 * Seller product collection.
+		 *
+		 * @param int $seller_id Seller Id.
+		 *
+		 * @return void
+		 */
+		public function wkmp_seller_store_collection( $seller_id ) {
+			$this->seller_id = empty( $seller_id ) ? ( empty( $this->seller_id ) ? get_current_user_id() : $this->seller_id ) : $seller_id;
+
+			$end_point = get_option( '_wkmp_seller_product_endpoint', 'seller-products' );
+			$main_page = get_query_var( 'main_page' );
+
+			if ( ! empty( $end_point ) && ! empty( $main_page ) && false !== strpos( $main_page, $end_point ) ) {
+				$query_vars      = explode( '/', $main_page );
+				$this->seller_id = ( is_array( $query_vars ) && count( $query_vars ) > 1 ) ? $query_vars[1] : 0;
+				$store_paged     = ( is_array( $query_vars ) && count( $query_vars ) > 3 && 'page' === $query_vars[2] ) ? $query_vars[3] : 1;
+
+				if ( ! is_numeric( $this->seller_id ) || ( is_numeric( $this->seller_id ) && empty( get_user_by( 'ID', $this->seller_id ) ) ) ) {
+					$this->seller_id = $this->marketplace->wkmp_get_seller_id_by_shop_address( $this->seller_id );
+				}
+			}
+
+			if ( $this->seller_id > 0 ) {
+				$seller_info = $this->marketplace->wkmp_get_seller_info( $this->seller_id );
+				require_once __DIR__ . '/wkmp-seller-store-collection.php';
 			}
 		}
 

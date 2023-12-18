@@ -114,7 +114,7 @@ if ( ! class_exists( 'WKMP_Seller_Order_List' ) ) {
 			);
 
 			$orders      = $this->order_db_obj->wkmp_get_seller_orders( $this->seller_id, $filter_data );
-			$data        = $this->wkmp_get_table_data( $orders );
+			$data        = $this->wkmp_get_order_table_data( $orders );
 			$total_items = $this->order_db_obj->wkmp_get_total_seller_orders( $this->seller_id );
 
 			if ( 'order_id' !== $orderby ) { // Sorting is already being done in DB query based on 'order_id'.
@@ -271,10 +271,22 @@ if ( ! class_exists( 'WKMP_Seller_Order_List' ) ) {
 		 *
 		 * @return array
 		 */
-		private function wkmp_get_table_data( $orders ) {
+		private function wkmp_get_order_table_data( $orders ) {
 			$final_data = array();
+
 			foreach ( $orders as $order ) {
-				$order_info          = wc_get_order( $order['order_id'] );
+				$order_id = empty( $order['order_id'] ) ? 0 : intval( $order['order_id'] );
+
+				if ( empty( $order_id ) ) {
+					continue;
+				}
+
+				$order_info = wc_get_order( $order['order_id'] );
+
+				if ( ! $order_info instanceof \WC_Order ) {
+					continue;
+				}
+
 				$paid_status         = isset( $order['action'] ) ? $order['action'] : 'not_paid';
 				$total_seller_amount = isset( $order['total_seller_amount'] ) ? $order['total_seller_amount'] : 0;
 

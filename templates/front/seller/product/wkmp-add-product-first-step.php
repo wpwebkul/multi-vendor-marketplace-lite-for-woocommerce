@@ -46,21 +46,13 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 			</td>
 			<td>
 				<select name="product_type" id="product_type" class="mp-toggle-select">
-		<?php
-		foreach ( $mp_product_type as $key => $pro_type ) {
-			if ( $allowed_product_types ) {
-				if ( in_array( $key, $allowed_product_types, true ) ) {
+				<?php
+				foreach ( $mp_product_types as $key => $pro_type ) {
 					?>
 					<option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $pro_type ); ?></option>
 					<?php
 				}
-			} else {
 				?>
-					<option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $pro_type ); ?></option>
-						<?php
-			}
-		}
-		?>
 				</select>
 			</td>
 		</tr>

@@ -146,9 +146,10 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		/**
 		 * State by country code.
 		 */
-		public function wkmp_get_state_by_country_code() {
+		public function wkmp_get_seller_state_by_country_code() {
 			$json = array();
-			if ( ! check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && ! check_ajax_referer( 'wkmp-admin-nonce', 'wkmp_nonce', false ) && ! current_user_can( 'manage_options' ) ) {
+
+			if ( ! check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) || ! current_user_can( 'wk_marketplace_seller' ) ) {
 				$json['error']   = true;
 				$json['message'] = esc_html__( 'Security check failed!', 'wk-marketplace' );
 				wp_send_json( $json );
@@ -179,8 +180,8 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		/**
 		 * Add shipping Cost to zone.
 		 */
-		public function wkmp_save_shipping_cost() {
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'manage_options' ) ) {
+		public function wkmp_seller_save_shipping_cost() {
+			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 				$ship_cost  = \WK_Caching::wk_get_request_data( 'ship_cost', array( 'method' => 'post' ) );
 				$final_data = array();
 				parse_str( $ship_cost, $final_data );
@@ -195,8 +196,8 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		/**
 		 * Delete shipping Class.
 		 */
-		public function wkmp_delete_shipping_class() {
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'manage_options' ) ) {
+		public function wkmp_seller_delete_shipping_class() {
+			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 				$term_id = \WK_Caching::wk_get_request_data( 'get-term', array( 'method' => 'post' ) );
 				$resp    = array( 'success' => true );
 
@@ -221,7 +222,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		 * Add shipping Class.
 		 */
 		public function wkmp_add_shipping_class() {
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'manage_options' ) ) {
+			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 
 				$data = \WK_Caching::wk_get_request_data(
 					'data',
@@ -239,7 +240,6 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 					'redirect' => '',
 					'success'  => false,
 				);
-
 				parse_str( $data, $final_data );
 
 				$final_data = empty( $final_data ) ? array() : $final_data;
@@ -306,7 +306,6 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		 * Add shipping method to zone
 		 */
 		public function wkmp_seller_add_shipping_method() {
-
 			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 				$zone_id     = \WK_Caching::wk_get_request_data( 'zone-id', array( 'method' => 'post' ) );
 				$zone_status = $this->wkmp_is_valid_seller_zone_id( $zone_id );
@@ -347,7 +346,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		 * Delete Zone details list ajax.
 		 */
 		public function wkmp_del_zone() {
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'manage_options' ) ) {
+			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 				$wpdb_obj          = $this->wpdb;
 				$current_seller_id = get_current_user_id();
 				$zone_id           = \WK_Caching::wk_get_request_data( 'zone-id', array( 'method' => 'post' ) );
@@ -391,7 +390,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		 * Delete Shipping Method.
 		 */
 		public function wkmp_delete_shipping_method() {
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'manage_options' ) ) {
+			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 				$result     = array( 'success' => false );
 				$wpdb_obj   = $this->wpdb;
 				$table_name = $wpdb_obj->prefix . 'woocommerce_shipping_zone_methods';
@@ -515,7 +514,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 				'msg'     => esc_html__( 'Some error in removing, kindly reload the page and try again!!', 'wk-marketplace' ),
 			);
 
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'manage_options' ) ) {
+			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 				$var_id = \WK_Caching::wk_get_request_data( 'var_id', array( 'method' => 'post' ) );
 
 				if ( $var_id > 0 ) {

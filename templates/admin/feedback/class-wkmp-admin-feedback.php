@@ -244,11 +244,11 @@ if ( ! class_exists( 'WKMP_Admin_Feedback' ) ) {
 				check_admin_referer( 'bulk-' . $this->_args['plural'] );
 
 				$delete  = false;
-				$success = 0;
+				$success = 404;
 
 				$ids = \WK_Caching::wk_get_request_data( 'ids', array( 'flag' => 'array' ) );
 
-				if ( is_iterable( $ids ) ) {
+				if ( ! empty( $ids ) && is_iterable( $ids ) ) {
 					if ( $this->current_action() === esc_attr( 'approve' ) ) {
 						$status  = 1;
 						$success = 1;

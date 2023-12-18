@@ -39,9 +39,14 @@ if ( $post_row_data && intval( $product_auth ) === get_current_user_id() ) {
 		}
 	}
 
-	$mp_product_types = wc_get_product_types();
-	$thumbnail_img    = wp_get_attachment_image_src( get_post_meta( $wk_pro_id, '_thumbnail_id', true ) );
-	$thumbnail_image  = ( is_array( $thumbnail_img ) && count( $thumbnail_img ) > 0 ) ? $thumbnail_img[0] : '';
+	$wc_product_types = wc_get_product_types();
+	$allowed_types    = apply_filters( 'wkmp_allowed_product_types', array( 'simple', 'variable', 'grouped', 'external' ) );
+	$final_types      = array_intersect_key( $wc_product_types, array_flip( $allowed_types ) );
+	$seller_types     = get_option( '_wkmp_seller_allowed_product_types', array() );
+	$mp_product_types = empty( $seller_types ) ? $final_types : array_intersect_key( $final_types, array_flip( $seller_types ) );
+
+	$thumbnail_img   = wp_get_attachment_image_src( get_post_meta( $wk_pro_id, '_thumbnail_id', true ) );
+	$thumbnail_image = ( is_array( $thumbnail_img ) && count( $thumbnail_img ) > 0 ) ? $thumbnail_img[0] : '';
 	?>
 
 	<div class="add-product-form">

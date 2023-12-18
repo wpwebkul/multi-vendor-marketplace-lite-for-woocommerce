@@ -9,11 +9,11 @@
 defined( 'ABSPATH' ) || exit; // Exit if access directly.
 
 settings_errors();
-$categories = array();
-$types      = wc_get_product_types();
+$categories       = array();
+$wc_product_types = wc_get_product_types();
 
 $allowed_types = apply_filters( 'wkmp_allowed_product_types', array( 'simple', 'variable', 'grouped', 'external' ) );
-$final_types   = array_intersect_key( $types, array_flip( $allowed_types ) );
+$final_types   = array_intersect_key( $wc_product_types, array_flip( $allowed_types ) );
 ?>
 <form method="post" action="options.php">
 	<?php
@@ -61,7 +61,7 @@ $final_types   = array_intersect_key( $types, array_flip( $allowed_types ) );
 		'type'        => 'multi-select',
 		'label'       => esc_html__( 'Allowed Product Types', 'wk-marketplace' ),
 		'options'     => $final_types,
-		'description' => '',
+		'description' => wp_sprintf( /* translators: %1$d : Allowed product types count, %2$s: Allowed product types. */ esc_html__( 'If none selected, all %1$d products types (%2$s) will be allowed to seller.', 'wk-marketplace' ), count( $final_types ), implode( ',', $final_types ) ),
 		'value'       => get_option( '_wkmp_seller_allowed_product_types', array() ),
 		'placeholder' => esc_html__( 'Select product type', 'wk-marketplace' ) . '...',
 	);
@@ -70,7 +70,7 @@ $final_types   = array_intersect_key( $types, array_flip( $allowed_types ) );
 		'type'        => 'multi-select',
 		'label'       => esc_html__( 'Allowed Categories', 'wk-marketplace' ),
 		'options'     => $categories,
-		'description' => '',
+		'description' => esc_html__( 'If none selected, all available woocommerce categories will be allowed to seller.', 'wk-marketplace' ),
 		'value'       => get_option( '_wkmp_seller_allowed_categories' ),
 		'placeholder' => esc_html__( 'Select Categories', 'wk-marketplace' ) . '...',
 	);

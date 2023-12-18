@@ -7,7 +7,6 @@
 
 defined( 'ABSPATH' ) || exit; // Exit if access directly.
 ?>
-
 <div class="mp-profile-wrapper woocommerce">
 	<?php $this->wkmp_seller_profile_details_section( 'store-collection' ); ?>
 	<div class="mp-seller-recent-product">

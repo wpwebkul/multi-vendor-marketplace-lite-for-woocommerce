@@ -2,11 +2,11 @@
 Contributors: Webkul
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 Requires PHP: 7.4
-Tested up to PHP: 8.1
+Tested up to PHP: 8.2
 WC requires at least: 5.0
-WC tested up to: 8.3
+WC tested up to: 8.4
 WPML Compatible: yes
 Multisite Compatible: yes
 
@@ -31,6 +31,11 @@ No questions asked yet
 
 == Feel free to do so. ==
 For any Query please generate a ticket at https://webkul.com/ticket/
+
+== 1.0.7 (23-12-13) ==
+Added: A static function to get filtered data from global get and post variables.
+Added: Added notice wrapper function for dynamic notice html with WP-6.4
+Updated: Tested upto values for php-8.2 and wc-8.4
 
 == 1.0.6 (23-11-17) ==
 Removed: Some unnecessary log.

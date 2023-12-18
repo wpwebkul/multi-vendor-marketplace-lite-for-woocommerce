@@ -80,12 +80,29 @@ if ( ! class_exists( 'WKMP_Seller_Profile_Form' ) ) {
 			);
 
 			do_action( 'wkmp_before_seller_profile_form', $seller_info, $posted_data );
+
+			$seller_profile = site_url() . '/' . $this->marketplace->seller_page_slug . '/' . get_option( '_wkmp_store_endpoint', 'seller-store' ) . '/';
+
+			$shopurl_visibility = get_option( 'wkmp_shop_url_visibility', 'required' );
+			$no_slug            = true;
+
+			if ( 'remove' !== $shopurl_visibility ) {
+				$shop_slug = get_user_meta( $seller_id, 'shop_address', true );
+				if ( ! empty( $shop_slug ) ) {
+					$seller_profile .= $shop_slug;
+					$no_slug         = false;
+				}
+			}
+
+			if ( $no_slug ) {
+				$seller_profile .= $seller_id;
+			}
 			?>
 
 			<div class="wkmp-table-action-wrap">
 				<div class="wkmp-action-section right wkmp-text-right">
 					<button type="submit" class="button" form="wkmp-seller-profile"><?php esc_html_e( 'Save', 'wk-marketplace' ); ?></button>&nbsp;&nbsp;
-					<a href="<?php echo esc_url( get_permalink( get_option( 'wkmp_seller_page_id' ) ) . get_option( '_wkmp_store_endpoint', 'seller-store' ) . '/' . $seller_id ); ?>" class="button" title="<?php esc_attr_e( 'View Profile', 'wk-marketplace' ); ?>" target="_blank"> <?php esc_html_e( 'View Profile', 'wk-marketplace' ); ?></a>
+					<a href="<?php echo esc_url( $seller_profile ); ?>" class="button" title="<?php esc_attr_e( 'View Profile', 'wk-marketplace' ); ?>" target="_blank"> <?php esc_html_e( 'View Profile', 'wk-marketplace' ); ?></a>
 				</div>
 			</div>
 
@@ -147,7 +164,7 @@ if ( ! class_exists( 'WKMP_Seller_Profile_Form' ) ) {
 
 						<div class="form-group">
 							<label for="phone-number"><?php esc_html_e( 'Phone Number', 'wk-marketplace' ); ?></label>
-							<input class="form-control" type="text" name="wkmp_shop_phone" id="phone-number" value="<?php echo esc_attr( $seller_info['wkmp_shop_phone'] ); ?>">
+							<input placeholder="<?php esc_attr_e( 'Enter a valid phone number from 4 to 15 characters.', 'wk-marketplace' ); ?>" class="form-control" type="text" name="wkmp_shop_phone" id="phone-number" value="<?php echo esc_attr( $seller_info['wkmp_shop_phone'] ); ?>">
 							<div class="wkmp-text-danger"><?php echo isset( $errors['wkmp_shop_phone'] ) ? esc_html( $errors['wkmp_shop_phone'] ) : ''; ?></div>
 						</div>
 

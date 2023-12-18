@@ -951,7 +951,7 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 		}
 
 		/**
-		 * Hide other seller's post comemnts.
+		 * Hide other seller's post comments.
 		 *
 		 * @param array $args Comment args.
 		 *
@@ -973,6 +973,26 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 			}
 
 			return $args;
+
+		}
+
+		/**
+		 * Remove marketplace seller role from change role to Dropdown on WP Users table.
+		 *
+		 * @param array $editable_roles Editable roles.
+		 *
+		 * @hooked 'editable_roles' filter hook.
+		 *
+		 * @return array
+		 */
+		public function wkmp_remove_seller_from_change_role_to( $editable_roles ) {
+			global $pagenow;
+
+			if ( 'users.php' === $pagenow && array_key_exists( 'wk_marketplace_seller', $editable_roles ) ) {
+				unset( $editable_roles['wk_marketplace_seller'] );
+			}
+
+			return $editable_roles;
 
 		}
 	}

@@ -30,13 +30,13 @@ if ( ! empty( $seller_email ) ) {
 	$display_name = $wkmarketplace->wkmp_get_user_display_name( 0, $seller_user );
 }
 
-echo '= ' . wp_kses_post( utf8_decode( $email_heading ) ) . " =\n\n";
+echo '= ' . wp_kses_post( mb_convert_encoding( $email_heading, 'UTF-8' ) ) . " =\n\n";
 
 $date_string = empty( $data['date_string'] ) ? gmdate( 'Y-m-d H:i:s' ) : $data['date_string'];
 
-echo sprintf( /* translators: %s: Login URL. */ esc_html__( 'Hi %s,', 'wk-marketplace' ), esc_attr( utf8_decode( $display_name ) ) ) . "\n\n";
+echo sprintf( /* translators: %s: Login URL. */ esc_html__( 'Hi %s,', 'wk-marketplace' ), esc_attr( mb_convert_encoding( $display_name, 'UTF-8' ) ) ) . "\n\n";
 
-$result = utf8_decode( esc_html__( 'You have received an order from', 'wk-marketplace' ) ) . '&nbsp;' . utf8_decode( $seller_order->get_formatted_billing_full_name() ) . "\n\n" . 'Order #' . $seller_order->get_ID() . ' (' . $date_string . ') ' . "\n\n";
+$result = esc_html__( 'You have received an order from', 'wk-marketplace' ) . '&nbsp;' . mb_convert_encoding( $seller_order->get_formatted_billing_full_name(), 'UTF-8' ) . "\n\n" . 'Order #' . $seller_order->get_ID() . ' (' . $date_string . ') ' . "\n\n";
 
 foreach ( $product_details as $product_id => $details ) {
 	$product  = new WC_Product( $product_id );
@@ -47,8 +47,8 @@ foreach ( $product_details as $product_id => $details ) {
 	for ( $i = 0; $i < $detail_c; ++ $i ) {
 		$total_payment = floatval( $total_payment ) + floatval( $details[ $i ]['product_total_price'] ) + floatval( $seller_order->get_total_shipping() );
 		if ( 0 === intval( $details[ $i ]['variable_id'] ) ) {
-			$result .= utf8_decode( $details[ $i ]['product_name'] );
-			$result .= empty( $common_functions ) ? '' : utf8_decode( esc_html__( ' SKU: ', 'wk-marketplace' ) ) . $common_functions->wkmp_get_sku( $product );
+			$result .= mb_convert_encoding( $details[ $i ]['product_name'], 'UTF-8' );
+			$result .= empty( $common_functions ) ? '' : esc_html__( ' SKU: ', 'wk-marketplace' ) . $common_functions->wkmp_get_sku( $product );
 			$result .= ' X ' . $details[ $i ]['qty'] . ' = ' . $seller_order->get_currency() . ' ' . $details[ $i ]['product_total_price'] . "\n\n";
 		} else {
 			$attributes = $product->get_attributes();
@@ -57,9 +57,9 @@ foreach ( $product_details as $product_id => $details ) {
 			foreach ( $attributes as $key => $value ) {
 				$attribute_name .= ' ' . $value['name'];
 			}
-			$result .= utf8_decode( $details[ $i ]['product_name'] ) . $attribute_name;
+			$result .= mb_convert_encoding( $details[ $i ]['product_name'], 'UTF-8' ) . $attribute_name;
 
-			$result .= empty( $common_functions ) ? '' : utf8_decode( esc_html__( ' SKU: ', 'wk-marketplace' ) ) . $common_functions->wkmp_get_sku( $product );
+			$result .= empty( $common_functions ) ? '' : esc_html__( ' SKU: ', 'wk-marketplace' ) . $common_functions->wkmp_get_sku( $product );
 
 			if ( ! empty( $details[ $i ]['meta_data'] ) ) {
 				foreach ( $details[ $i ]['meta_data'] as $m_data ) {
@@ -74,11 +74,11 @@ foreach ( $product_details as $product_id => $details ) {
 
 if ( ! empty( $total_discount ) ) {
 	$total_payment -= $total_discount;
-	$result        .= utf8_decode( esc_html__( 'Discount', 'wk-marketplace' ) ) . ' : -' . wc_price( $total_discount, array( 'currency' => $seller_order->get_currency() ) ) . "\n\n";
+	$result        .= esc_html__( 'Discount: ', 'wk-marketplace' ) . wc_price( $total_discount, array( 'currency' => $seller_order->get_currency() ) ) . "\n\n";
 }
 
 if ( ! empty( $shipping_method ) ) :
-	$result .= utf8_decode( esc_html__( 'Shipping', 'wk-marketplace' ) ) . ' : ' . wc_price( ( $seller_order->get_total_shipping() ? $seller_order->get_total_shipping() : 0 ), array( 'currency' => $seller_order->get_currency() ) ) . "\n\n";
+	$result .= esc_html__( 'Shipping: ', 'wk-marketplace' ) . wc_price( ( $seller_order->get_total_shipping() ? $seller_order->get_total_shipping() : 0 ), array( 'currency' => $seller_order->get_currency() ) ) . "\n\n";
 endif;
 
 $total_fee_amount = 0;
@@ -90,38 +90,38 @@ if ( ! empty( $fees ) ) {
 
 		$total_fee_amount += $fee_amount;
 
-		$result .= utf8_decode( $fee_name ) . ' : ' . wc_price( $fee_amount, array( 'currency' => $seller_order->get_currency() ) ) . "\n\n";
+		$result .= mb_convert_encoding( $fee_name, 'UTF-8' ) . ' : ' . wc_price( $fee_amount, array( 'currency' => $seller_order->get_currency() ) ) . "\n\n";
 	}
 }
 
 $total_payment += $total_fee_amount;
 
 if ( ! empty( $payment_method ) ) :
-	$result .= utf8_decode( esc_html__( 'Payment Method', 'wk-marketplace' ) ) . ' : ' . $payment_method . "\n\n";
+	$result .= esc_html__( 'Payment Method: ', 'wk-marketplace' ) . $payment_method . "\n\n";
 endif;
 
-$result .= utf8_decode( esc_html__( 'Total', 'wk-marketplace' ) ) . ' : ' . wc_price( $total_payment, array( 'currency' => $seller_order->get_currency() ) ) . "\n\n";
+$result .= esc_html__( 'Total: ', 'wk-marketplace' ) . wc_price( $total_payment, array( 'currency' => $seller_order->get_currency() ) ) . "\n\n";
 
 $text_align = is_rtl() ? 'right' : 'left';
 
-$result .= utf8_decode( esc_html__( 'Billing address', 'wk-marketplace' ) ) . ' : ' . "\n\n";
+$result .= esc_html__( 'Billing address: ', 'wk-marketplace' ) . "\n\n";
 
 foreach ( $seller_order->get_address( 'billing' ) as $add ) {
 	if ( $add ) {
-		$result .= utf8_decode( $add ) . "\n";
+		$result .= mb_convert_encoding( $add, 'UTF-8' ) . "\n";
 	}
 }
 if ( ! wc_ship_to_billing_address_only() && $seller_order->needs_shipping_address() ) :
 	$shipping = '';
 	if ( $seller_order->get_formatted_shipping_address() ) :
-		$shipping = utf8_decode( $seller_order->get_formatted_shipping_address() );
+		$shipping = mb_convert_encoding( $seller_order->get_formatted_shipping_address(), 'UTF-8' );
 	endif;
 
 	if ( ! empty( $shiping ) ) {
-		$result .= utf8_decode( esc_html__( 'Shipping address', 'wk-marketplace' ) ) . ' : ' . "\n\n";
+		$result .= esc_html__( 'Shipping address: ', 'wk-marketplace' ) . "\n\n";
 		foreach ( $seller_order->get_address( 'billing' ) as $add ) {
 			if ( $add ) {
-				$result .= utf8_decode( $add ) . "\n";
+				$result .= mb_convert_encoding( $add, 'UTF-8' ) . "\n";
 			}
 		}
 	}

@@ -159,7 +159,6 @@ Customers receive email notifications when a favorite seller sends out a notific
 - **Assign Seller** - Admin can assign or change a product to an available seller.
 
 - **Filter & Search Seller** - Admin can search and filter from the seller's list.
-
 - **Disable Auto Approve** - Admin can disable seller auto approve on registration and review the profile.
 
 - **Seller Backend Dashboard** - Admin can allow sellers to have a separate admin-like backend dashboard.
@@ -233,8 +232,12 @@ For any Query please generate a ticket at https://webkul.com/ticket/
 
 == Changelog ==
 
-= 1.0.0 - 2023-12-22 =
-Initial public release
+= 1.0.0 - 2023-12-29 =
+Initial Public release.
+
+= 0.9.2 - 2023-12-13 =
+Fixed: Nonce verification and security issues across the plugin.
+Fixed: Issue with variation product not creating properly on seller end.
 
 = 0.9.1 - 2023-12-06 =
 Fixed: Pro notice sending in admin emails without checking pro plugin.

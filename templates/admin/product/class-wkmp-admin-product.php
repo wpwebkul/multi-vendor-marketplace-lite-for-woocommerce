@@ -316,9 +316,9 @@ if ( ! class_exists( 'WKMP_Admin_Product' ) ) {
 			if ( $this->current_action() === esc_attr( 'trash' ) ) {
 				$ids = \WK_Caching::wk_get_request_data( 'ids', array( 'flag' => 'array' ) );
 
-				$success = 0;
+				$success = 404;
 
-				if ( is_iterable( $ids ) ) {
+				if ( ! empty( $ids ) && is_iterable( $ids ) ) {
 					foreach ( $ids as $id ) {
 						$product_trashed = array(
 							'ID'          => $id,

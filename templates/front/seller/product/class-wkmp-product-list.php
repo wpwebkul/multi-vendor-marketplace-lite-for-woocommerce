@@ -104,6 +104,7 @@ if ( ! class_exists( 'WKMP_Product_List' ) ) {
 				$posted_data['product_name'] = \WK_Caching::wk_get_request_data( 'product_name', $args );
 
 				$args['filter']            = 'float';
+				$args['default']           = '';
 				$posted_data['regu_price'] = \WK_Caching::wk_get_request_data( 'regu_price', $args );
 				$posted_data['sale_price'] = \WK_Caching::wk_get_request_data( 'sale_price', $args );
 
@@ -357,7 +358,6 @@ if ( ! class_exists( 'WKMP_Product_List' ) ) {
 						wp_set_object_terms( $sell_pr_id, $product_type, 'product_type', false );
 					}
 
-					$args['flag']    = 'array';
 					$args['default'] = '';
 					$args['filter']  = '';
 

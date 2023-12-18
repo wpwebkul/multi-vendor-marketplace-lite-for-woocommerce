@@ -30,8 +30,8 @@ require_once WKMP_LITE_PLUGIN_FILE . '/templates/common/wkmp-order-invoice-heade
 				<b><?php echo esc_html( $seller_info->shop_name ); ?></b><br>
 				<?php echo esc_html( $seller_info->first_name . ' ' . $seller_info->last_name ); ?><br>
 				<?php echo esc_html( $city_country ); ?><br>
-				<b><?php esc_html_e( 'Email :', 'wk-marketplace' ); ?></b><?php echo esc_html( $seller_info->user_email ); ?><br>
-				<b><?php esc_html_e( 'Profile Link :', 'wk-marketplace' ); ?></b>
+				<b><?php esc_html_e( 'Email: ', 'wk-marketplace' ); ?></b><a href="mailto:<?php echo esc_attr( $seller_info->user_email ); ?>"><?php echo esc_html( $seller_info->user_email ); ?></a><br>
+				<b><?php esc_html_e( 'Profile Link: ', 'wk-marketplace' ); ?></b>
 				<a href="<?php echo esc_url( $data['store_url'] ); ?>" target="_blank"><?php echo esc_url( $data['store_url'] ); ?></a>
 			</td>
 			<td>
@@ -55,11 +55,11 @@ require_once WKMP_LITE_PLUGIN_FILE . '/templates/common/wkmp-order-invoice-heade
 		</tr>
 		<tr>
 			<td><b><?php esc_html_e( 'Email', 'wk-marketplace' ); ?></b></td>
-			<td data-title="<?php esc_attr_e( 'Email', 'wk-marketplace' ); ?>"><?php echo esc_html( $data['customer_details']['email'] ); ?></td>
+			<td data-title="<?php esc_attr_e( 'Email', 'wk-marketplace' ); ?>"><a href="mailto:<?php echo esc_attr( $data['customer_details']['email'] ); ?>"><?php echo esc_html( $data['customer_details']['email'] ); ?></a></td>
 		</tr>
 		<tr class="alt-table-row">
 			<td><b><?php esc_html_e( 'Telephone', 'wk-marketplace' ); ?></b></td>
-			<td data-title="<?php esc_attr_e( 'Telephone', 'wk-marketplace' ); ?>"><?php echo esc_html( $data['customer_details']['telephone'] ); ?></td>
+			<td data-title="<?php esc_attr_e( 'Telephone', 'wk-marketplace' ); ?>"><a class="wkmp-seller-detail-phone" href="tel:<?php echo esc_attr( $data['customer_details']['telephone'] ); ?>"><?php echo esc_html( $data['customer_details']['telephone'] ); ?></a></td>
 		</tr>
 		</tbody>
 	</table>

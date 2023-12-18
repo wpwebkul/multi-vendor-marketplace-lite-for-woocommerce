@@ -50,9 +50,9 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 
 		<div class="wk-mp-side-body" style="display:<?php echo ( isset( $meta_arr['_downloadable'] ) && 'yes' === $meta_arr['_downloadable'] ) ? 'block' : 'none'; ?>">
 			<?php $mp_downloadable_files = get_post_meta( $wk_pro_id, '_downloadable_files', true ); ?>
-			<div class="form-field downloadable_files">
+			<div class="form-field downloadable_files wkmp-table-responsive">
 				<label><?php esc_html_e( 'Downloadable files', 'wk-marketplace' ); ?></label>
-				<table class="widefat">
+				<table style="display: table;" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
 					<thead>
 					<tr>
 						<th><?php esc_html_e( 'Name', 'wk-marketplace' ); ?></th>
@@ -86,15 +86,11 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 								<td class="file_name">
 									<input type="text" class="input_text" placeholder="<?php esc_attr_e( 'File name', 'wk-marketplace' ); ?>" name="_mp_dwnld_file_names[]" value="<?php echo esc_attr( $file_name ); ?>" />
 									<input type="hidden" name="_mp_dwnld_file_hashes[]" value="<?php echo esc_attr( $key ); ?>" />
+									<a href="#" id="delprod" class="mp-action delete"><?php esc_html_e( 'Delete', 'wk-marketplace' ); ?></a>
 								</td>
 								<td class="file_url">
 									<input type="text" class="input_text" placeholder="<?php esc_attr_e( 'http://', 'wk-marketplace' ); ?>" name="_mp_dwnld_file_urls[]" value="<?php echo esc_attr( $file['file'] ); ?>" />
-								</td>
-								<td class="file_url_choose" width="25%">
 									<a href="#" class="button upload_file_button upload_downloadable_file" data-choose="<?php esc_attr_e( 'Choose file', 'wk-marketplace' ); ?>" data-update="<?php esc_attr_e( 'Insert file URL', 'wk-marketplace' ); ?>"><?php esc_html_e( 'Choose file', 'wk-marketplace' ); ?></a>
-								</td>
-								<td width="1%">
-									<a href="#" id="delprod" class="mp-action delete"><?php esc_html_e( 'Delete', 'wk-marketplace' ); ?></a>
 								</td>
 							</tr>
 							<?php echo esc_attr( ob_get_clean() ); ?>">
@@ -109,8 +105,8 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 			$download_limit  = isset( $meta_arr['_download_limit'] ) ? $meta_arr['_download_limit'] : '';
 			$download_expiry = isset( $meta_arr['_download_expiry '] ) ? $meta_arr['_download_expiry '] : '';
 
-			$download_limit_value  = ( '-1' === $download_limit ) ? $download_limit : '';
-			$download_expiry_value = ( '-1' === $download_expiry ) ? $download_expiry : '';
+			$download_limit_value  = ( $download_limit > 0 ) ? $download_limit : '';
+			$download_expiry_value = ( $download_expiry > 0 ) ? $download_expiry : '';
 			?>
 			<p class="form-field _download_limit_field wkmp_profile_input">
 				<label for="_download_limit"><?php esc_html_e( 'Download limit', 'wk-marketplace' ); ?></label>

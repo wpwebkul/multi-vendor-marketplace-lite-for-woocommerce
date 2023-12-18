@@ -7,9 +7,9 @@
  * @version 5.0.0
  */
 
-use WkMarketplace\Includes\Shipping;
-
 defined( 'ABSPATH' ) || exit; // Exit if access directly.
+
+use WkMarketplace\Includes\Shipping;
 
 if ( ! class_exists( 'WKMP_Local_Pickup_Shipping_Method' ) ) {
 	/**
