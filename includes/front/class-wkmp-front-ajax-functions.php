@@ -642,8 +642,8 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		 *
 		 * @return void
 		 */
-		public function wkmp_delete_seller_product() {
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) ) {
+		public function wkmp_delete_seller_selected_product() {
+			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 				$product_id = \WK_Caching::wk_get_request_data( 'product_id', array( 'method' => 'post' ) );
 
 				$resp = array(

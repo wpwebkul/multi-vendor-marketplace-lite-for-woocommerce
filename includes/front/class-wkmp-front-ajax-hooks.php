@@ -31,7 +31,6 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Hooks' ) ) {
 			add_action( 'wp_ajax_wkmp_check_shop_url', array( $function_handler, 'wkmp_check_for_shop_url' ) );
 
 			add_action( 'wp_ajax_wkmp_add_favourite_seller', array( $function_handler, 'wkmp_update_favourite_seller' ) );
-
 			add_action( 'wp_ajax_wkmp_get_state_by_country_code', array( $function_handler, 'wkmp_get_seller_state_by_country_code' ) );
 
 			add_action( 'wp_ajax_wkmp_save_shipping_cost', array( $function_handler, 'wkmp_seller_save_shipping_cost' ) );
@@ -48,7 +47,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Hooks' ) ) {
 			add_action( 'wp_ajax_wkmp_product_sku_validation', array( $function_handler, 'wkmp_validate_seller_product_sku' ) );
 
 			add_action( 'wp_ajax_wkmp_change_frontend_seller_dashboard', array( $function_handler, 'wkmp_change_dashboard_to_backend_seller' ) );
-			add_action( 'wp_ajax_wkmp_delete_seller_product', array( $function_handler, 'wkmp_delete_seller_product' ) );
+			add_action( 'wp_ajax_wkmp_delete_seller_product', array( $function_handler, 'wkmp_delete_seller_selected_product' ) );
 		}
 
 		/**

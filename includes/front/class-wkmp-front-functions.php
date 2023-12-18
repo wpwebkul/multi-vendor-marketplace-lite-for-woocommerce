@@ -111,7 +111,7 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 				'mkt20'              => esc_html__( 'Email Id Already Registered', 'wk-marketplace' ),
 				'mkt21'              => esc_html__( 'Email address is not valid', 'wk-marketplace' ),
 				'mkt22'              => esc_html__( 'select seller option', 'wk-marketplace' ),
-				'mkt23'              => esc_html__( 'seller store name is too short,contain white space or empty', 'wk-marketplace' ),
+				'mkt23'              => esc_html__( 'Seller store name is too short,contain white space or empty', 'wk-marketplace' ),
 				'mkt24'              => esc_html__( 'Address is too short or empty', 'wk-marketplace' ),
 				'mkt25'              => esc_html__( 'Subject field can not be blank.', 'wk-marketplace' ),
 				'mkt26'              => esc_html__( 'Subject not valid.', 'wk-marketplace' ),
@@ -180,6 +180,7 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 				array(
 					'ajax'                    => $ajax_obj,
 					'delete_product_alert'    => esc_html__( 'Are you sure you want to delete product(s)?', 'wk-marketplace' ),
+					'none_selected'           => esc_html__( 'Please select some checkbox to proceed.', 'wk-marketplace' ),
 					'delete_fav_seller_alert' => esc_html__( 'Are you sure you want to delete favorite seller(s)?', 'wk-marketplace' ),
 					'mkt_tr'                  => $mkt_tr_arr,
 					'wkmp_authorize_error'    => esc_html__( 'You are not authorized to perform this action.', 'wk-marketplace' ),

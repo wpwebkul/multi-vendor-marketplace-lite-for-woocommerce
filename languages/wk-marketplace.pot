@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-18T19:20:32+05:30\n"
+"POT-Creation-Date: 2023-12-18T20:05:14+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: wk-marketplace\n"
@@ -164,7 +164,7 @@ msgstr ""
 #: includes/admin/class-wkmp-admin-functions.php:267
 #: includes/admin/class-wkmp-admin-functions.php:293
 #: includes/admin/class-wkmp-admin-functions.php:305
-#: includes/front/class-wkmp-front-functions.php:485
+#: includes/front/class-wkmp-front-functions.php:486
 #: templates/front/class-wkmp-front-template-functions.php:213
 msgid "Marketplace"
 msgstr ""
@@ -176,7 +176,7 @@ msgstr ""
 
 #: includes/admin/class-wkmp-admin-functions.php:221
 #: includes/admin/class-wkmp-admin-functions.php:222
-#: includes/front/class-wkmp-front-functions.php:486
+#: includes/front/class-wkmp-front-functions.php:487
 #: templates/front/class-wkmp-front-template-functions.php:222
 msgid "Products"
 msgstr ""
@@ -184,7 +184,7 @@ msgstr ""
 #: includes/admin/class-wkmp-admin-functions.php:233
 #: includes/admin/class-wkmp-admin-functions.php:234
 #: includes/class-wkmp-install.php:471
-#: includes/front/class-wkmp-front-functions.php:493
+#: includes/front/class-wkmp-front-functions.php:494
 #: templates/admin/notification/class-wkmp-notification-templates-handler.php:81
 #: templates/admin/settings/wkmp-endpoint-settings-content.php:60
 #: templates/front/class-wkmp-front-template-functions.php:276
@@ -502,7 +502,7 @@ msgid "Recent Product from Seller"
 msgstr ""
 
 #: includes/class-wkmp-install.php:470
-#: includes/front/class-wkmp-front-functions.php:488
+#: includes/front/class-wkmp-front-functions.php:489
 #: templates/admin/seller/class-wkmp-seller-templates-handler.php:97
 #: templates/admin/settings/wkmp-endpoint-settings-content.php:52
 #: templates/front/class-wkmp-front-template-functions.php:258
@@ -510,7 +510,7 @@ msgid "Transactions"
 msgstr ""
 
 #: includes/class-wkmp-install.php:472
-#: includes/front/class-wkmp-front-functions.php:494
+#: includes/front/class-wkmp-front-functions.php:495
 #: templates/admin/settings/wkmp-endpoint-settings-content.php:64
 #: templates/front/class-wkmp-front-template-functions.php:285
 msgid "Shop Followers"
@@ -1118,17 +1118,17 @@ msgid " has requested to publish a product: "
 msgstr ""
 
 #: includes/front/class-wkmp-front-ajax-functions.php:72
-#: includes/front/class-wkmp-front-functions.php:323
+#: includes/front/class-wkmp-front-functions.php:324
 msgid "You can not use special characters in shop url except HYPHEN(-)."
 msgstr ""
 
 #: includes/front/class-wkmp-front-ajax-functions.php:77
-#: includes/front/class-wkmp-front-functions.php:325
+#: includes/front/class-wkmp-front-functions.php:326
 msgid "White space(s) aren't allowed in shop url."
 msgstr ""
 
 #: includes/front/class-wkmp-front-ajax-functions.php:82
-#: includes/front/class-wkmp-front-functions.php:327
+#: includes/front/class-wkmp-front-functions.php:328
 msgid "This shop URl already EXISTS, please try different shop url."
 msgstr ""
 
@@ -1320,7 +1320,7 @@ msgid "select seller option"
 msgstr ""
 
 #: includes/front/class-wkmp-front-functions.php:114
-msgid "seller store name is too short,contain white space or empty"
+msgid "Seller store name is too short,contain white space or empty"
 msgstr ""
 
 #: includes/front/class-wkmp-front-functions.php:115
@@ -1553,77 +1553,81 @@ msgid "Are you sure you want to delete product(s)?"
 msgstr ""
 
 #: includes/front/class-wkmp-front-functions.php:183
+msgid "Please select some checkbox to proceed."
+msgstr ""
+
+#: includes/front/class-wkmp-front-functions.php:184
 msgid "Are you sure you want to delete favorite seller(s)?"
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:185
+#: includes/front/class-wkmp-front-functions.php:186
 msgid "You are not authorized to perform this action."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:281
+#: includes/front/class-wkmp-front-functions.php:282
 msgid "New Seller registration is now allowed. Contact administrator to upgrade the Marketplace plugin to pro version."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:300
+#: includes/front/class-wkmp-front-functions.php:301
 msgid "Please enter your first name."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:304
+#: includes/front/class-wkmp-front-functions.php:305
 msgid "Please enter your last name."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:308
+#: includes/front/class-wkmp-front-functions.php:309
 msgid "Please accept sign up terms and conditions."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:314
+#: includes/front/class-wkmp-front-functions.php:315
 msgid "Please enter your shop name."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:321
+#: includes/front/class-wkmp-front-functions.php:322
 msgid "Please enter valid shop URL."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:332
+#: includes/front/class-wkmp-front-functions.php:333
 msgid "Please enter your phone number."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:334
+#: includes/front/class-wkmp-front-functions.php:335
 msgid "Please enter valid phone number."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:433
+#: includes/front/class-wkmp-front-functions.php:434
 msgid "Registration complete check your mail for password!"
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:487
+#: includes/front/class-wkmp-front-functions.php:488
 #: templates/front/class-wkmp-front-template-functions.php:249
 msgid "Order History"
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:492
+#: includes/front/class-wkmp-front-functions.php:493
 #: templates/admin/settings/wkmp-endpoint-settings-content.php:56
 #: templates/front/class-wkmp-front-template-functions.php:267
 msgid "My Profile"
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:497
+#: includes/front/class-wkmp-front-functions.php:498
 #: templates/front/class-wkmp-front-template-functions.php:294
 msgid "Ask Admin"
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:977
+#: includes/front/class-wkmp-front-functions.php:978
 #: templates/front/seller/profile/class-wkmp-profile-info.php:77
 msgid "Your seller account is under review and will be approved by the admin."
 msgstr ""
 
 #. translators: %1$s: Shop name, %2$s: Minimum amount, %3$s: Current total.
-#: includes/front/class-wkmp-front-functions.php:1177
+#: includes/front/class-wkmp-front-functions.php:1178
 msgid "Minimum products total for %1$s Shop product(s) should be %2$s. Current total (inclusive tax) is: %3$s."
 msgstr ""
 
 #. translators: %1$s: Shop name, %2$s: Minimum amount.
-#: includes/front/class-wkmp-front-functions.php:1195
+#: includes/front/class-wkmp-front-functions.php:1196
 msgid "Sorry, but you can only add maximum %1$s quantity of %2$s in this cart."
 msgstr ""
 
