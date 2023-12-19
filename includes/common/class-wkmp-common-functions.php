@@ -609,14 +609,13 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 		public static function wkmp_restrict_media_library( $wp_query_obj ) {
 			global $current_user, $pagenow;
 
-			if ( ! is_a( $current_user, 'WP_User' ) || ! current_user_can( 'delete_pages' ) ) {
-				return;
-			}
+			if ( is_a( $current_user, 'WP_User' ) && current_user_can( 'wk_marketplace_seller' ) ) {
 
-			$media_action = \WK_Caching::wk_get_request_data( 'action' );
+				$media_action = \WK_Caching::wk_get_request_data( 'action' );
 
-			if ( in_array( $pagenow, array( 'upload.php', 'admin-ajax.php', 'edit.php' ), true ) || 'query-attachments' === $media_action ) {
-				$wp_query_obj->set( 'author', $current_user->ID );
+				if ( 'upload.php' === $pagenow || 'query-attachments' === $media_action ) {
+					$wp_query_obj->set( 'author', $current_user->ID );
+				}
 			}
 		}
 

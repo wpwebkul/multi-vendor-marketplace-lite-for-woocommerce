@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Multi-Vendor Marketplace Lite for WooCommerce 1.0.0\n"
+"Project-Id-Version: Multi-Vendor Marketplace Lite for WooCommerce 0.9.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wk-marketplace\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-18T20:05:14+05:30\n"
+"POT-Creation-Date: 2023-12-19T19:39:44+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: wk-marketplace\n"
@@ -538,44 +538,44 @@ msgstr ""
 msgid "Frontend Seller Dashboard"
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:654
+#: includes/common/class-wkmp-common-functions.php:653
 msgid "Enter the valid E-Mail"
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:659
+#: includes/common/class-wkmp-common-functions.php:658
 msgid "Email already exists."
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:664
-#: includes/common/class-wkmp-common-functions.php:668
+#: includes/common/class-wkmp-common-functions.php:663
+#: includes/common/class-wkmp-common-functions.php:667
 msgid "Only letters and numbers are allowed."
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:675
+#: includes/common/class-wkmp-common-functions.php:674
 msgid "Enter a valid shop name."
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:680
+#: includes/common/class-wkmp-common-functions.php:679
 msgid "Enter the valid phone number"
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:682
+#: includes/common/class-wkmp-common-functions.php:681
 msgid "Enter the valid phone number of required length from 4 to 15 characters."
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:686
+#: includes/common/class-wkmp-common-functions.php:685
 msgid "Enter the valid post code"
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:811
+#: includes/common/class-wkmp-common-functions.php:810
 msgid "File size too large "
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:831
+#: includes/common/class-wkmp-common-functions.php:830
 msgid "Upload valid image only"
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:969
+#: includes/common/class-wkmp-common-functions.php:968
 msgid "Sold By"
 msgstr ""
 
@@ -1192,18 +1192,18 @@ msgid "SKU is OK"
 msgstr ""
 
 #: includes/front/class-wkmp-front-ajax-functions.php:593
-#: templates/front/seller/product/wkmp-variations.php:168
-#: templates/front/seller/product/wkmp-variations.php:169
+#: templates/front/seller/product/wkmp-variations.php:175
+#: templates/front/seller/product/wkmp-variations.php:176
 msgid "File Name"
 msgstr ""
 
 #: includes/front/class-wkmp-front-ajax-functions.php:597
-#: templates/front/seller/product/wkmp-variations.php:172
+#: templates/front/seller/product/wkmp-variations.php:179
 msgid "File Url"
 msgstr ""
 
 #: includes/front/class-wkmp-front-ajax-functions.php:599
-#: templates/front/seller/product/wkmp-variations.php:174
+#: templates/front/seller/product/wkmp-variations.php:181
 msgid "Choose&nbsp;file"
 msgstr ""
 
@@ -1218,7 +1218,7 @@ msgstr ""
 #: templates/front/seller/product/wkmp-product-edit-tab-status.php:138
 #: templates/front/seller/product/wkmp-seller-product-list.php:15
 #: templates/front/seller/product/wkmp-seller-product-list.php:62
-#: templates/front/seller/product/wkmp-variations.php:175
+#: templates/front/seller/product/wkmp-variations.php:182
 msgid "Delete"
 msgstr ""
 
@@ -1227,7 +1227,7 @@ msgid "Unable to delete the product. Please try again later!!"
 msgstr ""
 
 #: includes/front/class-wkmp-front-ajax-functions.php:659
-#: templates/front/seller/product/class-wkmp-product-list.php:208
+#: templates/front/seller/product/class-wkmp-product-list.php:209
 msgid "Product(s) deleted successfully."
 msgstr ""
 
@@ -1364,7 +1364,7 @@ msgstr ""
 #: templates/admin/settings/wkmp-general-settings-content.php:291
 #: templates/front/seller/product/wkmp-product-edit-tab-attributes.php:31
 #: templates/front/seller/product/wkmp-product-edit-tab.php:100
-#: templates/front/seller/product/wkmp-variations.php:55
+#: templates/front/seller/product/wkmp-variations.php:62
 #: templates/front/seller/profile/class-wkmp-seller-profile-form.php:283
 #: templates/front/seller/profile/class-wkmp-seller-profile-form.php:299
 #: templates/front/seller/profile/class-wkmp-seller-profile-form.php:324
@@ -2033,7 +2033,7 @@ msgid "Image"
 msgstr ""
 
 #: templates/admin/product/class-wkmp-admin-product.php:211
-#: templates/front/seller/product/wkmp-variations.php:216
+#: templates/front/seller/product/wkmp-variations.php:223
 msgid "SKU"
 msgstr ""
 
@@ -3561,7 +3561,7 @@ msgstr ""
 msgid "Sorry!! security check failed. Please try again!!"
 msgstr ""
 
-#: templates/front/seller/product/class-wkmp-product-form.php:416
+#: templates/front/seller/product/class-wkmp-product-form.php:417
 msgid "Product Updated Successfully."
 msgstr ""
 
@@ -3569,33 +3569,33 @@ msgstr ""
 msgid "Invalid or Duplicate SKU."
 msgstr ""
 
-#: templates/front/seller/product/class-wkmp-product-form.php:824
+#: templates/front/seller/product/class-wkmp-product-form.php:829
 msgid "Regular Price is not a number."
 msgstr ""
 
-#: templates/front/seller/product/class-wkmp-product-form.php:828
+#: templates/front/seller/product/class-wkmp-product-form.php:833
 msgid "Sale Price is not a number."
 msgstr ""
 
-#: templates/front/seller/product/class-wkmp-product-form.php:832
+#: templates/front/seller/product/class-wkmp-product-form.php:837
 msgid "Stock Quantity is not a number."
 msgstr ""
 
-#: templates/front/seller/product/class-wkmp-product-form.php:851
+#: templates/front/seller/product/class-wkmp-product-form.php:856
 msgid "Invalid or Duplicate SKUs."
 msgstr ""
 
-#: templates/front/seller/product/class-wkmp-product-list.php:132
+#: templates/front/seller/product/class-wkmp-product-list.php:133
 msgid "Sorry!! security check failed. Please try again to add product!!"
 msgstr ""
 
 #. translators: %s: Edit link.
-#: templates/front/seller/product/class-wkmp-product-list.php:373
+#: templates/front/seller/product/class-wkmp-product-list.php:374
 msgid "Product Created Successfully. To edit it %s"
 msgstr ""
 
 #. translators: %s: Edit link.
-#: templates/front/seller/product/class-wkmp-product-list.php:373
+#: templates/front/seller/product/class-wkmp-product-list.php:374
 msgid "click here"
 msgstr ""
 
@@ -3649,13 +3649,11 @@ msgstr ""
 
 #: templates/front/seller/product/wkmp-add-product.php:111
 #: templates/front/seller/product/wkmp-product-edit-tab.php:156
-#: templates/front/seller/product/wkmp-variations.php:90
 msgid "Regular Price"
 msgstr ""
 
 #: templates/front/seller/product/wkmp-add-product.php:117
 #: templates/front/seller/product/wkmp-product-edit-tab.php:162
-#: templates/front/seller/product/wkmp-variations.php:94
 msgid "Sale Price"
 msgstr ""
 
@@ -3756,63 +3754,62 @@ msgstr ""
 msgid "Enable stock management at product level"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:29
-#: templates/front/seller/product/wkmp-variations.php:113
+#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:30
 msgid "Stock Qty"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:34
+#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:35
 msgid "Allow Backorders"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:36
-#: templates/front/seller/product/wkmp-variations.php:119
+#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:37
+#: templates/front/seller/product/wkmp-variations.php:126
 msgid "Do not allow"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:37
+#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:38
 msgid "Allow but notify customer"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:38
-#: templates/front/seller/product/wkmp-variations.php:121
+#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:39
+#: templates/front/seller/product/wkmp-variations.php:128
 msgid "Allow"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:43
+#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:44
 msgid "Low stock threshold"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:44
+#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:45
 msgid "0"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:48
+#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:49
 msgid "Stock Status"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:50
+#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:51
 msgid "In Stock"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:51
+#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:52
 msgid "Out of Stock"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:56
+#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:57
 msgid "Sold individually"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:59
+#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:60
 msgid "Enable this to only allow one of this item to be bought in a single order"
 msgstr ""
 
 #. Translators: %s: Quantity Limit.
-#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:71
+#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:72
 msgid "Maximum Purchasable Quantity (Globally set value is: %s)"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:73
+#: templates/front/seller/product/wkmp-product-edit-tab-inventory.php:74
 msgid "Enter maximum allowed quantity for this product that can be purchased."
 msgstr ""
 
@@ -3873,7 +3870,7 @@ msgid "Draft"
 msgstr ""
 
 #: templates/front/seller/product/wkmp-product-edit-tab-status.php:39
-#: templates/front/seller/product/wkmp-variations.php:244
+#: templates/front/seller/product/wkmp-variations.php:251
 msgid "Virtual"
 msgstr ""
 
@@ -3890,7 +3887,7 @@ msgid "File URL"
 msgstr ""
 
 #: templates/front/seller/product/wkmp-product-edit-tab-status.php:97
-#: templates/front/seller/product/wkmp-variations.php:188
+#: templates/front/seller/product/wkmp-variations.php:195
 msgid "Add File"
 msgstr ""
 
@@ -3899,8 +3896,8 @@ msgid "Download limit"
 msgstr ""
 
 #: templates/front/seller/product/wkmp-product-edit-tab-status.php:113
-#: templates/front/seller/product/wkmp-variations.php:198
-#: templates/front/seller/product/wkmp-variations.php:204
+#: templates/front/seller/product/wkmp-variations.php:205
+#: templates/front/seller/product/wkmp-variations.php:211
 msgid "Unlimited"
 msgstr ""
 
@@ -3980,94 +3977,106 @@ msgid "Maximum Purchasable Product Quantity"
 msgstr ""
 
 #. translators: %s: Variation name.
-#: templates/front/seller/product/wkmp-variations.php:65
+#: templates/front/seller/product/wkmp-variations.php:72
 msgid "Choose %s"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:91
+#: templates/front/seller/product/wkmp-variations.php:97
+msgid "Regular Price: "
+msgstr ""
+
+#: templates/front/seller/product/wkmp-variations.php:98
 msgid "Variation price (required)"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:95
+#: templates/front/seller/product/wkmp-variations.php:101
+msgid "Sale Price: "
+msgstr ""
+
+#: templates/front/seller/product/wkmp-variations.php:102
 msgid "Schedule"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:95
+#: templates/front/seller/product/wkmp-variations.php:102
 msgid "Cancel schedule"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:103
+#: templates/front/seller/product/wkmp-variations.php:110
 msgid "Sale start date: "
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:104
+#: templates/front/seller/product/wkmp-variations.php:111
 msgid "From… YYYY-MM-DD"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:107
+#: templates/front/seller/product/wkmp-variations.php:114
 msgid "Sale end date: "
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:108
+#: templates/front/seller/product/wkmp-variations.php:115
 msgid "To… YYYY-MM-DD"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:117
+#: templates/front/seller/product/wkmp-variations.php:120
+msgid "Stock Qty: "
+msgstr ""
+
+#: templates/front/seller/product/wkmp-variations.php:124
 msgid "Allow Backorders?"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:120
+#: templates/front/seller/product/wkmp-variations.php:127
 msgid "Allow, but notify customer"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:127
+#: templates/front/seller/product/wkmp-variations.php:134
 msgid "Stock status"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:129
+#: templates/front/seller/product/wkmp-variations.php:136
 msgid "In stock"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:130
+#: templates/front/seller/product/wkmp-variations.php:137
 msgid "Out of stock"
 msgstr ""
 
 #. translators: %s: Weight unit.
-#: templates/front/seller/product/wkmp-variations.php:136
+#: templates/front/seller/product/wkmp-variations.php:143
 msgid "Weight (%s):"
 msgstr ""
 
 #. translators: %s: Weight unit.
-#: templates/front/seller/product/wkmp-variations.php:140
+#: templates/front/seller/product/wkmp-variations.php:147
 msgid "Dimensions (L×W×H) (%s):"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:152
+#: templates/front/seller/product/wkmp-variations.php:159
 msgid "Downloadable Files:"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:197
+#: templates/front/seller/product/wkmp-variations.php:204
 msgid "Download Limit:"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:203
+#: templates/front/seller/product/wkmp-variations.php:210
 msgid "Download Expiry:"
 msgstr ""
 
 #. Translators: %s: SKU prefix.
-#: templates/front/seller/product/wkmp-variations.php:220
+#: templates/front/seller/product/wkmp-variations.php:227
 msgid "Prefix: %s"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:236
+#: templates/front/seller/product/wkmp-variations.php:243
 msgid "Enabled"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:240
+#: templates/front/seller/product/wkmp-variations.php:247
 msgid "Downloadable"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-variations.php:248
+#: templates/front/seller/product/wkmp-variations.php:255
 msgid "Manage stock?"
 msgstr ""
 

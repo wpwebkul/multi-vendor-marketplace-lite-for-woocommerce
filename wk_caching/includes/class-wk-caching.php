@@ -227,11 +227,21 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 					return array();
 				}
 
-				if ( 519 === $filter_int ) {
-					return empty( $data ) ? array() : map_deep( wp_unslash( $data ), 'intval' );
+				if ( 519 === $filter_int ) { // Int.
+					return empty( $data ) ? array() : map_deep(
+						wp_unslash( $data ),
+						function( $value ) {
+							return empty( $value ) ? $value : intval( $value );
+						}
+					);
 				}
-				if ( 520 === $filter_int ) {
-					return empty( $data ) ? array() : map_deep( wp_unslash( $data ), 'floatval' );
+				if ( 520 === $filter_int ) { // Float.
+					return empty( $data ) ? array() : map_deep(
+						wp_unslash( $data ),
+						function( $value ) {
+							return empty( $value ) ? $value : floatval( $value );
+						}
+					);
 				}
 				return empty( $data ) ? array() : map_deep( wp_unslash( $data ), 'sanitize_text_field' );
 			}
@@ -242,13 +252,13 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 				return $default;
 			}
 
-			if ( 519 === $filter_int ) {
+			if ( 519 === $filter_int ) { // Int.
 				return intval( wp_unslash( $data ) );
 			}
-			if ( 520 === $filter_int ) {
+			if ( 520 === $filter_int ) { // Float.
 				return floatval( wp_unslash( $data ) );
 			}
-			if ( 517 === $filter_int ) {
+			if ( 517 === $filter_int ) { // Email.
 				return sanitize_email( wp_unslash( $data ) );
 			}
 
@@ -292,7 +302,7 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 			$show_info = empty( $show_info ) ? 0 : intval( $show_info );
 			if ( 200 === $show_info ) {
 				?>
-			<input type="hidden" data-lwd="2023-12-13-1630" data-wk_caching_version="<?php echo esc_attr( WK_CACHING_VERSION ); ?>" data-wk_caching_slug="wk_caching">
+			<input type="hidden" data-lwd="2023-12-19-1345" data-wk_caching_version="<?php echo esc_attr( WK_CACHING_VERSION ); ?>" data-wk_caching_slug="wk_caching">
 				<?php
 			}
 		}

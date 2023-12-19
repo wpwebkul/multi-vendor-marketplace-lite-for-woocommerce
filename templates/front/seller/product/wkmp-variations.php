@@ -48,6 +48,13 @@ foreach ( $postmeta_variation as $key => $value ) {
 }
 
 $wc_currency = get_woocommerce_currency_symbol( get_option( 'woocommerce_currency' ) );
+
+$show_stock_fields = 'display:none;';
+
+if ( isset( $variation_arr['_manage_stock'] ) && 'yes' === $variation_arr['_manage_stock'] ) {
+	$show_stock_fields = 'display:table-row;';
+}
+$hide_virtual_style = 'display:' . ( isset( $variation_arr['_virtual'] ) && 'yes' === $variation_arr['_virtual'] ) ? 'none' : 'table-row'
 ?>
 
 <div class="wkmp_marketplace_variation">
@@ -87,11 +94,11 @@ $wc_currency = get_woocommerce_currency_symbol( get_option( 'woocommerce_currenc
 					<tbody>
 					<tr class="variable_pricing">
 						<td style="width: 50%;">
-							<label><?php esc_html_e( 'Regular Price', 'wk-marketplace' ) . ':(' . $wc_currency . ')'; ?></label>
+							<label><?php esc_html_e( 'Regular Price: ', 'wk-marketplace' ) . '(' . $wc_currency . ')'; ?></label>
 							<input size="5" name="wkmp_variable_regular_price[<?php echo esc_attr( $y ); ?>]" value="<?php echo isset( $variation_arr['_regular_price'] ) ? esc_attr( $variation_arr['_regular_price'] ) : ''; ?>" class="wc_input_price wkmp_variable_regular_price wkmp_product_input" placeholder="<?php esc_attr_e( 'Variation price (required)', 'wk-marketplace' ); ?>" type="text">
 						</td>
 						<td>
-							<label><?php esc_html_e( 'Sale Price', 'wk-marketplace' ) . ':(' . $wc_currency . ')'; ?>
+							<label><?php esc_html_e( 'Sale Price: ', 'wk-marketplace' ) . '(' . $wc_currency . ')'; ?>
 								<a href="javascript:void(0);" class="mp_sale_schedule"><?php esc_html_e( 'Schedule', 'wk-marketplace' ); ?></a><a href="javascript:void(0);" class="mp_cancel_sale_schedule" style="display:none"><?php esc_html_e( 'Cancel schedule', 'wk-marketplace' ); ?></a>
 							</label>
 							<input size="5" name="wkmp_variable_sale_price[<?php echo esc_attr( $y ); ?>]" value="<?php echo isset( $variation_arr['_sale_price'] ) ? esc_attr( $variation_arr['_sale_price'] ) : ''; ?>" class="wc_input_price wkmp_variable_sale_price wkmp_product_input" type="text">
@@ -108,9 +115,9 @@ $wc_currency = get_woocommerce_currency_symbol( get_option( 'woocommerce_currenc
 							<input type="date" class="hasDatepicker wkmp_product_input" id="wkmp_variation_sale_end_date_<?php echo esc_attr( $var_id ); ?>" name="wkmp_variable_sale_price_dates_to[<?php echo esc_attr( $y ); ?>]" value="<?php echo isset( $variation_arr['_sale_price_dates_to'] ) ? esc_attr( $variation_arr['_sale_price_dates_to'] ) : ''; ?>" placeholder="<?php esc_attr_e( 'To… YYYY-MM-DD', 'wk-marketplace' ); ?>" maxlength="10" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
 						</td>
 					</tr>
-					<tr class="mpshow_if_variation_manage_stock wkmp_stock_status" style=" display:<?php echo ( isset( $variation_arr['_manage_stock'] ) && 'yes' === $variation_arr['_manage_stock'] ) ? 'table-row' : 'none'; ?>">
+					<tr class="mpshow_if_variation_manage_stock wkmp_stock_status" style="<?php echo esc_attr( $show_stock_fields ); ?>">
 						<td>
-							<label><?php esc_html_e( 'Stock Qty', 'wk-marketplace' ) . ':'; ?></label>
+							<label><?php esc_html_e( 'Stock Qty: ', 'wk-marketplace' ); ?></label>
 							<input class="wkmp_variable_stock wkmp_product_input" size="5" name="wkmp_variable_stock[<?php echo esc_attr( $y ); ?>]" value="<?php echo isset( $variation_arr['_stock'] ) ? esc_attr( $variation_arr['_stock'] ) : ''; ?>" step="any" type="number">
 						</td>
 						<td>
@@ -122,7 +129,7 @@ $wc_currency = get_woocommerce_currency_symbol( get_option( 'woocommerce_currenc
 							</select>
 						</td>
 					</tr>
-					<tr class="wkmp_stock_status" style="display:<?php echo ( isset( $variation_arr['_manage_stock'] ) && 'yes' === $variation_arr['_manage_stock'] ) ? 'table-row' : 'none'; ?>">
+					<tr class="wkmp_stock_status" style="<?php echo esc_attr( $show_stock_fields ); ?>">
 						<td colspan="2">
 							<label><?php esc_html_e( 'Stock status', 'wk-marketplace' ); ?></label>
 							<select name="wkmp_variable_stock_status[<?php echo esc_attr( $y ); ?>]" style="width:100%;">
@@ -131,7 +138,7 @@ $wc_currency = get_woocommerce_currency_symbol( get_option( 'woocommerce_currenc
 							</select>
 						</td>
 					</tr>
-					<tr class="virtual" style="display:<?php echo ( isset( $variation_arr['_virtual'] ) && 'yes' === $variation_arr['_virtual'] ) ? 'none' : 'table-row'; ?>">
+					<tr class="virtual" style="<?php echo esc_attr( $hide_virtual_style ); ?>">
 						<td style="display: table-cell;" class="mp_hide_if_variation_virtual">
 							<label><?php echo wp_sprintf( /* translators: %s: Weight unit. */ esc_html__( 'Weight (%s):', 'wk-marketplace' ), esc_html( get_option( 'woocommerce_weight_unit', 'kg' ) ) ); ?></label>
 							<input size="5" name="wkmp_variable_weight[<?php echo esc_attr( $y ); ?>]" value="<?php echo isset( $variation_arr['_weight'] ) ? esc_attr( $variation_arr['_weight'] ) : ''; ?>" placeholder="0" class="wc_input_decimal wkmp_product_input" type="text">

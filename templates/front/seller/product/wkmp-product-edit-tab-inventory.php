@@ -18,19 +18,20 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 	</div>
 
 	<?php
-	$scss = 'display:none;';
-	$css  = 'display:block;';
+	$show_stock_fields = 'display:none;';
+	$hide_stock_status = 'display:block;';
+
 	if ( 'yes' === $meta_arr['_manage_stock'] ) {
-		$scss = 'display:block;';
-		$css  = 'display:none;';
+		$show_stock_fields = 'display:block;';
+		$hide_stock_status = 'display:none;';
 	}
 	?>
-	<div class="wkmp_profile_input" style="<?php echo esc_attr( $scss ); ?>">
+	<div class="wkmp_profile_input" style="<?php echo esc_attr( $show_stock_fields ); ?>">
 		<label for="wk-mp-stock"><?php esc_html_e( 'Stock Qty', 'wk-marketplace' ); ?></label>
 		<input type="text" class="wkmp_product_input" placeholder="0" name="wk-mp-stock-qty" id="wk-mp-stock-qty" value="<?php echo isset( $meta_arr['_stock'] ) ? esc_attr( $meta_arr['_stock'] ) : ''; ?>"/>
 	</div>
 
-	<div class="wkmp_profile_input" style="<?php echo esc_attr( $scss ); ?>">
+	<div class="wkmp_profile_input" style="<?php echo esc_attr( $show_stock_fields ); ?>">
 		<label for="wk-mp-backorders"><?php esc_html_e( 'Allow Backorders', 'wk-marketplace' ); ?></label>
 		<select name="_backorders" id="_backorders" class="form-control">
 			<option value="no" <?php echo ( isset( $meta_arr['_backorders'] ) && 'no' === $meta_arr['_backorders'] ) ? 'selected="selected"' : ''; ?>><?php esc_html_e( 'Do not allow', 'wk-marketplace' ); ?></option>
@@ -39,12 +40,12 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 		</select>
 	</div>
 
-	<div class="wkmp_profile_input" style="<?php echo esc_attr( $scss ); ?>">
+	<div class="wkmp_profile_input" style="<?php echo esc_attr( $show_stock_fields ); ?>">
 		<label for="wk-mp-stock-threshold"><?php esc_html_e( 'Low stock threshold', 'wk-marketplace' ); ?></label>
 		<input type="text" class="wkmp_product_input" placeholder="<?php echo esc_attr__( '0', 'wk-marketplace' ); ?>" name="wk-mp-stock-threshold" id="wk-mp-stock-threshold" value="<?php echo isset( $meta_arr['_low_stock_amount'] ) ? esc_attr( $meta_arr['_low_stock_amount'] ) : ''; ?>"/>
 	</div>
 
-	<div class="wkmp_profile_input" style="<?php echo esc_attr( $scss ); ?>">
+	<div class="wkmp_profile_input" style="<?php echo esc_attr( $hide_stock_status ); ?>">
 		<label for="wk-mp-stock"><?php esc_html_e( 'Stock Status', 'wk-marketplace' ); ?></label>
 		<select name="_stock_status" id="_stock_status" class="form-control">
 			<option value="instock" <?php echo ( isset( $meta_arr['_stock_status'] ) && 'instock' === $meta_arr['_stock_status'] ) ? 'selected="selected"' : ''; ?>> <?php esc_html_e( 'In Stock', 'wk-marketplace' ); ?></option>

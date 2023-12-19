@@ -282,9 +282,8 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 			} else {
 				$posted_data['seller_id'] = empty( $posted_data['seller_id'] ) ? ( empty( $this->seller_id ) ? get_current_user_id() : $this->seller_id ) : $posted_data['seller_id'];
 
-				$manage_stock_status = false;
-				$sell_pr_id          = isset( $posted_data['sell_pr_id'] ) ? intval( $posted_data['sell_pr_id'] ) : 0;
-				$sell_pr_id          = empty( $sell_pr_id ) ? $this->product_id : $sell_pr_id;
+				$sell_pr_id = isset( $posted_data['sell_pr_id'] ) ? intval( $posted_data['sell_pr_id'] ) : 0;
+				$sell_pr_id = empty( $sell_pr_id ) ? $this->product_id : $sell_pr_id;
 
 				$args = array(
 					'method' => 'post',
@@ -298,8 +297,10 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 					unset( $posted_data['sale_price'] );
 				}
 
+				$min_max_prices = array();
+
 				if ( ! empty( $variation_att_ids ) && ! empty( $att_val ) ) {
-					$this->wkmp_update_product_variation_data( $posted_data, $variation_att_ids );
+					$min_max_prices = $this->wkmp_update_product_variation_data( $posted_data, $variation_att_ids );
 				}
 
 				$att = array();
@@ -433,22 +434,21 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 									update_post_meta( $sell_pr_id, '_price', $sales_price );
 								} else {
 									update_post_meta( $sell_pr_id, '_sale_price', '' );
-									if ( is_numeric( $price ) || empty( $price ) ) {
-										update_post_meta( $sell_pr_id, '_price', $price );
-									}
 								}
 							} else {
-								delete_post_meta( $sell_pr_id, '_price' );
+								foreach ( $min_max_prices as $price ) {
+									update_post_meta( $sell_pr_id, '_price', $price );
+								}
 							}
 
 							$args['default'] = 'instock';
-							$stock           = \WK_Caching::wk_get_request_data( '_stock_status', $args );
+							$stock_status    = \WK_Caching::wk_get_request_data( '_stock_status', $args );
 
 							if ( ! empty( $variation_att_ids ) ) {
-								$stock = ( $manage_stock_status ) ? 'instock' : 'outofstock';
+								$stock_status = ( $manage_stock ) ? 'instock' : 'outofstock';
 							} else {
 								if ( 'yes' === $manage_stock ) {
-									$stock = ( $stock_qty ) ? 'instock' : 'outofstock';
+									$stock_status = ( $stock_qty ) ? 'instock' : 'outofstock';
 								}
 							}
 
@@ -457,7 +457,7 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 							update_post_meta( $sell_pr_id, '_sold_individually', $sold_individual );
 							update_post_meta( $sell_pr_id, '_low_stock_amount', $threshold );
 							update_post_meta( $sell_pr_id, '_backorders', $back_order );
-							update_post_meta( $sell_pr_id, '_stock_status', $stock );
+							update_post_meta( $sell_pr_id, '_stock_status', $stock_status );
 							update_post_meta( $sell_pr_id, '_manage_stock', $manage_stock );
 							update_post_meta( $sell_pr_id, '_virtual', $virtual );
 							update_post_meta( $sell_pr_id, '_simple', $simple );
@@ -623,7 +623,7 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 		 * @param array $posted_data Posted data.
 		 * @param array $var_attr_ids Variation attr ids.
 		 *
-		 * @return void
+		 * @return array
 		 */
 		public function wkmp_update_product_variation_data( $posted_data, $var_attr_ids ) {
 			$wpdb_obj               = $this->wpdb;
@@ -769,7 +769,7 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 				$variation_data['_weight'][]     = is_numeric( $variable_weights[ $var_id ] ) ? $variable_weights[ $var_id ] : '';
 				$variation_data['_menu_order'][] = is_numeric( $var_menu_orders[ $var_id ] ) ? $var_menu_orders[ $var_id ] : '';
 
-				/* variation for download able product */
+				/* Variation for downloadable product */
 				if ( 'yes' === $downloadable_variable ) {
 					$variation_files = $download_file_urls[ $var_id ];
 					$variation_names = $download_file_names[ $var_id ];
@@ -783,7 +783,7 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 								$file_url = wp_unslash( trim( $variation_files[ $i ] ) );
 								if ( '' !== $file_url ) {
 									$files[ md5( $file_url ) ] = array(
-										'name' => wc_clean( $variation_names[ $i ] ),
+										'name' => $variation_names[ $i ],
 										'file' => $file_url,
 									);
 								}
@@ -807,6 +807,11 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 					}
 				}
 			}
+
+			$regular_prices = map_deep( $regular_prices, 'floatval' );
+			$sale_prices    = map_deep( $sale_prices, 'floatval' );
+
+			return array( min( array_merge( $regular_prices, $sale_prices ) ), max( array_merge( $regular_prices, $sale_prices ) ) );
 		}
 
 		/**

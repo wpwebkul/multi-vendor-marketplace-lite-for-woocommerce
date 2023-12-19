@@ -3,6 +3,7 @@
  * Seller product at front.
  *
  * @package Multi Vendor Marketplace
+ *
  * @version 5.0.0
  */
 
@@ -29,7 +30,7 @@ if ( ! class_exists( 'WKMP_Product_List' ) ) {
 		private $db_product_obj;
 
 		/**
-		 * Instance variable
+		 * Instance variable.
 		 *
 		 * @var $instance
 		 */
