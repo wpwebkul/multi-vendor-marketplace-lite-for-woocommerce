@@ -169,10 +169,10 @@ if ( ! class_exists( 'WKMP_Admin_Template_Functions' ) ) {
 			?>
 			<h1><?php esc_html_e( 'Queries List', 'wk-marketplace' ); ?></h1>
 			<?php
-			if ( ! is_null( $success ) ) {
+			if ( in_array( $success, array( 1, 404 ), true ) ) {
 				$message      = esc_html__( 'Please select at least one query.', 'wk-marketplace' );
 				$notice_class = 'notice-error';
-				if ( $success ) {
+				if ( 404 !== $success ) {
 					$message      = esc_html__( 'Seller queries has been deleted successfully.', 'wk-marketplace' );
 					$notice_class = 'notice-success';
 				}

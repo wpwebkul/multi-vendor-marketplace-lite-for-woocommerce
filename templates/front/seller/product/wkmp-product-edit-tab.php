@@ -97,7 +97,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 		<input type="hidden" id="product_thumb_image_mp" name="product_thumb_image_mp" value="<?php echo isset( $meta_arr['_thumbnail_id'] ) ? esc_attr( $meta_arr['_thumbnail_id'] ) : ''; ?>"/>
 		<?php
 		if ( ! empty( $thumbnail_image ) ) {
-			echo '<div id="mp-product-thumb-img-div" style="display:inline-block;position:relative;"><img style="display:inline;vertical-align:middle;" src="' . esc_url( $thumbnail_image ) . '" width=50 height=50 data-placeholder-url="' . esc_url( wc_placeholder_img_src() ) . '" /><span style="right: -20px;top: -12px;" title="' . esc_attr__( 'Remove', 'wk-marketplace' ) . '" class="mp-image-remove-icon">x</span></div>';
+			echo '<div id="mp-product-thumb-img-div" style="display:inline-block;position:relative;"><img style="display:inline;vertical-align:middle;" src="' . esc_url( $thumbnail_image ) . '" width=50 height=50 data-placeholder-url="' . esc_url( wc_placeholder_img_src() ) . '" /><span title="' . esc_attr__( 'Remove', 'wk-marketplace' ) . '" class="mp-image-remove-icon">x</span></div>';
 		} else {
 			echo '<div id="mp-product-thumb-img-div" style="display:inline-block;position:relative;"><img style="display:inline;vertical-align:middle;" src="' . esc_url( wc_placeholder_img_src() ) . '" width=50 height=50 data-placeholder-url="' . esc_url( wc_placeholder_img_src() ) . '" /></div>';
 		}

@@ -155,7 +155,6 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 				'fajax15'            => esc_html__( 'No Group found', 'wk-marketplace' ),
 				'fajax16'            => esc_html__( 'Refund Cancel', 'wk-marketplace' ),
 				'fajax17'            => esc_html__( 'Refund', 'wk-marketplace' ),
-				'ship1'              => esc_html__( 'Remove', 'wk-marketplace' ),
 				'ship2'              => esc_html__( 'Shipping Class Name', 'wk-marketplace' ),
 				'ship3'              => esc_html__( 'Cancel changes', 'wk-marketplace' ),
 				'ship4'              => esc_html__( 'Slug', 'wk-marketplace' ),
@@ -180,7 +179,7 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 				array(
 					'ajax'                    => $ajax_obj,
 					'delete_product_alert'    => esc_html__( 'Are you sure you want to delete product(s)?', 'wk-marketplace' ),
-					'none_selected'           => esc_html__( 'Please select some checkbox to proceed.', 'wk-marketplace' ),
+					'none_selected'           => esc_html__( 'Please select some data to proceed.', 'wk-marketplace' ),
 					'delete_fav_seller_alert' => esc_html__( 'Are you sure you want to delete favorite seller(s)?', 'wk-marketplace' ),
 					'mkt_tr'                  => $mkt_tr_arr,
 					'wkmp_authorize_error'    => esc_html__( 'You are not authorized to perform this action.', 'wk-marketplace' ),

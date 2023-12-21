@@ -94,12 +94,15 @@ if ( ! class_exists( 'WKMP_Orders' ) ) {
 			global $wkmarketplace;
 
 			$this->seller_id = empty( $seller_id ) ? ( empty( $this->seller_id ) ? get_current_user_id() : $this->seller_id ) : $seller_id;
-			$filter_id       = '';
-			$nonce           = \WK_Caching::wk_get_request_data( 'wkmp_order_search_nonce', array( 'method' => 'post' ) );
+
+			$filter_id = '';
+			$args      = array( 'method' => 'post' );
+			$nonce     = \WK_Caching::wk_get_request_data( 'wkmp_order_search_nonce', $args );
 
 			// Filter Orders.
 			if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, 'wkmp_order_search_nonce_action' ) ) {
-				$filter_id = \WK_Caching::wk_get_request_data( 'wkmp_search', array( 'filter' => 'int' ) );
+				$args['filter'] = 'int';
+				$filter_id      = \WK_Caching::wk_get_request_data( 'wkmp_search', $args );
 			}
 
 			$limit = apply_filters( 'wkmp_sellers_per_page_orders', 20 );

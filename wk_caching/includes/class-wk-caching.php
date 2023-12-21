@@ -29,6 +29,14 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 		}
 
 		/**
+		 * Define constants.
+		 */
+		public static function define_constants() {
+			defined( 'WK_CACHING_VERSION' ) || define( 'WK_CACHING_VERSION', '1.0.7' );
+			defined( 'WKMP_ALLOWED_WKMP_SELLER_DATA_COUNT' ) || define( 'WKMP_ALLOWED_WKMP_SELLER_DATA_COUNT', '-005.03' ); // Adding negative decimal values to avoid search. We'll use absint where we'll use it.
+		}
+
+		/**
 		 * Show caching settings.
 		 */
 		public static function wkwc_show_caching_settings() {
@@ -96,14 +104,6 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 					}
 				}
 			}
-		}
-
-		/**
-		 * Define constants.
-		 */
-		public static function define_constants() {
-			defined( 'WK_CACHING_VERSION' ) || define( 'WK_CACHING_VERSION', '1.0.7' );
-			defined( 'WKMP_ALLOWED_WKMP_SELLER_DATA_COUNT' ) || define( 'WKMP_ALLOWED_WKMP_SELLER_DATA_COUNT', '-005.03' ); // Adding negative decimal values to avoid search. We'll use absint where we'll use it.
 		}
 
 		/**
@@ -302,7 +302,7 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 			$show_info = empty( $show_info ) ? 0 : intval( $show_info );
 			if ( 200 === $show_info ) {
 				?>
-			<input type="hidden" data-lwd="2023-12-19-1345" data-wk_caching_version="<?php echo esc_attr( WK_CACHING_VERSION ); ?>" data-wk_caching_slug="wk_caching">
+			<input type="hidden" data-lwd="202312201010" data-wk_caching_version="<?php echo esc_attr( WK_CACHING_VERSION ); ?>" data-wk_caching_slug="wk_caching">
 				<?php
 			}
 		}

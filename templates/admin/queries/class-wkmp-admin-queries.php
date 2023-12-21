@@ -261,9 +261,9 @@ if ( ! class_exists( 'WKMP_Admin_Queries' ) ) {
 
 				check_admin_referer( 'bulk-' . $this->_args['plural'] );
 				$ids     = \WK_Caching::wk_get_request_data( 'ids', array( 'flag' => 'array' ) );
-				$success = 0;
+				$success = 404;
 
-				if ( is_iterable( $ids ) ) {
+				if ( ! empty( $ids ) && is_iterable( $ids ) ) {
 					foreach ( $ids as $id ) {
 						$this->query_db_object->wkmp_delete_seller_query( $id );
 					}

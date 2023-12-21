@@ -993,7 +993,6 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 			}
 
 			return $editable_roles;
-
 		}
 	}
 }

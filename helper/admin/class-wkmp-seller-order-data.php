@@ -117,13 +117,13 @@ if ( ! class_exists( 'WKMP_Seller_Order_Data' ) ) {
 			$order_ids = wc_get_orders(
 				array(
 					'return'   => 'ids',
+					'limit'    => -1,
 					'status'   => array( 'wc-completed' ),
 					'post__in' => $mp_ids,
 				)
 			);
 
-			$total = empty( $order_ids ) ? 0 : count( $order_ids );
-
+			$total  = empty( $order_ids ) ? 0 : count( $order_ids );
 			$result = apply_filters( 'wkmp_get_total_seller_orders', $total, $seller_id );
 
 			if ( class_exists( 'WK_Caching_Core' ) ) {

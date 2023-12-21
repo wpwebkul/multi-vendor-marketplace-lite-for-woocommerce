@@ -73,9 +73,7 @@ if ( ! class_exists( 'WKMP_Dashboard_Sale_Order' ) ) {
 			$order_amount  = '';
 			$seller_orders = $this->seller_orders;
 
-			$time = \WK_Caching::wk_get_request_data( 'sort' );
-			$time = empty( $time ) ? 'year' : $time;
-
+			$time       = \WK_Caching::wk_get_request_data( 'sort' );
 			$sort_array = array(
 				'year',
 				'month',
@@ -91,7 +89,6 @@ if ( ! class_exists( 'WKMP_Dashboard_Sale_Order' ) ) {
 
 			if ( ! empty( $seller_orders['order_id'] ) ) {
 				$seller_order_ids = $seller_orders['order_id'];
-
 				$seller_order_ids = explode( ',', $seller_order_ids );
 
 				$data = (array) $this->get_order_report_data(
@@ -121,7 +118,6 @@ if ( ! class_exists( 'WKMP_Dashboard_Sale_Order' ) ) {
 								'operator' => 'IN',
 							),
 						),
-
 						'query_type'   => 'get_results',
 						'filter_range' => false,
 						'order_types'  => wc_get_order_types( 'order-count' ),

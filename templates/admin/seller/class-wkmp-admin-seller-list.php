@@ -122,13 +122,15 @@ if ( ! class_exists( 'WKMP_Admin_Seller_List' ) ) {
 		 */
 		public function wkmp_get_sellers_data( $sellers ) {
 			global $wkmarketplace;
-			$data = array();
+			$data         = array();
+			$pro_disabled = $wkmarketplace->wkmp_is_pro_module_disabled();
+			$disabled     = ( $pro_disabled ) ? 'disabled' : '';
 
 			foreach ( $sellers as $seller ) {
 				$display_name = $wkmarketplace->wkmp_get_user_display_name( $seller->user_id );
 
 				if ( 'seller' === $seller->seller_value ) {
-					$status = '<button type="button" class="button wkmp-button-warning wkmp-approve-for-seller" data-seller-id="' . esc_attr( $seller->user_id ) . '">' . esc_html__( 'Disapprove', 'wk-marketplace' ) . '</button>';
+					$status = '<button ' . esc_attr( $disabled ) . ' type="button" class="button wkmp-button-warning wkmp-approve-for-seller" data-seller-id="' . esc_attr( $seller->user_id ) . '">' . esc_html__( 'Disapprove', 'wk-marketplace' ) . '</button>';
 				} else {
 					$status = '<button type="button" class="button wkmp-button-success wkmp-approve-for-seller" data-seller-id="' . esc_attr( $seller->user_id ) . '">' . esc_html__( 'Approve', 'wk-marketplace' ) . '</button>';
 				}

@@ -75,7 +75,7 @@ if ( ! class_exists( 'WKMP_Ask_To_Admin' ) ) {
 		 * @return void
 		 */
 		public function wkmp_seller_queries_list( $seller_id ) {
-			global $wkmarketplace;
+			global $wkmarketplace,$wp;
 
 			$this->seller_id = empty( $this->seller_id ) ? $seller_id : $this->seller_id;
 			$nonce           = \WK_Caching::wk_get_request_data( 'wkmp-sellerAskQuery-nonce', array( 'method' => 'post' ) );
@@ -98,6 +98,16 @@ if ( ! class_exists( 'WKMP_Ask_To_Admin' ) ) {
 				}
 			}
 
+			$query_vars = $wp->query_vars;
+			$endpoint   = get_option( '_wkmp_asktoadmin_endpoint', 'seller-asktoadmin' );
+			$query_args = empty( $query_vars[ $endpoint ] ) ? 0 : $query_vars[ $endpoint ];
+			$page_no    = get_query_var( 'pagenum' ) ? get_query_var( 'pagenum' ) : 1;
+
+			if ( ! empty( $query_args ) ) {
+				$args_array = explode( '/', $query_args );
+				$page_no    = ( is_array( $args_array ) && count( $args_array ) > 1 && 'page' === $args_array[0] ) ? $args_array[1] : $page_no;
+			}
+
 			$filter_name = '';
 			$nonce       = \WK_Caching::wk_get_request_data( 'wkmp_query_search_nonce' );
 
@@ -106,11 +116,10 @@ if ( ! class_exists( 'WKMP_Ask_To_Admin' ) ) {
 				$filter_name = \WK_Caching::wk_get_request_data( 'wkmp_search' );
 			}
 
-			$page  = get_query_var( 'pagenum' ) ? get_query_var( 'pagenum' ) : 1;
 			$limit = 20;
 
 			$filter_data = array(
-				'start'     => ( $page - 1 ) * $limit,
+				'offset'    => ( $page_no - 1 ) * $limit,
 				'limit'     => $limit,
 				'search'    => $filter_name,
 				'seller_id' => $this->seller_id,
@@ -120,7 +129,7 @@ if ( ! class_exists( 'WKMP_Ask_To_Admin' ) ) {
 			$total_queries = $this->db_obj->wkmp_get_total_seller_queries( $filter_data );
 
 			$url        = get_permalink() . get_option( '_wkmp_asktoadmin_endpoint', 'seller-asktoadmin' );
-			$pagination = $wkmarketplace->wkmp_get_pagination( $total_queries, $page, $limit, $url );
+			$pagination = $wkmarketplace->wkmp_get_pagination( $total_queries, $page_no, $limit, $url );
 
 			?>
 			<form method="GET" id="wkmp-query-list-form">

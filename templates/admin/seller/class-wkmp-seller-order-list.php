@@ -106,6 +106,12 @@ if ( ! class_exists( 'WKMP_Seller_Order_List' ) ) {
 			$sort_order  = \WK_Caching::wk_get_request_data( 'order', array( 'default' => 'desc' ) );
 			$filter_name = \WK_Caching::wk_get_request_data( 's' );
 
+			if ( 'order_id' !== $orderby ) { // Sorting is already being done in DB query based on 'order_id'.
+				$sort_order = ( 'desc' === $sort_order ) ? SORT_DESC : SORT_ASC;
+			}
+
+			$total_items = $this->order_db_obj->wkmp_get_total_seller_orders( $this->seller_id );
+
 			$filter_data = array(
 				'start'         => ( $current_page - 1 ) * $per_page,
 				'limit'         => $per_page,
@@ -113,16 +119,8 @@ if ( ! class_exists( 'WKMP_Seller_Order_List' ) ) {
 				'sorting_order' => $sort_order,
 			);
 
-			$orders      = $this->order_db_obj->wkmp_get_seller_orders( $this->seller_id, $filter_data );
-			$data        = $this->wkmp_get_order_table_data( $orders );
-			$total_items = $this->order_db_obj->wkmp_get_total_seller_orders( $this->seller_id );
-
-			if ( 'order_id' !== $orderby ) { // Sorting is already being done in DB query based on 'order_id'.
-				$sorting_order   = ( 'desc' === $sort_order ) ? SORT_DESC : SORT_ASC;
-				$sorting_columns = array_column( $data, $orderby );
-
-				array_multisort( $sorting_columns, $sorting_order, $data );
-			}
+			$orders = $this->order_db_obj->wkmp_get_seller_orders( $this->seller_id, $filter_data );
+			$data   = $this->wkmp_get_order_table_data( $orders );
 
 			$total_pages = ceil( $total_items / $per_page );
 

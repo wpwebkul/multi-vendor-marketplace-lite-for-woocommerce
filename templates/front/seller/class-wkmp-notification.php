@@ -79,9 +79,9 @@ if ( ! class_exists( 'WKMP_Notification' ) ) {
 			$this->seller_id = empty( $this->seller_id ) ? $seller_id : $this->seller_id;
 			?>
 			<ul class="wkmp_nav_tabs">
-				<li><a data-id="#wkmp-orders-tab" class="active"><?php esc_html_e( 'Orders', 'wk-marketplace' ); ?></a></li>
-				<li><a data-id="#wkmp-product-tab"><?php esc_html_e( 'Product', 'wk-marketplace' ); ?></a></li>
-				<li><a data-id="#wkmp-seller-tab"><?php esc_html_e( 'Seller', 'wk-marketplace' ); ?></a></li>
+				<li><a data-id="#wkmp-orders-tab" data-current_tab="<?php echo ( 'orders' === $tab ) ? 'yes' : ''; ?>"><?php esc_html_e( 'Orders', 'wk-marketplace' ); ?></a></li>
+				<li><a data-id="#wkmp-product-tab" data-current_tab="<?php echo ( 'products' === $tab ) ? 'yes' : ''; ?>"><?php esc_html_e( 'Product', 'wk-marketplace' ); ?></a></li>
+				<li><a data-id="#wkmp-seller-tab" data-current_tab="<?php echo ( 'seller' === $tab ) ? 'yes' : ''; ?>"><?php esc_html_e( 'Seller', 'wk-marketplace' ); ?></a></li>
 			</ul>
 
 			<div class="wkmp_tab_content">

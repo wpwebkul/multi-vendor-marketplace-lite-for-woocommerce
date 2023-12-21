@@ -571,6 +571,8 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 
 							if ( ! empty( $thumbnail_id ) ) {
 								update_post_meta( $sell_pr_id, '_thumbnail_id', $thumbnail_id );
+							} else {
+								delete_post_meta( $sell_pr_id, '_thumbnail_id' );
 							}
 						}
 

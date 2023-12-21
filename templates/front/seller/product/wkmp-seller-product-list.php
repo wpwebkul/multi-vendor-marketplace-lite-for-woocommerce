@@ -30,6 +30,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 <form action="" method="post" enctype="multipart/form-data" id="wkmp-delete-product" style="margin-bottom:unset;">
 	<div class="wkmp-table-responsive wkmp-seller-products-lists">
 		<table class="table table-bordered table-hover">
+			<caption class="wkmp-seller-products-lists-caption"><?php esc_html_e( 'Click on the Name to edit a product.', 'wk-marketplace' ); ?></caption>
 			<thead>
 			<tr>
 				<td style="width:1px;"><input type="checkbox" id="wkmp-checked-all"></td>

@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-19T13:41:32+05:30\n"
+"POT-Creation-Date: 2023-12-20T10:10:16+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: wk_caching\n"
@@ -17,33 +17,33 @@ msgstr ""
 msgid "The file attempting to be loaded at %s does not exist."
 msgstr ""
 
-#: includes/class-wk-caching.php:45
+#: includes/class-wk-caching.php:53
 msgid "Webkul Core Caching"
 msgstr ""
 
-#: includes/class-wk-caching.php:50
+#: includes/class-wk-caching.php:58
 msgid "Enable"
 msgstr ""
 
-#: includes/class-wk-caching.php:55
+#: includes/class-wk-caching.php:63
 msgid "Save"
 msgstr ""
 
-#: includes/class-wk-caching.php:77
+#: includes/class-wk-caching.php:85
 msgid "Clear all"
 msgstr ""
 
 #. Translators: %s: Saved cache keys count.
-#: includes/class-wk-caching.php:78
+#: includes/class-wk-caching.php:86
 msgid " Saved keys count: %s"
 msgstr ""
 
 #. Translators: %s: Saved cache keys count.
-#: includes/class-wk-caching.php:79
+#: includes/class-wk-caching.php:87
 msgid "Show Keys"
 msgstr ""
 
-#: includes/class-wk-caching.php:80
+#: includes/class-wk-caching.php:88
 msgid "Show Data"
 msgstr ""
 
