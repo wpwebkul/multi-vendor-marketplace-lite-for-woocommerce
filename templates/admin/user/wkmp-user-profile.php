@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit(); // Exit if access directly.
 
 $show_fields = false;
 $user_id     = 0;
-$wkmp_role   = \WK_Caching::wk_get_request_data( 'role' );
+$wkmp_role   = \WK_Caching::wk_get_request_data( 'role', array( 'method' => 'post' ) );
 
 if ( ! $user instanceof \WP_User && 'add-new-user' === $user ) {
 	$show_fields = true;

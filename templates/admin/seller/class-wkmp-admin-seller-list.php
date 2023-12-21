@@ -311,8 +311,10 @@ if ( ! class_exists( 'WKMP_Admin_Seller_List' ) ) {
 				return;
 			}
 
+			$placeholder = esc_attr__( 'Search by Username or Email', 'wk-marketplace' );
+
 			$template_functions = AdminTemplates\WKMP_Admin_Template_Functions::get_instance();
-			$template_functions->wkmp_show_restricted_search_box( $text, $input_id );
+			$template_functions->wkmp_show_restricted_search_box( $text, $input_id, $placeholder );
 		}
 	}
 }

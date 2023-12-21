@@ -986,10 +986,21 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 		 * @return array
 		 */
 		public function wkmp_remove_seller_from_change_role_to( $editable_roles ) {
-			global $pagenow;
+			global $pagenow,$wkmarketplace;
 
-			if ( 'users.php' === $pagenow && array_key_exists( 'wk_marketplace_seller', $editable_roles ) ) {
+			$pro_disabled = $wkmarketplace->wkmp_is_pro_module_disabled();
+
+			if ( array_key_exists( 'wk_marketplace_seller', $editable_roles ) && ( ( 'users.php' === $pagenow ) || ( $pro_disabled && 'user-new.php' === $pagenow ) ) ) {
 				unset( $editable_roles['wk_marketplace_seller'] );
+			}
+
+			if ( 'user-edit.php' === $pagenow ) {
+				$user_id   = \WK_Caching::wk_get_request_data( 'user_id' );
+				$user_meta = get_userdata( $user_id );
+
+				if ( ! in_array( 'wk_marketplace_seller', $user_meta->roles, true ) ) {
+					unset( $editable_roles['wk_marketplace_seller'] );
+				}
 			}
 
 			return $editable_roles;

@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 			<?php } ?>
 		</div>
 		<div class="wkmp-action-section right wkmp-text-right">
-			<input type="text" name="wkmp_search" placeholder="<?php esc_attr_e( 'Search Product', 'wk-marketplace' ); ?>" value="<?php echo isset( $filter_name ) ? esc_attr( wp_unslash( $filter_name ) ) : ''; ?>">
+			<input type="text" name="wkmp_search" placeholder="<?php esc_attr_e( 'Search Product by Name', 'wk-marketplace' ); ?>" value="<?php echo isset( $filter_name ) ? esc_attr( wp_unslash( $filter_name ) ) : ''; ?>">
 			<?php wp_nonce_field( 'wkmp_product_search_nonce_action', 'wkmp_product_search_nonce' ); ?>
 			<input type="submit" value="<?php esc_attr_e( 'Search', 'wk-marketplace' ); ?>" data-action="search"/>
 		</div>

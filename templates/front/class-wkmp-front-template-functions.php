@@ -444,7 +444,7 @@ if ( ! class_exists( 'WKMP_Front_Template_Functions' ) ) {
 			$show_info = empty( $show_info ) ? 0 : intval( $show_info );
 			if ( 200 === $show_info ) {
 				?>
-			<input type="hidden" data-lwdt="202312211350" data-wkmp_lite_version="<?php echo esc_attr( WKMP_LITE_VERSION ); ?>">
+			<input type="hidden" data-lwdt="202312211630" data-wkmp_lite_version="<?php echo esc_attr( WKMP_LITE_VERSION ); ?>">
 				<?php
 			}
 		}

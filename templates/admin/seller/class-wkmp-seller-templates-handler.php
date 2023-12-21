@@ -160,10 +160,7 @@ if ( ! class_exists( 'WKMP_Seller_Templates_Handler' ) ) {
 					$obj->prepare_items();
 					?>
 					<div class="wkmp-seller-search-wrap">
-					<?php
-					echo ( empty( $obj->items ) ) ? '' : '<span class="wkmp_search_seller">' . esc_html__( 'Search by Username or Email', 'wk-marketplace' ) . '</span>';
-					$obj->search_box( esc_html__( 'Search Seller', 'wk-marketplace' ), 'search-id' );
-					?>
+					<?php $obj->search_box( esc_html__( 'Search Seller', 'wk-marketplace' ), 'search-id' ); ?>
 					</div>
 					<?php
 					$obj->display();
@@ -280,6 +277,24 @@ if ( ! class_exists( 'WKMP_Seller_Templates_Handler' ) ) {
 		public function wkmp_seller_assign_category_content() {
 			$seller_id = \WK_Caching::wk_get_request_data( 'seller-id', array( 'filter' => 'int' ) );
 			new WKMP_Seller_Assign_Category( $seller_id );
+		}
+
+
+		/**
+		 * Displays restricted search box to allow pro feature.
+		 *
+		 * @param string $text     The 'submit' button label.
+		 * @param string $input_id ID attribute value for the search input field.
+		 */
+		public function search_box( $text, $input_id ) {
+			$search = \WK_Caching::wk_get_request_data( 's' );
+
+			if ( empty( $search ) && ! $this->has_items() ) {
+				return;
+			}
+
+			$template_functions = AdminTemplates\WKMP_Admin_Template_Functions::get_instance();
+			$template_functions->wkmp_show_restricted_search_box( $text, $input_id );
 		}
 	}
 }
