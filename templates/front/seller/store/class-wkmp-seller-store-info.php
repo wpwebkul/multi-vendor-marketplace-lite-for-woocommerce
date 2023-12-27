@@ -331,7 +331,7 @@ if ( ! class_exists( 'WKMP_Seller_Store_Info' ) ) {
 						$value_stars   += $item->value_r;
 						$num_of_stars  += $item->quality_r;
 						$quality_stars += $item->quality_r;
-						$total_feedback ++;
+						++$total_feedback;
 					}
 				}
 
@@ -472,7 +472,7 @@ if ( ! class_exists( 'WKMP_Seller_Store_Info' ) ) {
 					$value_stars   += $item->value_r;
 					$num_of_stars  += $item->quality_r;
 					$quality_stars += $item->quality_r;
-					$total_feedback ++;
+					++$total_feedback;
 				}
 			}
 

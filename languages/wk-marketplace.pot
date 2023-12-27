@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-21T16:22:52+05:30\n"
+"POT-Creation-Date: 2023-12-27T13:00:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: wk-marketplace\n"
@@ -56,17 +56,17 @@ msgstr ""
 msgid " items"
 msgstr ""
 
-#: helper/common/class-wkmp-commission.php:224
+#: helper/common/class-wkmp-commission.php:223
 msgid "Amount Transferred Successfully.!"
 msgstr ""
 
-#: helper/common/class-wkmp-commission.php:661
+#: helper/common/class-wkmp-commission.php:656
 #: includes/admin/class-wkmp-admin-ajax-functions.php:182
 #: templates/admin/seller/class-wkmp-seller-order-list.php:435
 msgid "Paid"
 msgstr ""
 
-#: helper/common/class-wkmp-commission.php:663
+#: helper/common/class-wkmp-commission.php:658
 #: includes/admin/class-wkmp-admin-ajax-functions.php:187
 #: templates/admin/seller/class-wkmp-seller-order-list.php:224
 #: templates/admin/seller/class-wkmp-seller-order-list.php:439
@@ -84,6 +84,37 @@ msgstr ""
 
 #: helper/common/class-wkmp-seller-notification.php:128
 msgid "&raquo;"
+msgstr ""
+
+#: helper/common/class-wkmp-seller-notification.php:209
+msgid "has been approved"
+msgstr ""
+
+#: helper/common/class-wkmp-seller-notification.php:210
+msgid "Product is out of stock"
+msgstr ""
+
+#: helper/common/class-wkmp-seller-notification.php:211
+msgid "Order status has been changed to <strong>Processing</strong>"
+msgstr ""
+
+#: helper/common/class-wkmp-seller-notification.php:212
+msgid "Order status has been changed to <strong>Completed</strong>"
+msgstr ""
+
+#: helper/common/class-wkmp-seller-notification.php:213
+#: helper/common/class-wkmp-seller-notification.php:223
+msgid "New review has been received"
+msgstr ""
+
+#. Translators: %s: Author name.
+#: helper/common/class-wkmp-seller-notification.php:219
+msgid "Order has been placed by %s"
+msgstr ""
+
+#. translators: %s stock quantity.
+#: helper/common/class-wkmp-seller-notification.php:228
+msgid "Product is low in stock. There are %s left"
 msgstr ""
 
 #: helper/front/class-wkmp-shipping-queries.php:70
@@ -154,127 +185,127 @@ msgstr ""
 msgid "Atleast one product type must be allowed."
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:199
-#: includes/admin/class-wkmp-admin-functions.php:200
-#: includes/admin/class-wkmp-admin-functions.php:210
-#: includes/admin/class-wkmp-admin-functions.php:221
-#: includes/admin/class-wkmp-admin-functions.php:233
-#: includes/admin/class-wkmp-admin-functions.php:244
-#: includes/admin/class-wkmp-admin-functions.php:255
-#: includes/admin/class-wkmp-admin-functions.php:267
-#: includes/admin/class-wkmp-admin-functions.php:293
-#: includes/admin/class-wkmp-admin-functions.php:305
-#: includes/front/class-wkmp-front-functions.php:485
+#: includes/admin/class-wkmp-admin-functions.php:195
+#: includes/admin/class-wkmp-admin-functions.php:196
+#: includes/admin/class-wkmp-admin-functions.php:206
+#: includes/admin/class-wkmp-admin-functions.php:218
+#: includes/admin/class-wkmp-admin-functions.php:230
+#: includes/admin/class-wkmp-admin-functions.php:242
+#: includes/admin/class-wkmp-admin-functions.php:254
+#: includes/admin/class-wkmp-admin-functions.php:266
+#: includes/admin/class-wkmp-admin-functions.php:292
+#: includes/admin/class-wkmp-admin-functions.php:304
+#: includes/front/class-wkmp-front-functions.php:491
 #: templates/front/class-wkmp-front-template-functions.php:213
 msgid "Marketplace"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:211
+#: includes/admin/class-wkmp-admin-functions.php:207
 #: templates/admin/seller/class-wkmp-seller-templates-handler.php:138
 msgid "Sellers"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:221
-#: includes/admin/class-wkmp-admin-functions.php:222
-#: includes/front/class-wkmp-front-functions.php:486
+#: includes/admin/class-wkmp-admin-functions.php:218
+#: includes/admin/class-wkmp-admin-functions.php:219
+#: includes/front/class-wkmp-front-functions.php:492
 #: templates/front/class-wkmp-front-template-functions.php:222
 msgid "Products"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:233
-#: includes/admin/class-wkmp-admin-functions.php:234
-#: includes/class-wkmp-install.php:471
-#: includes/front/class-wkmp-front-functions.php:493
+#: includes/admin/class-wkmp-admin-functions.php:230
+#: includes/admin/class-wkmp-admin-functions.php:231
+#: includes/class-wkmp-install.php:470
+#: includes/front/class-wkmp-front-functions.php:499
 #: templates/admin/notification/class-wkmp-notification-templates-handler.php:81
 #: templates/admin/settings/wkmp-endpoint-settings-content.php:60
 #: templates/front/class-wkmp-front-template-functions.php:276
 msgid "Notifications"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:244
+#: includes/admin/class-wkmp-admin-functions.php:242
 msgid "Feedback"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:245
+#: includes/admin/class-wkmp-admin-functions.php:243
 msgid "Reviews & Rating"
 msgstr ""
 
+#: includes/admin/class-wkmp-admin-functions.php:254
 #: includes/admin/class-wkmp-admin-functions.php:255
-#: includes/admin/class-wkmp-admin-functions.php:256
 msgid "Queries"
 msgstr ""
 
+#: includes/admin/class-wkmp-admin-functions.php:266
 #: includes/admin/class-wkmp-admin-functions.php:267
-#: includes/admin/class-wkmp-admin-functions.php:268
-#: includes/admin/class-wkmp-admin-functions.php:809
+#: includes/admin/class-wkmp-admin-functions.php:828
 msgid "Settings"
 msgstr ""
 
+#: includes/admin/class-wkmp-admin-functions.php:292
 #: includes/admin/class-wkmp-admin-functions.php:293
-#: includes/admin/class-wkmp-admin-functions.php:294
 msgid "Extensions"
 msgstr ""
 
+#: includes/admin/class-wkmp-admin-functions.php:304
 #: includes/admin/class-wkmp-admin-functions.php:305
-#: includes/admin/class-wkmp-admin-functions.php:306
 msgid "Support & Services"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:324
+#: includes/admin/class-wkmp-admin-functions.php:323
 msgid "Data Per Page"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:340
+#: includes/admin/class-wkmp-admin-functions.php:339
 msgid "Product Per Page"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:388
+#: includes/admin/class-wkmp-admin-functions.php:387
 msgid "If you like <strong>Marketplace</strong> please leave us a <a href=\"https://store.webkul.com/woocommerce-multivendor-marketplace.html\" target=\"_blank\" class=\"wc-rating-link\" data-rated=\"Thanks :)\">★★★★★</a> rating. A lot of thanks in advance!"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:418
+#: includes/admin/class-wkmp-admin-functions.php:417
 msgid "This field is required"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:419
+#: includes/admin/class-wkmp-admin-functions.php:418
 msgid "This field must be unique"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:420
+#: includes/admin/class-wkmp-admin-functions.php:419
 msgid "Are you sure you want to pay?"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:421
+#: includes/admin/class-wkmp-admin-functions.php:420
 msgid "Are you sure you want to change status?"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:422
+#: includes/admin/class-wkmp-admin-functions.php:421
 msgid "Payment has already been done for order id: "
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:423
+#: includes/admin/class-wkmp-admin-functions.php:422
 msgid "Please fill shop name."
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:424
+#: includes/admin/class-wkmp-admin-functions.php:423
 #: templates/front/seller/dashboard/class-wkmp-dashboard-order-product.php:149
 msgid "Failed"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:461
+#: includes/admin/class-wkmp-admin-functions.php:478
 msgid "Cheatin’ uh?"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:461
+#: includes/admin/class-wkmp-admin-functions.php:478
 #: templates/admin/wkmp-admin-order-invoice.php:14
 msgid "Sorry, you are not allowed to access invoice."
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:516
+#: includes/admin/class-wkmp-admin-functions.php:533
 msgid "Payment has been successfully done."
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:545
+#: includes/admin/class-wkmp-admin-functions.php:562
 #: includes/class-wkmp-install.php:68
 #: templates/admin/product/class-wkmp-admin-product.php:219
 #: templates/admin/queries/class-wkmp-admin-queries.php:182
@@ -283,75 +314,75 @@ msgstr ""
 msgid "Seller"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:569
+#: includes/admin/class-wkmp-admin-functions.php:586
 #: templates/admin/product/class-wkmp-admin-product.php:123
 msgid "Select Seller"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:621
+#: includes/admin/class-wkmp-admin-functions.php:638
 msgid "Maximum Purchasable Quantity"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:622
+#: includes/admin/class-wkmp-admin-functions.php:639
 msgid "Enter Maximum Purchasable Quantity"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:625
+#: includes/admin/class-wkmp-admin-functions.php:642
 msgid "Customer can add only this max quantity in their carts."
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:706
-#: includes/admin/class-wkmp-admin-functions.php:720
+#: includes/admin/class-wkmp-admin-functions.php:725
+#: includes/admin/class-wkmp-admin-functions.php:739
 msgid "Filter by category"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:812
+#: includes/admin/class-wkmp-admin-functions.php:831
 msgid "Get Pro"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:831
+#: includes/admin/class-wkmp-admin-functions.php:850
 msgid "View Marketplace documentation"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:831
+#: includes/admin/class-wkmp-admin-functions.php:850
 msgid "Docs"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:832
+#: includes/admin/class-wkmp-admin-functions.php:851
 msgid "Visit customer support"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:832
+#: includes/admin/class-wkmp-admin-functions.php:851
 msgid "Support"
 msgstr ""
 
 #. translators: %s Settings test, %s: Setting page link
-#: includes/admin/class-wkmp-admin-functions.php:872
+#: includes/admin/class-wkmp-admin-functions.php:891
 msgid "To allow seller registration %1$s setting must be checked from %2$s "
 msgstr ""
 
 #. translators: %s Settings test, %s: Setting page link
-#: includes/admin/class-wkmp-admin-functions.php:872
+#: includes/admin/class-wkmp-admin-functions.php:891
 msgid "Allow customers to create an account on the My account page"
 msgstr ""
 
 #. translators: %s Settings test, %s: Setting page link
-#: includes/admin/class-wkmp-admin-functions.php:872
+#: includes/admin/class-wkmp-admin-functions.php:891
 msgid "WooCommerce Account Settings"
 msgstr ""
 
 #. Translators: %1$s: Checkout edit URL, %2$s: Closing anchor.
-#: includes/admin/class-wkmp-admin-functions.php:882
+#: includes/admin/class-wkmp-admin-functions.php:901
 msgid "WooCommerce blocks are enabled on checkout. Multi-vendor Marketplace plugin will not work! Please %1$s Switch to classic checkout. %2$s"
 msgstr ""
 
 #. translators: %s Pro module link.
-#: includes/admin/class-wkmp-admin-functions.php:896
+#: includes/admin/class-wkmp-admin-functions.php:915
 msgid "Your have reached the limit to register sellers. To allow further registration kindly consider Upgrade to Pro version of %s"
 msgstr ""
 
 #. translators: %s Pro module link.
-#: includes/admin/class-wkmp-admin-functions.php:896
+#: includes/admin/class-wkmp-admin-functions.php:915
 msgid " Multi-Vendor Marketplace for WooCommerce"
 msgstr ""
 
@@ -359,7 +390,7 @@ msgstr ""
 #. translators: %s: User Name.
 #. translators: %s: Login URL.
 #. translators: %s Customer first name
-#: includes/admin/class-wkmp-admin-functions.php:914
+#: includes/admin/class-wkmp-admin-functions.php:933
 #: woocommerce/templates/emails/plain/wkmp-new-seller-registration-to-admin.php:20
 #: woocommerce/templates/emails/plain/wkmp-registration-to-seller.php:22
 #: woocommerce/templates/emails/plain/wkmp-seller-order-completed.php:43
@@ -375,55 +406,55 @@ msgid "Hi %s,"
 msgstr ""
 
 #. Translators: %s: Display Name.
-#: includes/admin/class-wkmp-admin-functions.php:915
+#: includes/admin/class-wkmp-admin-functions.php:934
 msgid "Are you ready to take your Multi-Vendor Marketplace to new heights?"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:916
+#: includes/admin/class-wkmp-admin-functions.php:935
 msgid "Unlock a world of possibilities with our premium \"Pro\" package designed to supercharge your business and maximize your potential."
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:920
+#: includes/admin/class-wkmp-admin-functions.php:939
 msgid "Allow Separate Seller Dashboard"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:921
+#: includes/admin/class-wkmp-admin-functions.php:940
 msgid "Allow Customer to Become a Seller"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:922
+#: includes/admin/class-wkmp-admin-functions.php:941
 msgid "Add "
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:922
+#: includes/admin/class-wkmp-admin-functions.php:941
 msgid "WPML Compatiblity"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:923
+#: includes/admin/class-wkmp-admin-functions.php:942
 msgid "Apply Seller wise Commission"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:924
+#: includes/admin/class-wkmp-admin-functions.php:943
 msgid "Allow Seller Shipping Methods"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:925
+#: includes/admin/class-wkmp-admin-functions.php:944
 msgid "Unlock to use "
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:925
+#: includes/admin/class-wkmp-admin-functions.php:944
 msgid "50+ Addons"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:928
+#: includes/admin/class-wkmp-admin-functions.php:947
 msgid "Upgrade To Pro"
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:941
+#: includes/admin/class-wkmp-admin-functions.php:960
 msgid "You are currently using lite version of Multi-Vendor Marketplace, to unlock more advanced features."
 msgstr ""
 
-#: includes/admin/class-wkmp-admin-functions.php:943
+#: includes/admin/class-wkmp-admin-functions.php:962
 msgid "Upgrade to Pro Now"
 msgstr ""
 
@@ -449,16 +480,16 @@ msgid "Multi-Vendor Marketplace for WooCommerce"
 msgstr ""
 
 #. translators: %d: Seller id.
-#: includes/class-wkmarketplace.php:507
+#: includes/class-wkmarketplace.php:506
 msgid "Seller %d"
 msgstr ""
 
 #. translators: %d total, %d limit, %d offset.
-#: includes/class-wkmarketplace.php:543
+#: includes/class-wkmarketplace.php:542
 msgid "Showing %1$d to %2$d of %3$d (%4$d Pages)"
 msgstr ""
 
-#: includes/class-wkmarketplace.php:869
+#: includes/class-wkmarketplace.php:868
 msgid "Anonymous User"
 msgstr ""
 
@@ -474,170 +505,140 @@ msgstr ""
 msgid "Marketplace Seller"
 msgstr ""
 
+#: includes/class-wkmp-install.php:450
+#: includes/class-wkmp-install.php:469
+msgid "Transaction"
+msgstr ""
+
 #: includes/class-wkmp-install.php:451
 #: includes/class-wkmp-install.php:470
-msgid "Transaction"
+msgid "Notification"
 msgstr ""
 
 #: includes/class-wkmp-install.php:452
 #: includes/class-wkmp-install.php:471
-msgid "Notification"
+msgid "Shop Follower"
 msgstr ""
 
 #: includes/class-wkmp-install.php:453
 #: includes/class-wkmp-install.php:472
-msgid "Shop Follower"
-msgstr ""
-
-#: includes/class-wkmp-install.php:454
-#: includes/class-wkmp-install.php:473
 #: templates/front/seller/store/wkmp-seller-store-collection.php:13
 msgid "Product from Seller"
 msgstr ""
 
-#: includes/class-wkmp-install.php:455
-#: includes/class-wkmp-install.php:474
+#: includes/class-wkmp-install.php:454
+#: includes/class-wkmp-install.php:473
 #: templates/front/seller/store/wkmp-seller-store-info.php:164
 msgid "Recent Product from Seller"
 msgstr ""
 
-#: includes/class-wkmp-install.php:470
-#: includes/front/class-wkmp-front-functions.php:488
+#: includes/class-wkmp-install.php:469
+#: includes/front/class-wkmp-front-functions.php:494
 #: templates/admin/seller/class-wkmp-seller-templates-handler.php:97
 #: templates/admin/settings/wkmp-endpoint-settings-content.php:52
 #: templates/front/class-wkmp-front-template-functions.php:258
 msgid "Transactions"
 msgstr ""
 
-#: includes/class-wkmp-install.php:472
-#: includes/front/class-wkmp-front-functions.php:494
+#: includes/class-wkmp-install.php:471
+#: includes/front/class-wkmp-front-functions.php:500
 #: templates/admin/settings/wkmp-endpoint-settings-content.php:64
 #: templates/front/class-wkmp-front-template-functions.php:285
 msgid "Shop Followers"
 msgstr ""
 
-#: includes/class-wkmp-install.php:473
+#: includes/class-wkmp-install.php:472
 #: templates/admin/settings/wkmp-endpoint-settings-content.php:72
 msgid "Products from Seller"
 msgstr ""
 
-#: includes/class-wkmp-install.php:474
+#: includes/class-wkmp-install.php:473
 msgid "Sellers Recent Product"
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:518
+#: includes/common/class-wkmp-common-functions.php:516
 msgid "ERROR"
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:518
+#: includes/common/class-wkmp-common-functions.php:516
 msgid "The shop URL already EXISTS please try different shop url"
 msgstr ""
 
+#: includes/common/class-wkmp-common-functions.php:592
 #: includes/common/class-wkmp-common-functions.php:594
-#: includes/common/class-wkmp-common-functions.php:596
 msgid "Frontend Seller Dashboard"
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:653
+#: includes/common/class-wkmp-common-functions.php:655
 msgid "Enter the valid E-Mail"
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:658
+#: includes/common/class-wkmp-common-functions.php:660
 msgid "Email already exists."
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:663
-#: includes/common/class-wkmp-common-functions.php:667
+#: includes/common/class-wkmp-common-functions.php:665
+#: includes/common/class-wkmp-common-functions.php:669
 msgid "Only letters and numbers are allowed."
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:674
+#: includes/common/class-wkmp-common-functions.php:676
 msgid "Enter a valid shop name."
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:679
+#: includes/common/class-wkmp-common-functions.php:681
 msgid "Enter the valid phone number"
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:681
+#: includes/common/class-wkmp-common-functions.php:683
 msgid "Enter the valid phone number of required length from 4 to 15 characters."
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:685
+#: includes/common/class-wkmp-common-functions.php:687
 msgid "Enter the valid post code"
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:810
+#: includes/common/class-wkmp-common-functions.php:813
 msgid "File size too large "
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:830
+#: includes/common/class-wkmp-common-functions.php:833
 msgid "Upload valid image only"
 msgstr ""
 
-#: includes/common/class-wkmp-common-functions.php:968
+#: includes/common/class-wkmp-common-functions.php:971
 msgid "Sold By"
 msgstr ""
 
-#. Translators: %s: Author name.
-#: includes/common/class-wkmp-notification-functions.php:97
-msgid "Order has been placed by %s"
-msgstr ""
-
-#: includes/common/class-wkmp-notification-functions.php:131
-msgid "has been approved"
-msgstr ""
-
-#: includes/common/class-wkmp-notification-functions.php:156
-msgid "New review has been received"
-msgstr ""
-
-#. translators: %s stock quantity.
-#: includes/common/class-wkmp-notification-functions.php:180
-msgid "Product is low in stock. There are %s left"
-msgstr ""
-
-#: includes/common/class-wkmp-notification-functions.php:203
-msgid "Product is out of stock"
-msgstr ""
-
-#: includes/common/class-wkmp-notification-functions.php:237
-msgid "Order status has been changed to <strong>Processing</strong>"
-msgstr ""
-
-#: includes/common/class-wkmp-notification-functions.php:282
-msgid "Order status has been changed to <strong>Completed</strong>"
-msgstr ""
-
-#: includes/emails/class-wc-email-wkmp-ask-to-admin.php:34
+#: includes/emails/class-wc-email-wkmp-ask-to-admin.php:35
 msgid "Ask To Admin"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-ask-to-admin.php:35
+#: includes/emails/class-wc-email-wkmp-ask-to-admin.php:36
 msgid "Seller Query emails are sent to chosen recipient(s) "
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-ask-to-admin.php:98
+#: includes/emails/class-wc-email-wkmp-ask-to-admin.php:99
 msgid "New Seller Query"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-ask-to-admin.php:105
+#: includes/emails/class-wc-email-wkmp-ask-to-admin.php:106
 msgid "[{site_title}]: New Seller query."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-new-seller-registration-to-admin.php:32
+#: includes/emails/class-wc-email-wkmp-new-seller-registration-to-admin.php:33
 msgid "Seller Registration to Admin"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-new-seller-registration-to-admin.php:33
+#: includes/emails/class-wc-email-wkmp-new-seller-registration-to-admin.php:34
 msgid "New seller emails are sent to chosen recipient(s)."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-new-seller-registration-to-admin.php:75
+#: includes/emails/class-wc-email-wkmp-new-seller-registration-to-admin.php:76
 msgid "New Seller Registration."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-new-seller-registration-to-admin.php:82
+#: includes/emails/class-wc-email-wkmp-new-seller-registration-to-admin.php:83
 msgid "[{site_title}]: New Seller Registration Details."
 msgstr ""
 
@@ -665,148 +666,148 @@ msgstr ""
 msgid "[{site_title}]: Admin has disapproved your product(s)."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-registration-details-to-seller.php:32
+#: includes/emails/class-wc-email-wkmp-registration-details-to-seller.php:33
 msgid "Registration Details To Seller"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-registration-details-to-seller.php:33
+#: includes/emails/class-wc-email-wkmp-registration-details-to-seller.php:34
 msgid "New seller emails are sent to chosen recipient(s) "
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-registration-details-to-seller.php:77
+#: includes/emails/class-wc-email-wkmp-registration-details-to-seller.php:78
 msgid "Your seller account details"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-registration-details-to-seller.php:84
+#: includes/emails/class-wc-email-wkmp-registration-details-to-seller.php:85
 msgid "[{site_title}]: Your seller account details."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-account-approved.php:34
+#: includes/emails/class-wc-email-wkmp-seller-account-approved.php:35
 msgid "Seller Account Approved"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-account-approved.php:35
+#: includes/emails/class-wc-email-wkmp-seller-account-approved.php:36
 msgid "Confirmation emails are sent to the seller when their accounts are approved by admin."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-account-approved.php:89
+#: includes/emails/class-wc-email-wkmp-seller-account-approved.php:90
 msgid "Your account has been approved."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-account-approved.php:96
+#: includes/emails/class-wc-email-wkmp-seller-account-approved.php:97
 msgid "Congratulations!! Your seller account on {site_title} has been approved."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-account-disapproved.php:34
-#: includes/emails/class-wc-email-wkmp-seller-account-disapproved.php:37
+#: includes/emails/class-wc-email-wkmp-seller-account-disapproved.php:35
+#: includes/emails/class-wc-email-wkmp-seller-account-disapproved.php:38
 msgid "Seller Account Disapproved"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-account-disapproved.php:38
+#: includes/emails/class-wc-email-wkmp-seller-account-disapproved.php:39
 msgid " Account Disapproved"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-account-disapproved.php:92
+#: includes/emails/class-wc-email-wkmp-seller-account-disapproved.php:93
 msgid "Seller Account Disapproved."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-account-disapproved.php:99
+#: includes/emails/class-wc-email-wkmp-seller-account-disapproved.php:100
 msgid "Your seller account on {site_title} has been disapproved/deactivated."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-cancelled.php:32
+#: includes/emails/class-wc-email-wkmp-seller-order-cancelled.php:33
 msgid "Seller Order Cancelled"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-cancelled.php:33
+#: includes/emails/class-wc-email-wkmp-seller-order-cancelled.php:34
 msgid "Cancelled order emails are sent to chosen recipient(s) when orders have been marked cancelled (if they were previously processing or on-hold)."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-cancelled.php:92
+#: includes/emails/class-wc-email-wkmp-seller-order-cancelled.php:93
 msgid "Your order #{order_number} has been cancelled."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-cancelled.php:99
+#: includes/emails/class-wc-email-wkmp-seller-order-cancelled.php:100
 msgid "Your [{site_title}]: Order #{order_number} has been cancelled."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-completed.php:32
+#: includes/emails/class-wc-email-wkmp-seller-order-completed.php:33
 msgid "Seller Order Completed"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-completed.php:36
+#: includes/emails/class-wc-email-wkmp-seller-order-completed.php:37
 msgid "Order complete emails are sent to sellers when their orders are marked completed and usually indicate that their orders have been shipped."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-completed.php:90
+#: includes/emails/class-wc-email-wkmp-seller-order-completed.php:91
 msgid "Your {site_title} order #{order_number} is now complete."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-completed.php:97
+#: includes/emails/class-wc-email-wkmp-seller-order-completed.php:98
 msgid "[{site_title}]: Order #{order_number} is now complete."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-failed.php:32
+#: includes/emails/class-wc-email-wkmp-seller-order-failed.php:33
 msgid "Seller Order Failed"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-failed.php:33
+#: includes/emails/class-wc-email-wkmp-seller-order-failed.php:34
 msgid "Failed order emails are sent to chosen recipient(s) when orders have been marked failed (if they were previously processing or on-hold)."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-failed.php:92
+#: includes/emails/class-wc-email-wkmp-seller-order-failed.php:93
 msgid "Your order #{order_number} has been failed."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-failed.php:99
+#: includes/emails/class-wc-email-wkmp-seller-order-failed.php:100
 msgid "Your [{site_title}]: Order #{order_number} has been failed."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-on-hold.php:32
+#: includes/emails/class-wc-email-wkmp-seller-order-on-hold.php:33
 msgid "Seller Order On-Hold"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-on-hold.php:33
+#: includes/emails/class-wc-email-wkmp-seller-order-on-hold.php:34
 msgid "This is an order notification sent to sellers containing order details after an order is placed on-hold."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-on-hold.php:92
+#: includes/emails/class-wc-email-wkmp-seller-order-on-hold.php:93
 msgid "Your order #{order_number} status moved to On-Hold."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-on-hold.php:99
+#: includes/emails/class-wc-email-wkmp-seller-order-on-hold.php:100
 msgid "Your [{site_title}]: Order #{order_number} status moved to On-Hold."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-paid.php:32
+#: includes/emails/class-wc-email-wkmp-seller-order-paid.php:33
 msgid "Seller Order Paid"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-paid.php:33
+#: includes/emails/class-wc-email-wkmp-seller-order-paid.php:34
 msgid "This notification is sent to sellers when their order is paid by admin."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-paid.php:117
+#: includes/emails/class-wc-email-wkmp-seller-order-paid.php:118
 msgid "Your order #{order_number} has been paid."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-paid.php:124
+#: includes/emails/class-wc-email-wkmp-seller-order-paid.php:125
 msgid "Payment for your [{site_title}]: Order #{order_number} has been made."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-processing.php:32
+#: includes/emails/class-wc-email-wkmp-seller-order-processing.php:33
 msgid "Seller Order Processing"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-processing.php:33
+#: includes/emails/class-wc-email-wkmp-seller-order-processing.php:34
 msgid "This is an order notification sent to sellers containing order details on processing."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-processing.php:88
+#: includes/emails/class-wc-email-wkmp-seller-order-processing.php:89
 msgid "Your Order: #{order_number} status changed to processing."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-order-processing.php:95
+#: includes/emails/class-wc-email-wkmp-seller-order-processing.php:96
 msgid "[{site_title}]: Your order #{order_number} status changed processed."
 msgstr ""
 
@@ -826,19 +827,19 @@ msgstr ""
 msgid "Your [{site_title}]: Order #{order_number} has been refunded."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-product-ordered.php:32
+#: includes/emails/class-wc-email-wkmp-seller-product-ordered.php:33
 msgid "Seller Product Ordered"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-product-ordered.php:33
+#: includes/emails/class-wc-email-wkmp-seller-product-ordered.php:34
 msgid "This is an order notification sent to sellers containing their ordered product(s) details after payment."
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-product-ordered.php:90
+#: includes/emails/class-wc-email-wkmp-seller-product-ordered.php:91
 msgid "New Order: #{order_number} for Your Product(s)"
 msgstr ""
 
-#: includes/emails/class-wc-email-wkmp-seller-product-ordered.php:97
+#: includes/emails/class-wc-email-wkmp-seller-product-ordered.php:98
 msgid "[{site_title}]: New order #{order_number} for your Products(s)"
 msgstr ""
 
@@ -912,7 +913,7 @@ msgid "Available placeholders: %s"
 msgstr ""
 
 #: includes/emails/trait-wc-email-wkmp-settings.php:120
-#: templates/admin/product/class-wkmp-admin-product.php:391
+#: templates/admin/product/class-wkmp-admin-product.php:396
 #: templates/admin/seller/class-wkmp-seller-order-list.php:348
 msgid "Admin"
 msgstr ""
@@ -925,7 +926,7 @@ msgstr ""
 #: includes/shipping/mp-flat-rate/class-wkmp-flat-rate-shipping-method.php:143
 #: includes/shipping/mp-flat-rate/class-wkmp-flat-rate-shipping-method.php:546
 #: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:195
-#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:337
+#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:335
 #: includes/shipping/mp-local-pickup/class-wkmp-local-pickup-shipping-method.php:140
 #: includes/shipping/mp-local-pickup/class-wkmp-local-pickup-shipping-method.php:329
 msgid "Enable/Disable"
@@ -971,7 +972,7 @@ msgstr ""
 #: includes/emails/trait-wc-email-wkmp-settings.php:288
 #: includes/shipping/mp-flat-rate/class-wkmp-flat-rate-shipping-method.php:610
 #: includes/shipping/mp-flat-rate/class-wkmp-flat-rate-shipping-method.php:622
-#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:355
+#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:353
 #: templates/front/seller/orders/class-wkmp-orders.php:542
 #: templates/front/seller/orders/class-wkmp-orders.php:543
 #: templates/front/seller/orders/wkmp-order-views.php:537
@@ -1118,17 +1119,17 @@ msgid " has requested to publish a product: "
 msgstr ""
 
 #: includes/front/class-wkmp-front-ajax-functions.php:72
-#: includes/front/class-wkmp-front-functions.php:323
+#: includes/front/class-wkmp-front-functions.php:330
 msgid "You can not use special characters in shop url except HYPHEN(-)."
 msgstr ""
 
 #: includes/front/class-wkmp-front-ajax-functions.php:77
-#: includes/front/class-wkmp-front-functions.php:325
+#: includes/front/class-wkmp-front-functions.php:332
 msgid "White space(s) aren't allowed in shop url."
 msgstr ""
 
 #: includes/front/class-wkmp-front-ajax-functions.php:82
-#: includes/front/class-wkmp-front-functions.php:327
+#: includes/front/class-wkmp-front-functions.php:334
 msgid "This shop URl already EXISTS, please try different shop url."
 msgstr ""
 
@@ -1158,56 +1159,56 @@ msgstr ""
 msgid "State"
 msgstr ""
 
-#: includes/front/class-wkmp-front-ajax-functions.php:377
+#: includes/front/class-wkmp-front-ajax-functions.php:371
 msgid "Shipping zone has been deleted."
 msgstr ""
 
-#: includes/front/class-wkmp-front-ajax-functions.php:380
+#: includes/front/class-wkmp-front-ajax-functions.php:374
 msgid "You are not allowed to delete this shipping zone."
 msgstr ""
 
 #. translators: %d Product id.
-#: includes/front/class-wkmp-front-ajax-functions.php:443
+#: includes/front/class-wkmp-front-ajax-functions.php:436
 msgid "Variation # %d of Product"
 msgstr ""
 
-#: includes/front/class-wkmp-front-ajax-functions.php:514
+#: includes/front/class-wkmp-front-ajax-functions.php:507
 msgid "Some error in removing, kindly reload the page and try again!!"
 msgstr ""
 
-#: includes/front/class-wkmp-front-ajax-functions.php:523
+#: includes/front/class-wkmp-front-ajax-functions.php:516
 msgid "The variation has been removed successfully."
 msgstr ""
 
-#: includes/front/class-wkmp-front-ajax-functions.php:539
+#: includes/front/class-wkmp-front-ajax-functions.php:532
 msgid "Please enter a valid alphanumeric SKU"
 msgstr ""
 
-#: includes/front/class-wkmp-front-ajax-functions.php:557
+#: includes/front/class-wkmp-front-ajax-functions.php:550
 msgid "SKU already exist please select another SKU"
 msgstr ""
 
-#: includes/front/class-wkmp-front-ajax-functions.php:561
+#: includes/front/class-wkmp-front-ajax-functions.php:554
 msgid "SKU is OK"
 msgstr ""
 
-#: includes/front/class-wkmp-front-ajax-functions.php:593
+#: includes/front/class-wkmp-front-ajax-functions.php:586
 #: templates/front/seller/product/wkmp-variations.php:175
 #: templates/front/seller/product/wkmp-variations.php:176
 msgid "File Name"
 msgstr ""
 
-#: includes/front/class-wkmp-front-ajax-functions.php:597
+#: includes/front/class-wkmp-front-ajax-functions.php:590
 #: templates/front/seller/product/wkmp-variations.php:179
 msgid "File Url"
 msgstr ""
 
-#: includes/front/class-wkmp-front-ajax-functions.php:599
+#: includes/front/class-wkmp-front-ajax-functions.php:592
 #: templates/front/seller/product/wkmp-variations.php:181
 msgid "Choose&nbsp;file"
 msgstr ""
 
-#: includes/front/class-wkmp-front-ajax-functions.php:600
+#: includes/front/class-wkmp-front-ajax-functions.php:593
 #: templates/admin/feedback/class-wkmp-admin-feedback.php:235
 #: templates/admin/queries/class-wkmp-admin-queries.php:250
 #: templates/admin/seller/class-wkmp-admin-seller-list.php:241
@@ -1222,12 +1223,12 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: includes/front/class-wkmp-front-ajax-functions.php:651
+#: includes/front/class-wkmp-front-ajax-functions.php:644
 msgid "Unable to delete the product. Please try again later!!"
 msgstr ""
 
-#: includes/front/class-wkmp-front-ajax-functions.php:659
-#: templates/front/seller/product/class-wkmp-product-list.php:209
+#: includes/front/class-wkmp-front-ajax-functions.php:652
+#: templates/front/seller/product/class-wkmp-product-list.php:211
 msgid "Product(s) deleted successfully."
 msgstr ""
 
@@ -1430,8 +1431,8 @@ msgid "No Restrictions."
 msgstr ""
 
 #: includes/front/class-wkmp-front-functions.php:137
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:121
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:133
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:126
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:138
 #: templates/admin/settings/wkmp-product-settings-content.php:86
 #: templates/admin/settings/wkmp-product-settings-content.php:116
 #: templates/front/seller/product/wkmp-seller-product-list.php:96
@@ -1548,7 +1549,7 @@ msgid "Please enter with one decimal point (%s) without thousand separators."
 msgstr ""
 
 #: includes/front/class-wkmp-front-functions.php:181
-msgid "Are you sure you want to delete product(s)?"
+msgid "Are you sure you want to delete these entries?"
 msgstr ""
 
 #: includes/front/class-wkmp-front-functions.php:182
@@ -1563,70 +1564,70 @@ msgstr ""
 msgid "You are not authorized to perform this action."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:281
+#: includes/front/class-wkmp-front-functions.php:288
 msgid "New Seller registration is now allowed. Contact administrator to upgrade the Marketplace plugin to pro version."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:300
+#: includes/front/class-wkmp-front-functions.php:307
 msgid "Please enter your first name."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:304
+#: includes/front/class-wkmp-front-functions.php:311
 msgid "Please enter your last name."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:308
+#: includes/front/class-wkmp-front-functions.php:315
 msgid "Please accept sign up terms and conditions."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:314
+#: includes/front/class-wkmp-front-functions.php:321
 msgid "Please enter your shop name."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:321
+#: includes/front/class-wkmp-front-functions.php:328
 msgid "Please enter valid shop URL."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:332
-msgid "Please enter your phone number."
+#: includes/front/class-wkmp-front-functions.php:339
+msgid "Please enter a valid phone number of 4 to 15 character"
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:334
+#: includes/front/class-wkmp-front-functions.php:341
 msgid "Please enter valid phone number."
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:433
+#: includes/front/class-wkmp-front-functions.php:440
 msgid "Registration complete check your mail for password!"
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:487
+#: includes/front/class-wkmp-front-functions.php:493
 #: templates/front/class-wkmp-front-template-functions.php:249
 msgid "Order History"
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:492
+#: includes/front/class-wkmp-front-functions.php:498
 #: templates/admin/settings/wkmp-endpoint-settings-content.php:56
 #: templates/front/class-wkmp-front-template-functions.php:267
 msgid "My Profile"
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:497
+#: includes/front/class-wkmp-front-functions.php:503
 #: templates/front/class-wkmp-front-template-functions.php:294
 msgid "Ask Admin"
 msgstr ""
 
-#: includes/front/class-wkmp-front-functions.php:977
+#: includes/front/class-wkmp-front-functions.php:982
 #: templates/front/seller/profile/class-wkmp-profile-info.php:77
 msgid "Your seller account is under review and will be approved by the admin."
 msgstr ""
 
 #. translators: %1$s: Shop name, %2$s: Minimum amount, %3$s: Current total.
-#: includes/front/class-wkmp-front-functions.php:1177
+#: includes/front/class-wkmp-front-functions.php:1182
 msgid "Minimum products total for %1$s Shop product(s) should be %2$s. Current total (inclusive tax) is: %3$s."
 msgstr ""
 
 #. translators: %1$s: Shop name, %2$s: Minimum amount.
-#: includes/front/class-wkmp-front-functions.php:1195
+#: includes/front/class-wkmp-front-functions.php:1200
 msgid "Sorry, but you can only add maximum %1$s quantity of %2$s in this cart."
 msgstr ""
 
@@ -1651,7 +1652,7 @@ msgstr ""
 #: includes/shipping/mp-flat-rate/class-wkmp-flat-rate-shipping-method.php:517
 #: includes/shipping/mp-flat-rate/class-wkmp-flat-rate-shipping-method.php:554
 #: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:203
-#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:345
+#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:343
 #: includes/shipping/mp-local-pickup/class-wkmp-local-pickup-shipping-method.php:148
 #: includes/shipping/mp-local-pickup/class-wkmp-local-pickup-shipping-method.php:318
 msgid "This controls the title which the user sees during checkout."
@@ -1683,7 +1684,7 @@ msgid " for percentage based fees."
 msgstr ""
 
 #: includes/shipping/mp-flat-rate/class-wkmp-flat-rate-shipping-method.php:552
-#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:343
+#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:341
 #: templates/admin/settings/wkmp-endpoint-settings-content.php:132
 msgid "Title"
 msgstr ""
@@ -1755,23 +1756,23 @@ msgid "Custom Free Shipping Method for WooCommerce Marketplace Plugin"
 msgstr ""
 
 #: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:197
-#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:339
+#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:337
 msgid "Enable WooCommerce Marketplace Free Shipping"
 msgstr ""
 
-#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:350
+#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:348
 msgid "Free shipping requires..."
 msgstr ""
 
-#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:356
+#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:354
 msgid "A minimum order amount"
 msgstr ""
 
-#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:360
+#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:358
 msgid "Minimum order amount"
 msgstr ""
 
-#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:363
+#: includes/shipping/mp-free-shipping/class-wkmp-free-shipping-method.php:361
 msgid "Users will need to spend this amount to get free shipping (if enabled above)."
 msgstr ""
 
@@ -1793,7 +1794,7 @@ msgid "Enable WooCommerce Marketplace Local Pickup Shipping"
 msgstr ""
 
 #. translators: %s current user id
-#: multi-vendor-marketplace-lite-for-woocommerce.php:92
+#: multi-vendor-marketplace-lite-for-woocommerce.php:96
 msgid "User in action: %s: "
 msgstr ""
 
@@ -1971,23 +1972,23 @@ msgid "Completed"
 msgstr ""
 
 #. translators: %1$s: URL, %2%s: Content, %3$s: Days.
-#: templates/admin/notification/class-wkmp-notification-orders.php:136
-#: templates/admin/notification/class-wkmp-notification-product.php:76
+#: templates/admin/notification/class-wkmp-notification-orders.php:139
+#: templates/admin/notification/class-wkmp-notification-product.php:79
 msgid " %1$s  %2$s %3$d  <strong> day(s) ago </strong>"
 msgstr ""
 
 #. translators: %1$s: Content, %2%s: Days.
-#: templates/admin/notification/class-wkmp-notification-orders.php:138
-#: templates/admin/notification/class-wkmp-notification-product.php:78
+#: templates/admin/notification/class-wkmp-notification-orders.php:141
+#: templates/admin/notification/class-wkmp-notification-product.php:81
 msgid " %1$s %2$d  <strong> day(s) ago </strong>"
 msgstr ""
 
-#: templates/admin/notification/class-wkmp-notification-orders.php:154
+#: templates/admin/notification/class-wkmp-notification-orders.php:155
 #: templates/admin/notification/class-wkmp-notification-product.php:95
 msgid "No data Found"
 msgstr ""
 
-#: templates/admin/notification/class-wkmp-notification-product.php:70
+#: templates/admin/notification/class-wkmp-notification-product.php:73
 msgid "(deleted-item)"
 msgstr ""
 
@@ -2090,7 +2091,7 @@ msgstr ""
 msgid "Trash"
 msgstr ""
 
-#: templates/admin/product/class-wkmp-admin-product.php:427
+#: templates/admin/product/class-wkmp-admin-product.php:432
 msgid "Search by Product Title"
 msgstr ""
 
@@ -2192,64 +2193,64 @@ msgstr ""
 msgid "Settings are saved successfully."
 msgstr ""
 
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:102
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:107
 #: templates/front/seller/product/wkmp-product-edit-tab.php:68
 msgid "Product Category"
 msgstr ""
 
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:108
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:113
 #: templates/admin/settings/wkmp-product-settings-content.php:71
 msgid "Allowed Categories"
 msgstr ""
 
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:112
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:117
 #: templates/admin/settings/wkmp-product-settings-content.php:75
 msgid "Select Categories"
 msgstr ""
 
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:115
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:120
 msgid "Order Approval"
 msgstr ""
 
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:122
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:127
 msgid "If Checked, seller can see order and get notification only after manual approval by Admin."
 msgstr ""
 
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:127
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:132
 msgid "Dynamic SKU"
 msgstr ""
 
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:134
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:139
 msgid "If Checked, below prefix will be prefixed with seller actual SKU."
 msgstr ""
 
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:139
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:144
 msgid "Product SKU Prefix"
 msgstr ""
 
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:140
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:145
 msgid "Prefix to seller's SKU."
 msgstr ""
 
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:149
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:154
 msgid "Translate Products"
 msgstr ""
 
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:151
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:156
 msgid "Disabling this setting will not work if it is enabled globally from Product options in Marketplace settings."
 msgstr ""
 
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:156
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:161
 #: templates/admin/settings/wkmp-product-settings-content.php:54
 msgid "Allow seller to translate products"
 msgstr ""
 
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:157
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:162
 #: templates/admin/settings/wkmp-product-settings-content.php:55
 msgid "If Checked, Seller can translate their products from their backend dashboard."
 msgstr ""
 
-#: templates/admin/seller/class-wkmp-seller-assign-category.php:166
+#: templates/admin/seller/class-wkmp-seller-assign-category.php:171
 #: templates/admin/seller/class-wkmp-seller-commission.php:137
 #: templates/admin/settings/wkmp-assets-settings-content.php:61
 #: templates/admin/settings/wkmp-endpoint-settings-content.php:159
@@ -2319,7 +2320,7 @@ msgstr ""
 #: templates/admin/wkmp-admin-order-invoice.php:208
 #: templates/front/seller/orders/wkmp-order-invoice.php:126
 #: templates/front/seller/orders/wkmp-order-views.php:225
-#: templates/front/seller/product/wkmp-edit-product.php:98
+#: templates/front/seller/product/wkmp-edit-product.php:102
 #: woocommerce/templates/emails/wkmp-common-email-data.php:129
 msgid "Shipping"
 msgstr ""
@@ -2942,7 +2943,7 @@ msgid "Order Invoice"
 msgstr ""
 
 #. translators: %d: Order number.
-#: templates/common/wkmp-order-invoice-header.php:23
+#: templates/common/wkmp-order-invoice-header.php:24
 msgid "Invoice Of Order #%d"
 msgstr ""
 
@@ -3036,34 +3037,34 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/front/seller/class-wkmp-notification.php:228
+#: templates/front/seller/class-wkmp-notification.php:230
 msgid " today"
 msgstr ""
 
 #. translators: %d: Interval days.
-#: templates/front/seller/class-wkmp-notification.php:231
+#: templates/front/seller/class-wkmp-notification.php:233
 msgid "%d  <strong> day(s) ago </strong>"
 msgstr ""
 
 #. translators: %1$s: URL, %2%s: Content, %3$s: Days.
-#: templates/front/seller/class-wkmp-notification.php:244
+#: templates/front/seller/class-wkmp-notification.php:249
 msgid " %1$s  %2$s %3$s"
 msgstr ""
 
 #. translators: %1$s: URL, %2%s: Content, %3$s: Days.
-#: templates/front/seller/class-wkmp-notification.php:254
+#: templates/front/seller/class-wkmp-notification.php:256
 msgid " %1$s  %2$s %3$s."
 msgstr ""
 
-#: templates/front/seller/class-wkmp-notification.php:289
+#: templates/front/seller/class-wkmp-notification.php:290
 msgid "No data Found!"
 msgstr ""
 
-#: templates/front/seller/class-wkmp-notification.php:309
+#: templates/front/seller/class-wkmp-notification.php:310
 msgid "Previous"
 msgstr ""
 
-#: templates/front/seller/class-wkmp-notification.php:313
+#: templates/front/seller/class-wkmp-notification.php:314
 #: templates/front/seller/product/wkmp-add-product-first-step.php:63
 msgid "Next"
 msgstr ""
@@ -3560,41 +3561,41 @@ msgstr ""
 msgid "Sorry!! security check failed. Please try again!!"
 msgstr ""
 
-#: templates/front/seller/product/class-wkmp-product-form.php:417
+#: templates/front/seller/product/class-wkmp-product-form.php:416
 msgid "Product Updated Successfully."
 msgstr ""
 
-#: templates/front/seller/product/class-wkmp-product-form.php:752
+#: templates/front/seller/product/class-wkmp-product-form.php:749
 msgid "Invalid or Duplicate SKU."
 msgstr ""
 
-#: templates/front/seller/product/class-wkmp-product-form.php:831
+#: templates/front/seller/product/class-wkmp-product-form.php:828
 msgid "Regular Price is not a number."
 msgstr ""
 
-#: templates/front/seller/product/class-wkmp-product-form.php:835
+#: templates/front/seller/product/class-wkmp-product-form.php:832
 msgid "Sale Price is not a number."
 msgstr ""
 
-#: templates/front/seller/product/class-wkmp-product-form.php:839
+#: templates/front/seller/product/class-wkmp-product-form.php:836
 msgid "Stock Quantity is not a number."
 msgstr ""
 
-#: templates/front/seller/product/class-wkmp-product-form.php:858
+#: templates/front/seller/product/class-wkmp-product-form.php:855
 msgid "Invalid or Duplicate SKUs."
 msgstr ""
 
-#: templates/front/seller/product/class-wkmp-product-list.php:133
+#: templates/front/seller/product/class-wkmp-product-list.php:135
 msgid "Sorry!! security check failed. Please try again to add product!!"
 msgstr ""
 
 #. translators: %s: Edit link.
-#: templates/front/seller/product/class-wkmp-product-list.php:374
+#: templates/front/seller/product/class-wkmp-product-list.php:376
 msgid "Product Created Successfully. To edit it %s"
 msgstr ""
 
 #. translators: %s: Edit link.
-#: templates/front/seller/product/class-wkmp-product-list.php:374
+#: templates/front/seller/product/class-wkmp-product-list.php:376
 msgid "click here"
 msgstr ""
 
@@ -3665,47 +3666,47 @@ msgstr ""
 msgid "Invalid product id"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-edit-product.php:97
+#: templates/front/seller/product/wkmp-edit-product.php:101
 msgid "Inventory"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-edit-product.php:99
+#: templates/front/seller/product/wkmp-edit-product.php:103
 msgid "Linked Products"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-edit-product.php:100
+#: templates/front/seller/product/wkmp-edit-product.php:104
 msgid "Attributes"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-edit-product.php:101
+#: templates/front/seller/product/wkmp-edit-product.php:105
 msgid "External/Affiliate"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-edit-product.php:102
+#: templates/front/seller/product/wkmp-edit-product.php:106
 msgid "Variations"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-edit-product.php:103
+#: templates/front/seller/product/wkmp-edit-product.php:107
 msgid "Product Status"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-edit-product.php:135
+#: templates/front/seller/product/wkmp-edit-product.php:139
 msgid "Update"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-edit-product.php:139
+#: templates/front/seller/product/wkmp-edit-product.php:143
 msgid "This product is no longer exist."
 msgstr ""
 
-#: templates/front/seller/product/wkmp-edit-product.php:140
+#: templates/front/seller/product/wkmp-edit-product.php:144
 msgid "Go to product list."
 msgstr ""
 
-#: templates/front/seller/product/wkmp-edit-product.php:145
+#: templates/front/seller/product/wkmp-edit-product.php:149
 msgid "Go To Products"
 msgstr ""
 
-#: templates/front/seller/product/wkmp-edit-product.php:147
+#: templates/front/seller/product/wkmp-edit-product.php:151
 msgid "Sorry, but you can not edit other sellers' product..!"
 msgstr ""
 
@@ -4143,6 +4144,7 @@ msgid "Last Name"
 msgstr ""
 
 #: templates/front/seller/profile/class-wkmp-seller-profile-form.php:167
+#: templates/front/wkmp-registration-fields.php:75
 msgid "Enter a valid phone number from 4 to 15 characters."
 msgstr ""
 

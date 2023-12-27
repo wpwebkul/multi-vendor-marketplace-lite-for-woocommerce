@@ -387,7 +387,12 @@ if ( ! class_exists( 'WKMP_Admin_Product' ) ) {
 					}
 				}
 
-				$created_date = gmdate( 'Y-n-j', strtotime( $product_info->get_date_created() ) );
+				$date_created = $product_info->get_date_created();
+				if ( empty( $date_created ) ) {
+					$date_created = $product_info->get_date_modified();
+				}
+
+				$created_date = gmdate( 'Y-n-j', strtotime( $date_created ) );
 				$seller_name  = esc_html__( 'Admin', 'wk-marketplace' );
 
 				$seller_name = $this->marketplace->wkmp_get_user_display_name( $post_author, '', 'full', $seller_name );

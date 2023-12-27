@@ -44,7 +44,7 @@ if ( ! class_exists( 'WK_Caching_Transient' ) ) {
 		 * @param string $transient_group Transient group.
 		 * @param int    $expiry Default 1 hour.
 		 */
-		public function set( $transient_key, $transient_data, $transient_group = 'wk', $expiry = 3600 ) {
+		public function set( $transient_key, $transient_data, $transient_group = 'wkwc', $expiry = 3600 ) {
 			$option_key = '_wkwc_transient_' . $transient_group . '_' . $transient_key;
 
 			$transient_value = array(
@@ -89,7 +89,7 @@ if ( ! class_exists( 'WK_Caching_Transient' ) ) {
 		 *
 		 * @return bool|mixed
 		 */
-		public function get( $transient_key, $transient_group = 'wk' ) {
+		public function get( $transient_key, $transient_group = 'wkwc' ) {
 			$option_key = '_wkwc_transient_' . $transient_group . '_' . $transient_key;
 
 			$phpfast_caching_enabled   = $this->is_phpfast_caching_enabled();
@@ -150,9 +150,11 @@ if ( ! class_exists( 'WK_Caching_Transient' ) ) {
 		 * @return bool|mixed
 		 */
 		public function get_all( $type = '' ) {
-			$phpfast_caching_enabled = $this->is_phpfast_caching_enabled();
+			$phpfast_caching_enabled   = $this->is_phpfast_caching_enabled();
+			$file_writing_enabled      = $this->is_file_writing_enabled();
+			$transient_caching_enabled = $this->is_transient_caching_enabled();
 
-			WK_Caching::log( "Get all cached data, PHP Fast enabled: $phpfast_caching_enabled, Type: $type" );
+			WK_Caching::log( "Get all cached data, Type: $type, PHP Fast enabled: $phpfast_caching_enabled, File writing Enabled: $file_writing_enabled, Transient caching enabled: $transient_caching_enabled," );
 
 			if ( $phpfast_caching_enabled ) {
 				$phpfast = WK_Caching_PHPFastCache::get_instance();
@@ -165,6 +167,7 @@ if ( ! class_exists( 'WK_Caching_Transient' ) ) {
 					return $data;
 				}
 			}
+
 			return array();
 		}
 
@@ -201,7 +204,7 @@ if ( ! class_exists( 'WK_Caching_Transient' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function delete_transient( $transient_key, $transient_group = 'wk' ) {
+		public function delete_transient( $transient_key, $transient_group = 'wkwc' ) {
 			$deleted    = false;
 			$option_key = '_wkwc_transient_' . $transient_group . '_' . $transient_key;
 
@@ -299,7 +302,7 @@ if ( ! class_exists( 'WK_Caching_Transient' ) ) {
 				$file_api = new WK_Caching_File( 'wk-transient' );
 
 				$upload      = wp_upload_dir();
-				$folder_path = $upload['basedir'] . '/wk';
+				$folder_path = $upload['basedir'] . '/wkwc';
 				$deleted     = $file_api->delete_folder( $folder_path, true );
 
 				WK_Caching::log( "Deleting force files: $folder_path, Deleted: $deleted" );
@@ -343,13 +346,23 @@ if ( ! class_exists( 'WK_Caching_Transient' ) ) {
 		 * @return bool
 		 */
 		protected function is_phpfast_caching_enabled() {
+			$redis_enabled = apply_filters( 'wkwc_caching_redis_enabled', 'no' );
 			$enabled       = false;
-			$configuration = WK_Caching_Core_Loader::get_the_latest();
 
-			if ( ! empty( $configuration['plugin_path'] ) && file_exists( $configuration['plugin_path'] . 'wk_caching/vendor/autoload.php' ) ) {
-				$enabled = true;
+			if ( 'yes' === $redis_enabled ) {
+				$redis_enabled = get_option( 'wkwc_caching_redis_enabled', 'no' );
 			}
-			return apply_filters( '_wkwc_phpfast_caching_enabled', $enabled );
+
+			if ( 'yes' === $redis_enabled ) {
+				$configuration = WK_Caching_Core_Loader::get_the_latest();
+
+				if ( ! empty( $configuration['plugin_path'] ) && file_exists( $configuration['plugin_path'] . 'wk_caching/vendor/autoload.php' ) ) {
+					$enabled = true;
+				}
+				$enabled = apply_filters( '_wkwc_phpfast_caching_enabled', $enabled );
+			}
+
+			return $enabled;
 		}
 	}
 }

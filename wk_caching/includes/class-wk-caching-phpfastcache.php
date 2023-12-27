@@ -63,7 +63,7 @@ if ( ! class_exists( 'WK_Caching_PHPFastCache' ) ) {
 		 * @param string $cache_group Cache group.
 		 * @param int    $expiry Default 1 hour.
 		 */
-		public function set( $cache_key, $cache_value, $cache_group = 'wk', $expiry = 3600 ) {
+		public function set( $cache_key, $cache_value, $cache_group = 'wkwc', $expiry = 3600 ) {
 			$fast_key = '_wkwc_cache_' . $cache_group . '_' . $cache_key;
 
 			$driver = $this->get_driver();
@@ -92,9 +92,13 @@ if ( ! class_exists( 'WK_Caching_PHPFastCache' ) ) {
 		protected function get_driver() {
 			$driver = 'Files';
 
-			$res = exec( 'redis-cli ping' );
+			$redis_enabled = apply_filters( 'wkwc_caching_redis_enabled', 'no' );
 
-			if ( 'PONG' === $res ) {
+			if ( 'yes' === $redis_enabled ) {
+				$redis_enabled = get_option( 'wkwc_caching_redis_enabled', 'no' );
+			}
+
+			if ( 'yes' === $redis_enabled ) {
 				$driver = 'Redis';
 			}
 
@@ -109,7 +113,7 @@ if ( ! class_exists( 'WK_Caching_PHPFastCache' ) ) {
 		 *
 		 * @return bool|mixed
 		 */
-		public function get( $cache_key, $cache_group = 'wk' ) {
+		public function get( $cache_key, $cache_group = 'wkwc' ) {
 			$fast_key = '_wkwc_cache_' . $cache_group . '_' . $cache_key;
 
 			$driver = $this->get_driver();
@@ -171,7 +175,7 @@ if ( ! class_exists( 'WK_Caching_PHPFastCache' ) ) {
 		 *
 		 * @return bool|mixed
 		 */
-		public function delete( $cache_key, $cache_group = 'wk', $force = false ) {
+		public function delete( $cache_key, $cache_group = 'wkwc', $force = false ) {
 			$fast_key = '_wkwc_cache_' . $cache_group . '_' . $cache_key;
 
 			$driver = $this->get_driver();

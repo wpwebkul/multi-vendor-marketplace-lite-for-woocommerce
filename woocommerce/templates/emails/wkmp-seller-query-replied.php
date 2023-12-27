@@ -34,5 +34,3 @@ if ( $data ) {
 
 	do_action( 'woocommerce_email_footer', $mail_to );
 }
-
-

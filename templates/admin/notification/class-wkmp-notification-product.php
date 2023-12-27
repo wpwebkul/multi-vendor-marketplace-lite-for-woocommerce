@@ -59,6 +59,9 @@ if ( ! class_exists( 'WKMP_Notification_Product' ) ) {
 				$datetime2 = new \DateTime( 'now' );
 				$interval  = $datetime1->diff( $datetime2 );
 
+				$db_content = empty( $value['content'] ) ? '' : $value['content'];
+				$db_content = $db_obj->wkmp_get_formatted_notification_content( $db_content );
+
 				if ( ! empty( $value['context'] ) ) {
 					$product_id = $value['context'];
 
@@ -73,18 +76,15 @@ if ( ! class_exists( 'WKMP_Notification_Product' ) ) {
 					}
 
 					$link    = '<a title="' . $product_id . '" href="' . $edit_link . '" target="' . $target . '"> #' . $product_title . ' </a>';
-					$content = sprintf( /* translators: %1$s: URL, %2%s: Content, %3$s: Days. */ esc_html__( ' %1$s  %2$s %3$d  <strong> day(s) ago </strong>', 'wk-marketplace' ), $link, $value['content'], $interval->days );
+					$content = sprintf( /* translators: %1$s: URL, %2%s: Content, %3$s: Days. */ esc_html__( ' %1$s  %2$s %3$d  <strong> day(s) ago </strong>', 'wk-marketplace' ), $link, $db_content, $interval->days );
 				} else {
-					$content = sprintf( /* translators: %1$s: Content, %2%s: Days. */ esc_html__( ' %1$s %2$d  <strong> day(s) ago </strong>', 'wk-marketplace' ), $value['content'], $interval->days );
+					$content = sprintf( /* translators: %1$s: Content, %2%s: Days. */ esc_html__( ' %1$s %2$d  <strong> day(s) ago </strong>', 'wk-marketplace' ), $db_content, $interval->days );
 				}
 
 				$display[] = array(
 					'content' => $content,
 				);
-
-				$db_obj->wkmp_update_notification_read_status( $value );
 			}
-
 			?>
 			<ul class="mp-notification-list">
 				<?php if ( $display ) { ?>

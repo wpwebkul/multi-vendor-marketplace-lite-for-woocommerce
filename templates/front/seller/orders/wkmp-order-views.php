@@ -361,7 +361,7 @@ if ( ! empty( $order_data ) ) {
 								if ( $fee_amount > 0 ) {
 									?>
 									<tr>
-										<th scope="row"><b><?php echo esc_html( utf8_decode( $fee_name ) ); ?>:</b></th>
+										<th scope="row"><b><?php echo esc_html( mb_convert_encoding( $fee_name, 'UTF-8' ) ); ?>:</b></th>
 										<td class="td">
 											<?php
 											echo wp_kses_data( wc_price( $fee_amount, array( 'currency' => $order_currency ) ) );
@@ -503,7 +503,7 @@ if ( ! empty( $order_data ) ) {
 								<input type='hidden' name='mp-seller-id' value="<?php echo esc_attr( $seller_id ); ?>"/>
 								<input type="submit" name="refund_manually" class="button form-control" value="<?php esc_attr_e( 'Refund Manually', 'wk-marketplace' ); ?>">
 								<?php if ( false !== $payment_gateway && $payment_gateway->can_refund_order( $seller_order ) ) { ?>
-									<input type="submit" name="do_api_refund" class="button form-control" value="<?php echo sprintf( /* Translators: %s: Gateway name. */ esc_attr__( 'Refund via %s', 'wk-marketplace' ), esc_attr( $gateway_name ) ); ?>">
+									<input type="submit" name="do_api_refund" class="button form-control" value="<?php printf( /* Translators: %s: Gateway name. */ esc_attr__( 'Refund via %s', 'wk-marketplace' ), esc_attr( $gateway_name ) ); ?>">
 								<?php } ?>
 							</td>
 						</tr>
@@ -591,7 +591,7 @@ if ( ! empty( $order_data ) ) {
 					</table>
 				</form>
 			<?php } else { ?>
-				<p><?php echo sprintf( /* translators: %s: Order status. */ esc_html__( 'Status: Order status is %s', 'wk-marketplace' ), esc_html( $translated_order_status[ $seller_order->get_status() ] ) ); ?></p>
+				<p><?php printf( /* translators: %s: Order status. */ esc_html__( 'Status: Order status is %s', 'wk-marketplace' ), esc_html( $translated_order_status[ $seller_order->get_status() ] ) ); ?></p>
 				<?php
 			}
 			do_action( 'wkmp_after_seller_order_status', $order_id );
@@ -623,10 +623,10 @@ if ( ! empty( $order_data ) ) {
 									<?php echo wp_kses( wpautop( wptexturize( wp_kses_post( $note->comment_content ) ) ), array( 'p' => array() ) ); ?>
 								</div>
 								<p class="meta">
-									<abbr class="exact-date" title="<?php echo esc_attr( $note->comment_date ); ?>"><?php echo sprintf( /* translators: %1$s: Date, %2%s: Time. */ esc_html__( 'added on %1$s at %2$s', 'wk-marketplace' ), esc_attr( date_i18n( wc_date_format(), strtotime( $note->comment_date ) ) ), esc_attr( date_i18n( wc_time_format(), strtotime( $note->comment_date ) ) ) ); ?></abbr>
+									<abbr class="exact-date" title="<?php echo esc_attr( $note->comment_date ); ?>"><?php printf( /* translators: %1$s: Date, %2%s: Time. */ esc_html__( 'added on %1$s at %2$s', 'wk-marketplace' ), esc_attr( date_i18n( wc_date_format(), strtotime( $note->comment_date ) ) ), esc_attr( date_i18n( wc_time_format(), strtotime( $note->comment_date ) ) ) ); ?></abbr>
 									<?php
 									if ( __( 'WooCommerce', 'wk-marketplace' ) !== $note->comment_author ) {
-										echo sprintf( /* translators: %s: Author. */ esc_html__( ' by %s', 'wk-marketplace' ), esc_html( $note->comment_author ) );
+										printf( /* translators: %s: Author. */ esc_html__( ' by %s', 'wk-marketplace' ), esc_html( $note->comment_author ) );
 									}
 									?>
 								</p>

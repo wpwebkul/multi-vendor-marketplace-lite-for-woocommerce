@@ -22,6 +22,7 @@ if ( ! class_exists( 'WC_Email_WKMP_Registration_Details_To_Seller' ) ) {
 	 */
 	class WC_Email_WKMP_Registration_Details_To_Seller extends \WC_Email {
 		use WC_Email_WKMP_Settings;
+
 		/**
 		 * Constructor of the class.
 		 *

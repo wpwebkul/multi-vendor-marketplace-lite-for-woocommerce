@@ -69,7 +69,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 		$qty_limit_css     = $sold_individually ? 'style=display:none' : '';
 		?>
 		<div class="wkmp_profile_input wkmp-max-product-qty-limit" <?php echo esc_attr( $qty_limit_css ); ?>>
-			<label for="_wkmp_max_product_qty_limit"><?php echo sprintf( /* Translators: %s: Quantity Limit. */ esc_html__( 'Maximum Purchasable Quantity (Globally set value is: %s)', 'wk-marketplace' ), esc_html( $qty_limit ) ); ?></label>
+			<label for="_wkmp_max_product_qty_limit"><?php printf( /* Translators: %s: Quantity Limit. */ esc_html__( 'Maximum Purchasable Quantity (Globally set value is: %s)', 'wk-marketplace' ), esc_html( $qty_limit ) ); ?></label>
 			<p>
 				<input min="0" type="number" class="wkmp_product_input" name="_wkmp_max_product_qty_limit" placeholder="<?php esc_attr_e( 'Enter maximum allowed quantity for this product that can be purchased.', 'wk-marketplace' ); ?>" value="<?php echo esc_attr( $prod_qty_limit ); ?>"/>
 			</p>

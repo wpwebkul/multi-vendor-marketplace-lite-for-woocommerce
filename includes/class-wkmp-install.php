@@ -432,7 +432,6 @@ if ( ! class_exists( 'WKMP_Install' ) ) {
 					}
 				}
 			}
-
 		}
 
 		/**

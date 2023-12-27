@@ -182,10 +182,10 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		 */
 		public function wkmp_seller_save_shipping_cost() {
 			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
-				$ship_cost  = \WK_Caching::wk_get_request_data( 'ship_cost', array( 'method' => 'post' ) );
+				$ship_cost  = empty( $_POST['ship_cost'] ) ? '' : wc_clean( $_POST['ship_cost'] );
 				$final_data = array();
 				parse_str( $ship_cost, $final_data );
-				$instance_id     = absint( $final_data['instance_id'] );
+				$instance_id     = empty( $final_data['instance_id'] ) ? 0 : absint( $final_data['instance_id'] );
 				$shipping_method = \WC_Shipping_Zones::get_shipping_method( $instance_id );
 				$shipping_method->set_post_data( $final_data );
 				$shipping_method->process_admin_options();
@@ -224,13 +224,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		public function wkmp_add_shipping_class() {
 			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 
-				$data = \WK_Caching::wk_get_request_data(
-					'data',
-					array(
-						'method' => 'post',
-						'flag'   => 'array',
-					)
-				);
+				$data = empty( $_POST['data'] ) ? '' : wc_clean( $_POST['data'] );
 
 				$final_data = array();
 				$arr        = array();
@@ -240,11 +234,11 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 					'redirect' => '',
 					'success'  => false,
 				);
+
 				parse_str( $data, $final_data );
 
 				$final_data = empty( $final_data ) ? array() : $final_data;
-
-				$updated = 'error';
+				$updated    = 'error';
 
 				foreach ( $final_data as $s_key => $s_value ) {
 					$i = 0;
@@ -252,10 +246,10 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 					foreach ( $s_value as $main_key => $main_value ) {
 						if ( is_int( $main_key ) ) {
 							$arr[ $i ][ $s_key ] = $main_value;
-							$i ++;
+							++$i;
 						} else {
 							$new_arr[ $j ][ $s_key ] = $main_value;
-							$j ++;
+							++$j;
 						}
 					}
 				}
@@ -420,7 +414,6 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 
 				wp_send_json( $result );
 			}
-
 		}
 
 		/**
@@ -486,7 +479,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 
 					foreach ( $children_array as $var_att ) {
 						$this->wkmp_attribute_variation_data( $var_att->ID, $wk_pro_id );
-						$i ++;
+						++$i;
 					}
 				}
 				if ( $wk_pro_id ) {

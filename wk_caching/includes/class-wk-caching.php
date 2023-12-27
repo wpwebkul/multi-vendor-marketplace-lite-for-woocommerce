@@ -25,6 +25,7 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 			self::define_constants();
 			add_action( 'init', array( __CLASS__, 'localization' ) );
 			add_action( 'plugins_loaded', array( __CLASS__, 'initialize' ) );
+			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'wk_caching_admin_scripts' ) );
 			add_action( 'wp_footer', array( __CLASS__, 'wk_caching_front_footer_info' ) );
 		}
 
@@ -32,8 +33,18 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 		 * Define constants.
 		 */
 		public static function define_constants() {
-			defined( 'WK_CACHING_VERSION' ) || define( 'WK_CACHING_VERSION', '1.0.7' );
+			defined( 'WK_CACHING_VERSION' ) || define( 'WK_CACHING_VERSION', '1.0.8' );
+			defined( 'WK_CACHING_SUBMODULE_URL' ) || define( 'WK_CACHING_SUBMODULE_URL', plugin_dir_url( __DIR__ ) );
 			defined( 'WKMP_ALLOWED_WKMP_SELLER_DATA_COUNT' ) || define( 'WKMP_ALLOWED_WKMP_SELLER_DATA_COUNT', '-005.03' ); // Adding negative decimal values to avoid search. We'll use absint where we'll use it.
+		}
+
+		/**
+		 * Admin enqueue scripts.
+		 *
+		 * @return void
+		 */
+		public static function wk_caching_admin_scripts() {
+			wp_enqueue_style( 'wkwc_caching_style', WK_CACHING_SUBMODULE_URL . '/assets/css/wkwc-caching.css', array(), WK_CACHING_VERSION );
 		}
 
 		/**
@@ -43,20 +54,29 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 			$save = self::wk_get_request_data( 'wk_caching_set_save', array( 'method' => 'post' ) );
 
 			if ( ! empty( $save ) ) {
-				$enabled = self::wk_get_request_data( 'wkwc_caching_enabled', array( 'method' => 'post' ) );
-				$enabled = empty( $enabled ) ? 'no' : 'yes';
+				$enabled       = self::wk_get_request_data( 'wkwc_caching_enabled', array( 'method' => 'post' ) );
+				$redis_enabled = self::wk_get_request_data( 'wkwc_caching_redis_enabled', array( 'method' => 'post' ) );
+
+				$enabled       = empty( $enabled ) ? 'no' : 'yes';
+				$redis_enabled = empty( $redis_enabled ) ? 'no' : 'yes';
 
 				update_option( 'wkwc_caching_enabled', $enabled );
+				update_option( 'wkwc_caching_redis_enabled', $redis_enabled );
 			}
-			$enabled = get_option( 'wkwc_caching_enabled', 'yes' );
+			$enabled       = get_option( 'wkwc_caching_enabled', 'no' );
+			$redis_enabled = get_option( 'wkwc_caching_redis_enabled', 'no' );
 			?>
 			<h1 class=wkwc_caching_title><?php esc_html_e( 'Webkul Core Caching', 'wk_caching' ); ?></h1>
 			<div class="wrap">
 				<form method="post">
 					<table class="wkwc_caching_setting_table">
 						<tr>
-							<th scope="row"><?php esc_html_e( 'Enable', 'wk_caching' ); ?></th>
+							<th scope="row"><?php esc_html_e( 'Enable Caching', 'wk_caching' ); ?></th>
 							<td><input <?php checked( $enabled, 'yes', true ); ?> type="checkbox" name="wkwc_caching_enabled" value="yes"></td>
+						</tr>
+						<tr>
+							<th scope="row"><?php esc_html_e( 'Redis Server is installed and Running?', 'wk_caching' ); ?></th>
+							<td><input <?php checked( $redis_enabled, 'yes', true ); ?> type="checkbox" name="wkwc_caching_redis_enabled" value="yes"></td>
 						</tr>
 						<tr>
 							<td>
@@ -83,9 +103,12 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 			}
 
 			echo '<p><a class="wk_caching_clear_all" href="' . esc_url( admin_url( 'admin.php?page=wkwc_caching&wkwc_show_caching=yes&wkwc_caching_clear=yes' ) ) . '">' . esc_html__( 'Clear all', 'wk_caching' ) . '</a></p>';
-			echo '<p>' . wp_sprintf( /* Translators: %s: Saved cache keys count. */ esc_html__( ' Saved keys count: %s', 'wk_caching' ), count( $all_keys ) ) . '</p>';
-			echo '<p><a class="wk_caching_show_keys" href="' . esc_url( admin_url( 'admin.php?page=wkwc_caching&wkwc_show_caching=yes&wkwc_caching_show_all=keys' ) ) . '">' . esc_html__( 'Show Keys', 'wk_caching' ) . '</a></p>';
-			echo '<p><a class="wk_caching_show_data" href="' . esc_url( admin_url( 'admin.php?page=wkwc_caching&wkwc_show_caching=yes&wkwc_caching_show_all=data' ) ) . '">' . esc_html__( 'Show Data', 'wk_caching' ) . '</a></p>';
+
+			if ( 'yes' === $redis_enabled ) {
+				echo '<p>' . wp_sprintf( /* Translators: %s: Saved cache keys count. */ esc_html__( ' Saved keys count on PHPFastcache: %s', 'wk_caching' ), count( $all_keys ) ) . '</p>';
+				echo '<p><a class="wk_caching_show_keys" href="' . esc_url( admin_url( 'admin.php?page=wkwc_caching&wkwc_show_caching=yes&wkwc_caching_show_all=keys' ) ) . '">' . esc_html__( 'Show Keys on PHPFastcache', 'wk_caching' ) . '</a></p>';
+				echo '<p><a class="wk_caching_show_data" href="' . esc_url( admin_url( 'admin.php?page=wkwc_caching&wkwc_show_caching=yes&wkwc_caching_show_all=data' ) ) . '">' . esc_html__( 'Show Data on PHPFastcache', 'wk_caching' ) . '</a></p>';
+			}
 
 			if ( class_exists( 'WK_Caching_Core' ) ) {
 				$cache_obj     = \WK_Caching_Core::get_instance();
@@ -112,7 +135,7 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 		 * @return void
 		 */
 		public static function localization() {
-			load_plugin_textdomain( 'wk_caching', false, plugin_basename( dirname( dirname( __FILE__ ) ) ) . '/languages' );
+			load_plugin_textdomain( 'wk_caching', false, plugin_basename( dirname( __DIR__ ) ) . '/languages' );
 		}
 
 		/**
@@ -230,7 +253,7 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 				if ( 519 === $filter_int ) { // Int.
 					return empty( $data ) ? array() : map_deep(
 						wp_unslash( $data ),
-						function( $value ) {
+						function ( $value ) {
 							return empty( $value ) ? $value : intval( $value );
 						}
 					);
@@ -238,7 +261,7 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 				if ( 520 === $filter_int ) { // Float.
 					return empty( $data ) ? array() : map_deep(
 						wp_unslash( $data ),
-						function( $value ) {
+						function ( $value ) {
 							return empty( $value ) ? $value : floatval( $value );
 						}
 					);
@@ -302,11 +325,10 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 			$show_info = empty( $show_info ) ? 0 : intval( $show_info );
 			if ( 200 === $show_info ) {
 				?>
-			<input type="hidden" data-lwd="202312201010" data-wk_caching_version="<?php echo esc_attr( WK_CACHING_VERSION ); ?>" data-wk_caching_slug="wk_caching">
+			<input type="hidden" data-lwdt="202312271700" data-wk_caching_version="<?php echo esc_attr( WK_CACHING_VERSION ); ?>" data-wk_caching_slug="wk_caching">
 				<?php
 			}
 		}
-
 	}
 	WK_Caching::init();
 }

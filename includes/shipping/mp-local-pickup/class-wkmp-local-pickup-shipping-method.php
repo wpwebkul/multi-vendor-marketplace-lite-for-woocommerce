@@ -75,7 +75,7 @@ if ( ! class_exists( 'WKMP_Local_Pickup_Shipping_Method' ) ) {
 				}
 			}
 
-			$seller_ids = apply_filters( 'wkmp_shipping_seller_id', $seller_ids, $this->id );
+			$seller_ids = apply_filters( 'wkmp_shipping_seller_id', $seller_ids );
 
 			$country   = strtoupper( wc_clean( $package['destination']['country'] ) );
 			$state     = strtoupper( wc_clean( $package['destination']['state'] ) );
@@ -175,7 +175,7 @@ if ( ! class_exists( 'WKMP_Local_Pickup_Shipping_Method' ) ) {
 					}
 
 					$check      = get_option( 'wkmp_shipping_option', 'woocommerce' );
-					$seller_ids = apply_filters( 'wkmp_shipping_seller_id', $seller_details, $this->id );
+					$seller_ids = apply_filters( 'wkmp_shipping_seller_id', $seller_details );
 					$seller_ids = array_map( 'intval', $seller_ids );
 					$seller_id  = count( $seller_ids ) > 0 ? $seller_ids[0] : 0;
 
@@ -353,7 +353,6 @@ if ( ! class_exists( 'WKMP_Local_Pickup_Shipping_Method' ) ) {
 			);
 
 			return $settings;
-
 		}
 	}
 }

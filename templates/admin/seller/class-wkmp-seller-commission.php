@@ -70,7 +70,7 @@ if ( ! class_exists( 'WKMP_Seller_Commission' ) ) {
 				} else {
 					?>
 					<div class="notice notice-error wkmp-admin-notice is-dismissible">
-						<p><?php echo sprintf( /* translators: %s: Commission. */ esc_html__( 'Invalid default commission value %s. Must be between 0 & 100.', 'wk-marketplace' ), esc_attr( $commission ) ); ?></p>
+						<p><?php printf( /* translators: %s: Commission. */ esc_html__( 'Invalid default commission value %s. Must be between 0 & 100.', 'wk-marketplace' ), esc_attr( $commission ) ); ?></p>
 					</div>
 					<?php
 				}

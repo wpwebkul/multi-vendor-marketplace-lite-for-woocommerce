@@ -44,7 +44,7 @@ if ( ! class_exists( 'WK_Caching_Autoload' ) ) {
 			$current_file = str_ireplace( '_', '-', $current_file );
 			$file_name    = "class-{$current_file}.php";
 
-			$filepath    = trailingslashit( dirname( dirname( __FILE__ ) ) );
+			$filepath    = trailingslashit( dirname( __DIR__ ) );
 			$file_exists = false;
 
 			$all_paths = array(

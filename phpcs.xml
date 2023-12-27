@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress WooCommerce Coding Standards">
-	<description>Apply WordPress and WooCommerce Coding Standards to all Core files</description>
+<ruleset name="WordPress WooCommerce Coding Standards" lwdt="2023-12-22-1210">
+	<description>PHP_CodeSniffer version 3.8.0 (stable) by Squiz and PHPCSStandards</description>
 
 	<!-- Exclude paths -->
 	<exclude-pattern>tests/</exclude-pattern>
@@ -16,8 +16,6 @@
 
 	<!-- WordPress Rules -->
 	<rule ref="WordPress-Core"/>
-	<rule ref="WordPress.CodeAnalysis.EmptyStatement"/>
-
 	<rule ref="WordPress-Docs"/>
 	<rule ref="WordPress-Extra">
 		<exclude name="WordPress.WP.TimezoneChange.timezone_change_date_default_timezone_set"/>
@@ -29,7 +27,9 @@
 	<rule ref="WordPress.WP.I18n"/>
 
 	<!-- WooCommerce Rules -->
-	<rule ref="WooCommerce"/>
+	<rule ref="WooCommerce">
+		<exclude name="WooCommerce.Commenting.CommentHooks.MissingHookComment"/>
+	</rule>
 	<rule ref="WooCommerce-Core"/>
 
 	<!-- Covers rule: Use single and double quotes when appropriate.
@@ -61,25 +61,11 @@
 		<exclude-pattern>tests/</exclude-pattern>
 	</rule>
 
-	<!-- Exclude invalid class file name. -->
-	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
-		<exclude-pattern>functions.php</exclude-pattern>
-	</rule>
-
 	<!--Exclude WooCommerce sanitization function -->
 	<rule ref="WordPress.Security.ValidatedSanitizedInput">
 		<properties>
 			<property name="customSanitizingFunctions" type="array">
 				<element value="wc_clean"/>
-			</property>
-		</properties>
-	</rule>
-
-	<!-- Allow Restricted function dbDelta -->
-	<rule ref="WordPressVIPMinimum.Functions.RestrictedFunctions">
-		<properties>
-			<property name="exclude" type="array">
-				<element value="dbDelta"/>
 			</property>
 		</properties>
 	</rule>
@@ -103,7 +89,13 @@
 
 	<!-- Validate, sanitize, and escape everything. -->
 	<rule ref="WordPress.Security"/>
-	<rule ref="WordPress.WP"/>
+	<rule ref="WordPress.WP.Capabilities">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="wk_marketplace_seller"/>
+			</property>
+		</properties>
+	</rule>
 
 	<!-- Direct database access is prohibited. Instead, make use of the WordPress Database API.. -->
 	<rule ref="WordPress.DB"/>
@@ -138,8 +130,6 @@
 
 	<!-- A few rules not mentioned in the official documentation. -->
 	<rule ref="Generic.Files.ByteOrderMark"/>
-
-	<!-- Evanto coding standards ends here -->
 
 </ruleset>
 

@@ -53,7 +53,7 @@ foreach ( $product_details as $product_id => $details ) {
 	$product      = new WC_Product( $product_id );
 	$detail_count = is_iterable( $details ) ? count( $details ) : 0;
 
-	for ( $i = 0; $i < $detail_count; ++ $i ) {
+	for ( $i = 0; $i < $detail_count; ++$i ) {
 		$total_tax     = floatval( $total_tax ) + floatval( $details[ $i ]['tax'] );
 		$subtotal      = floatval( $subtotal ) + floatval( $details[ $i ]['product_total_price'] );
 		$total_payment = floatval( $total_payment ) + floatval( $details[ $i ]['product_total_price'] );

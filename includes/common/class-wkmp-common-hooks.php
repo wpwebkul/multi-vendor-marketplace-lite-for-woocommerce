@@ -61,7 +61,6 @@ if ( ! class_exists( 'WKMP_Common_Hooks' ) ) {
 			add_action( 'woocommerce_order_status_completed', array( $function_handler, 'wkmp_reset_seller_order_count_cache' ), 10, 1 );
 
 			add_filter( 'woocommerce_order_item_display_meta_value', array( $function_handler, 'wkmp_validate_sold_by_order_item_meta' ), 10, 3 );
-
 		}
 
 		/**

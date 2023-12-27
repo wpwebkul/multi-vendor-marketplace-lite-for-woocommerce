@@ -41,7 +41,6 @@ if ( ! class_exists( 'WKMP_Manage_Shipping' ) ) {
 				array(
 					'mp_flat_rate',
 					'mp_hyperlocal_shipping',
-					'wkmp-fedex-shipping',
 					'mp_usps_shipping',
 					'mp_local_pickup',
 					'mp_free_shipping',
@@ -56,7 +55,7 @@ if ( ! class_exists( 'WKMP_Manage_Shipping' ) ) {
 				add_filter( 'woocommerce_get_zone_criteria', array( $this, 'wkmp_get_zone_ids_for_marketplace_seller' ), 10, 3 );
 			}
 			add_filter( 'wkmp_validate_product_author', array( $this, 'wkmp_validate_product_author_for_admin' ) );
-			add_filter( 'wkmp_shipping_seller_id', array( $this, 'wkmp_manage_seller_id' ), 10, 2 );
+			add_filter( 'wkmp_shipping_seller_id', array( $this, 'wkmp_manage_seller_id' ) );
 		}
 
 		/**
@@ -166,12 +165,11 @@ if ( ! class_exists( 'WKMP_Manage_Shipping' ) ) {
 		/**
 		 * The Function returns the administrator's Ids when Shipping option is set to Admin
 		 *
-		 * @param array  $seller_ids Seller ids.
-		 * @param string $method_name Shipping Method name.
+		 * @param array $seller_ids Seller ids.
 		 *
 		 * @return array
 		 */
-		public function wkmp_manage_seller_id( $seller_ids, $method_name = 'mp_flat_rate' ) {
+		public function wkmp_manage_seller_id( $seller_ids ) {
 			$seller_ids     = is_array( $seller_ids ) ? $seller_ids : array( $seller_ids );
 			$shipping_check = get_option( 'wkmp_shipping_option', 'woocommerce' );
 

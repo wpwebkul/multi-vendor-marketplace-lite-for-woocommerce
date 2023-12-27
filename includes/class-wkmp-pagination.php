@@ -154,15 +154,13 @@ if ( ! class_exists( 'WKMP_Pagination' ) ) {
 					}
 				}
 
-				for ( $i = $start; $i <= $end; $i ++ ) {
+				for ( $i = $start; $i <= $end; $i++ ) {
 					if ( $page === $i ) {
 						$output .= '<li><span aria-current="page" class="page-numbers current">' . $i . '</span></li>';
-					} else {
-						if ( 1 === $i ) {
+					} elseif ( 1 === $i ) {
 							$output .= '<li><a class="page-numbers" href="' . str_replace( array( '/page/{page}', 'page/{page}' ), '', $this->url ) . '">' . $i . '</a></li>';
-						} else {
-							$output .= '<li><a class="page-numbers" href="' . str_replace( '{page}', $i, $this->url ) . '">' . $i . '</a></li>';
-						}
+					} else {
+						$output .= '<li><a class="page-numbers" href="' . str_replace( '{page}', $i, $this->url ) . '">' . $i . '</a></li>';
 					}
 				}
 			}

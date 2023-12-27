@@ -155,7 +155,6 @@ if ( ! class_exists( 'WKMP_Seller_Ask_Queries' ) ) {
 			$query    = $wpdb_obj->get_row( $wpdb_obj->prepare( "SELECT * FROM {$wpdb_obj->prefix}mpseller_asktoadmin WHERE id = %d", esc_attr( $id ) ) );
 
 			return apply_filters( 'wkmp_get_query_info_by_id', $query );
-
 		}
 
 		/**

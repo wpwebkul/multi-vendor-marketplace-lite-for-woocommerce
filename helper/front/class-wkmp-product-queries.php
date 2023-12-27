@@ -92,7 +92,6 @@ if ( ! class_exists( 'WKMP_Product_Queries' ) ) {
 			$product_image = get_post_meta( $id, '_wp_attached_file', true );
 
 			return apply_filters( 'wkmp_product_image', $product_image, $product_id, $meta_key );
-
 		}
 	}
 }

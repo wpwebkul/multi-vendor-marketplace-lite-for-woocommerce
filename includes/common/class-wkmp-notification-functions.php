@@ -80,13 +80,8 @@ if ( ! class_exists( 'WKMP_Notification_Functions' ) ) {
 				$this->wkmp_send_mail_to_inform_seller( $order );
 			}
 
-			$items        = $order->get_items();
-			$order_author = $order->get_customer_id();
-
-			$author_name = 'Guest';
-			if ( $order_author > 0 ) {
-				$author_name = get_user_by( 'ID', $order_author )->display_name;
-			}
+			$items       = $order->get_items();
+			$customer_id = $order->get_customer_id();
 
 			foreach ( $items as $item ) {
 				$product      = get_post( $item['product_id'] );
@@ -94,7 +89,7 @@ if ( ! class_exists( 'WKMP_Notification_Functions' ) ) {
 			}
 
 			$now     = new \DateTime( 'now' );
-			$content = sprintf( /* Translators: %s: Author name. */ esc_html__( 'Order has been placed by %s', 'wk-marketplace' ), '<strong>' . esc_html( $author_name ) . '</strong>' );
+			$content = 'wkmp_new_order_by_customer_id_' . $customer_id;
 
 			foreach ( $seller_ids as $seller_id ) {
 				$order_approval_enabled = get_user_meta( $seller_id, '_wkmp_enable_seller_order_approval', true );
@@ -128,7 +123,7 @@ if ( ! class_exists( 'WKMP_Notification_Functions' ) ) {
 		public function wkmp_save_on_product_update( $new_status, $old_status, $post ) {
 			if ( 'publish' !== $old_status && 'publish' === $new_status && ! empty( $post->ID ) && in_array( $post->post_type, array( 'product' ), true ) ) {
 				$product_data = get_post( $post->ID );
-				$content      = esc_html__( 'has been approved', 'wk-marketplace' );
+				$content      = 'wkmp_product_approved';
 				$now          = new \DateTime( 'now' );
 
 				$data = array(
@@ -153,9 +148,10 @@ if ( ! class_exists( 'WKMP_Notification_Functions' ) ) {
 		 * @hooked wkmp_save_seller_review_notification action hook.
 		 */
 		public function wkmp_after_seller_review_saved( $data, $review_id ) {
-			$content = esc_html__( 'New review has been received', 'wk-marketplace' );
+			$content = 'wkmp_new_review_received_' . $review_id;
 			$now     = new \DateTime( 'now' );
-			$args    = array(
+
+			$args = array(
 				'type'      => 'seller',
 				'author_id' => $data['seller_id'],
 				'context'   => $data['user_id'],
@@ -164,7 +160,6 @@ if ( ! class_exists( 'WKMP_Notification_Functions' ) ) {
 				'timestamp' => $now->format( 'Y-m-d H:i:s' ),
 			);
 			$this->db_obj->wkmp_add_new_notification( $args );
-
 		}
 
 		/**
@@ -177,9 +172,8 @@ if ( ! class_exists( 'WKMP_Notification_Functions' ) ) {
 		public function wkmp_low_stock( $product ) {
 			$product_data = get_post( $product->get_id() );
 			$author_id    = $product_data->post_author;
-			$content      = sprintf( /* translators: %s stock quantity. */ esc_html__( 'Product is low in stock. There are %s left', 'wk-marketplace' ), $product->get_stock_quantity() );
-
-			$now = new \DateTime( 'now' );
+			$content      = 'wkmp_low_stock_' . $product->get_stock_quantity();
+			$now          = new \DateTime( 'now' );
 
 			$data = array(
 				'type'      => 'product',
@@ -200,7 +194,7 @@ if ( ! class_exists( 'WKMP_Notification_Functions' ) ) {
 		public function wkmp_no_stock( $product ) {
 			$product_data = get_post( $product->get_id() );
 			$author_id    = $product_data->post_author;
-			$content      = esc_html__( 'Product is out of stock', 'wk-marketplace' );
+			$content      = 'wkmp_out_of_stock';
 			$now          = new \DateTime( 'now' );
 			$args         = array(
 				'type'      => 'product',
@@ -233,8 +227,7 @@ if ( ! class_exists( 'WKMP_Notification_Functions' ) ) {
 				}
 
 				if ( ! empty( $seller_ids ) ) {
-
-					$content = esc_html__( 'Order status has been changed to <strong>Processing</strong>', 'wk-marketplace' );
+					$content = 'wkmp_order_processing';
 
 					foreach ( $seller_ids as $seller_id ) {
 						$order_approval_enabled = get_user_meta( $seller_id, '_wkmp_enable_seller_order_approval', true );
@@ -279,7 +272,7 @@ if ( ! class_exists( 'WKMP_Notification_Functions' ) ) {
 				}
 
 				if ( ! empty( $seller_ids ) ) {
-					$content = esc_html__( 'Order status has been changed to <strong>Completed</strong>', 'wk-marketplace' );
+					$content = 'wkmp_order_complete';
 
 					foreach ( $seller_ids as $seller_id ) {
 						$order_approval_enabled = get_user_meta( $seller_id, '_wkmp_enable_seller_order_approval', true );

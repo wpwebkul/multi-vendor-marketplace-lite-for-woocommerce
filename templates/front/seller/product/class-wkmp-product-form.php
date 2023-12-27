@@ -259,7 +259,6 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 				$product_array = $wpdb_obj->get_results( $wpdb_obj->prepare( "SELECT * FROM {$wpdb_obj->prefix}posts WHERE post_type = 'product' AND post_status = 'publish' AND post_author = %d ORDER BY ID DESC", $this->seller_id ) );
 
 				require_once __DIR__ . '/wkmp-edit-product.php';
-				unset( $_POST );
 			}
 		}
 
@@ -446,10 +445,8 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 
 							if ( ! empty( $variation_att_ids ) ) {
 								$stock_status = ( $manage_stock ) ? 'instock' : 'outofstock';
-							} else {
-								if ( 'yes' === $manage_stock ) {
+							} elseif ( 'yes' === $manage_stock ) {
 									$stock_status = ( $stock_qty ) ? 'instock' : 'outofstock';
-								}
 							}
 
 							$args['default'] = '';
@@ -781,7 +778,7 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 
 						if ( ! empty( $variation_files ) ) {
 							$variation_count = count( $variation_files );
-							for ( $i = 0; $i < $variation_count; ++ $i ) {
+							for ( $i = 0; $i < $variation_count; ++$i ) {
 								$file_url = wp_unslash( trim( $variation_files[ $i ] ) );
 								if ( '' !== $file_url ) {
 									$files[ md5( $file_url ) ] = array(
@@ -801,8 +798,8 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 			$variation_data_count   = count( $variation_data );
 			$variation_att_id_count = count( $var_attr_ids );
 
-			for ( $i = 0; $i < $variation_data_count; ++ $i ) {
-				for ( $x = 0; $x < $variation_att_id_count; ++ $x ) {
+			for ( $i = 0; $i < $variation_data_count; ++$i ) {
+				for ( $x = 0; $x < $variation_att_id_count; ++$x ) {
 					update_post_meta( $var_attr_ids[ $x ], $variation_data_key[ $i ], $variations_values[ $i ][ $x ] );
 					if ( '_sale_price' === $variation_data_key[ $i ] && '' === $variations_values[ $i ][ $x ] ) {
 						delete_post_meta( $var_attr_ids[ $x ], '_sale_price' );
@@ -942,7 +939,7 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 
 			foreach ( $children_array as $var_att ) {
 				$this->wkmp_attribute_variation_data( $var_att->ID, $wk_pro_id );
-				$i ++;
+				++$i;
 			}
 		}
 

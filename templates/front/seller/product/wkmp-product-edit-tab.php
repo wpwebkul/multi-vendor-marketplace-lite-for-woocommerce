@@ -128,7 +128,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 			<?php
 			if ( $dynamic_sku ) {
 				?>
-				<span class="wkmp-seller-prefix">(<?php echo sprintf( /* Translators: %s: SKU prefix. */ esc_html__( 'Prefix: %s will be added automatically as it is enabled by admin.', 'wk-marketplace' ), esc_html( $dynamic_sku_prefix ) ); ?>)</span>
+				<span class="wkmp-seller-prefix">(<?php printf( /* Translators: %s: SKU prefix. */ esc_html__( 'Prefix: %s will be added automatically as it is enabled by admin.', 'wk-marketplace' ), esc_html( $dynamic_sku_prefix ) ); ?>)</span>
 				<?php
 			}
 			?>

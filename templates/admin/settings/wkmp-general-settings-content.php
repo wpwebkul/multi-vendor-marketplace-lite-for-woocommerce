@@ -173,7 +173,7 @@ $pro_disabled = $wkmarketplace->wkmp_is_pro_module_disabled();
 					?>
 				</select>
 				<?php ( $pro_disabled ) ? $template_functions->wkmp_show_upgrade_lock_icon() : ''; ?>
-				<p class="description"><?php echo sprintf( wp_kses( 'Shipping must be enabled from %s woocommerce settings %s in order to work this functionality.', 'wk-marketplace' ), '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings' ) ) . '">', '</a>' ); ?></p>
+				<p class="description"><?php printf( wp_kses( 'Shipping must be enabled from %s woocommerce settings %s in order to work this functionality.', 'wk-marketplace' ), '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings' ) ) . '">', '</a>' ); ?></p>
 			</td>
 		</tr>
 
@@ -233,7 +233,7 @@ $pro_disabled = $wkmarketplace->wkmp_is_pro_module_disabled();
 					}
 					?>
 				</select>
-				<p class="description"><?php echo sprintf( wp_kses( 'Updating a new seller page will erase the previous content of the newly selected page. Kindly update %s permalinks %s after change.', 'wk-marketplace' ), '<a href="' . esc_url( admin_url( 'options-permalink.php' ) ) . '">', '</a>' ); ?></p>
+				<p class="description"><?php printf( wp_kses( 'Updating a new seller page will erase the previous content of the newly selected page. Kindly update %s permalinks %s after change.', 'wk-marketplace' ), '<a href="' . esc_url( admin_url( 'options-permalink.php' ) ) . '">', '</a>' ); ?></p>
 			</td>
 		</tr>
 

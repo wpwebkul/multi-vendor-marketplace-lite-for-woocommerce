@@ -149,4 +149,3 @@ if ( ! class_exists( 'WKMP_WK_Caching_Core' ) ) {
 	}
 	WKMP_WK_Caching_Core::register();
 }
-

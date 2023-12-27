@@ -44,7 +44,7 @@ if ( ! class_exists( 'WKMP_Autoload' ) ) {
 			$namespace  = '';
 			$filepath   = '';
 
-			for ( $i = count( $file_parts ) - 1; $i > 0; $i -- ) {
+			for ( $i = count( $file_parts ) - 1; $i > 0; $i-- ) {
 				$current = strtolower( $file_parts[ $i ] );
 				$current = str_ireplace( '_', '-', $current );
 
@@ -61,7 +61,7 @@ if ( ! class_exists( 'WKMP_Autoload' ) ) {
 					$namespace = '/' . esc_attr( $current ) . esc_attr( $namespace );
 				}
 
-				$filepath  = trailingslashit( dirname( dirname( __FILE__ ) ) . esc_attr( $namespace ) );
+				$filepath  = trailingslashit( dirname( __DIR__ ) . esc_attr( $namespace ) );
 				$filepath .= $file_name;
 			}
 

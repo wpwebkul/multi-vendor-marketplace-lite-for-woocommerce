@@ -69,7 +69,7 @@ $hide_virtual_style = 'display:' . ( isset( $variation_arr['_virtual'] ) && 'yes
 				?>
 				<input type="hidden" value="<?php echo esc_attr( $variation['name'] ); ?>" name="mp_attribute_name[<?php echo esc_attr( $y ); ?>][]"/>
 				<select name="attribute_<?php echo esc_attr( $variation['name'] ); ?>[<?php echo esc_attr( $y ); ?>]">
-					<option value=""><?php echo sprintf( /* translators: %s: Variation name. */ esc_attr__( 'Choose %s', 'wk-marketplace' ), esc_attr( str_replace( '-', ' ', $variation['name'] ) ) ); ?></option>
+					<option value=""><?php printf( /* translators: %s: Variation name. */ esc_attr__( 'Choose %s', 'wk-marketplace' ), esc_attr( str_replace( '-', ' ', $variation['name'] ) ) ); ?></option>
 					<?php
 					$att_val = explode( '|', $variation['value'] );
 					foreach ( $att_val as $value ) {
@@ -183,7 +183,7 @@ $hide_virtual_style = 'display:' . ( isset( $variation_arr['_virtual'] ) && 'yes
 												</div>
 												<div class="file_url_choose"></div>
 											</div>
-											<?php ++ $i; ?>
+											<?php ++$i; ?>
 										<?php } ?>
 									</div>
 								</div>
@@ -224,7 +224,7 @@ $hide_virtual_style = 'display:' . ( isset( $variation_arr['_virtual'] ) && 'yes
 					<?php
 					if ( $dynamic_sku_enabled && ! empty( $dynamic_sku_prefix ) ) {
 						?>
-						<span class="wkmp-seller-prefix">(<?php echo sprintf( /* Translators: %s: SKU prefix. */ esc_html__( 'Prefix: %s', 'wk-marketplace' ), esc_html( $dynamic_sku_prefix ) ); ?>)</span>
+						<span class="wkmp-seller-prefix">(<?php printf( /* Translators: %s: SKU prefix. */ esc_html__( 'Prefix: %s', 'wk-marketplace' ), esc_html( $dynamic_sku_prefix ) ); ?>)</span>
 						<?php
 					}
 					?>
@@ -260,4 +260,4 @@ $hide_virtual_style = 'display:' . ( isset( $variation_arr['_virtual'] ) && 'yes
 	</table>
 </div>
 <?php
-++ $y;
+++$y;

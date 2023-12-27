@@ -49,7 +49,7 @@ foreach ( $order_detail_by_order_id as $product_id => $details ) {
 	if ( count( $details ) > 0 ) {
 		$detail_c = count( $details );
 	}
-	for ( $i = 0; $i < $detail_c; ++ $i ) {
+	for ( $i = 0; $i < $detail_c; ++$i ) {
 		$total_payment = floatval( $total_payment ) + floatval( $details[ $i ]['product_total_price'] ) + floatval( $seller_order->get_total_shipping() );
 		if ( 0 === intval( $details[ $i ]['variable_id'] ) ) {
 			$result .= mb_convert_encoding( $details[ $i ]['product_name'], 'UTF-8' );

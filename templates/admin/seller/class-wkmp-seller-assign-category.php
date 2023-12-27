@@ -87,7 +87,12 @@ if ( ! class_exists( 'WKMP_Seller_Assign_Category' ) ) {
 			}
 
 			$categories         = array();
-			$product_categories = get_terms( 'product_cat', array( 'hide_empty' => false ) );
+			$product_categories = get_terms(
+				array(
+					'taxonomy'   => 'product_cat',
+					'hide_empty' => false,
+				)
+			);
 
 			foreach ( $product_categories as $value ) {
 				$categories[ $value->slug ] = $value->name;
@@ -135,7 +140,7 @@ if ( ! class_exists( 'WKMP_Seller_Assign_Category' ) ) {
 								'value'       => get_user_meta( $this->seller_id, '_wkmp_enable_seller_dynamic_sku', true ),
 							),
 							'_wkmp_dynamic_sku_prefix'    => array(
-								'type'        => 'input',
+								'type'        => 'text',
 								'label'       => esc_html__( 'Product SKU Prefix', 'wk-marketplace' ),
 								'description' => esc_html__( 'Prefix to seller\'s SKU.', 'wk-marketplace' ),
 								'value'       => get_user_meta( $this->seller_id, '_wkmp_dynamic_sku_prefix', true ),

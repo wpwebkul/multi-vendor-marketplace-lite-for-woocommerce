@@ -66,7 +66,11 @@ if ( $post_row_data && intval( $product_auth ) === get_current_user_id() ) {
 				$ship_show = "style='display:none;'";
 			}
 
-			// Set display of inventory Tab.
+			/**
+			 * Set display of inventory Tab.
+			 *
+			 * @since 5.0.0
+			 */
 			$show = apply_filters( 'wkmp_hide_inventory_tab', $show, $product );
 			/**
 			 * Filter to add Dynamic Tabs in pattern

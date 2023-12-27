@@ -15,7 +15,8 @@ $asset_path = ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) ? 'build' : 'dist';
 	<html>
 	<head>
 		<title><?php esc_html_e( 'Order Invoice', 'wk-marketplace' ); ?></title>
-		<link rel="stylesheet" href="<?php echo esc_url( WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/admin/css/invoice-style' . $suffix . '.css' ); ?>">
+
+		<?php wp_head(); ?>
 	</head>
 	<body>
 	<div class="mp-invoice-wrapper">

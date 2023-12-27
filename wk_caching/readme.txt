@@ -2,9 +2,9 @@
 Contributors: Webkul
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 Requires PHP: 7.4
-Tested up to PHP: 8.2
+Tested up to PHP: 8.3
 WC requires at least: 5.0
 WC tested up to: 8.4
 WPML Compatible: yes
@@ -31,6 +31,10 @@ No questions asked yet
 
 == Feel free to do so. ==
 For any Query please generate a ticket at https://webkul.com/ticket/
+
+== 1.0.8 (23-12-27) ==
+Added: Filter and settings to enable Redis cache from the current module.
+Removed: Unused .md files containing php code in PHPFasteCache vendor folder showing security issues on some hosting.
 
 == 1.0.7 (23-12-13) ==
 Added: A static function to get filtered data from global get and post variables.

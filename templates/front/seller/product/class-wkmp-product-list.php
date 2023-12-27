@@ -127,7 +127,9 @@ if ( ! class_exists( 'WKMP_Product_List' ) ) {
 					$posted_data['product_desc'] = empty( $_POST['product_desc'] ) ? '' : wp_kses_post( $_POST['product_desc'] );
 					$posted_data['short_desc']   = empty( $_POST['short_desc'] ) ? '' : wp_kses_post( $_POST['short_desc'] );
 
-					$this->wkmp_add_new_product( $posted_data );
+					if ( did_action( 'marketplace_process_product_meta' ) < 1 ) { // To avoid double product creation for case my-account is created with Elementor and its Powerpack and the WC My-Account shortcode running more than 1 time. Case: Ticket: #496209.
+						$this->wkmp_add_new_product( $posted_data );
+					}
 				}
 			} elseif ( ! empty( $nonce_add ) ) {
 				wc_print_notice( esc_html__( 'Sorry!! security check failed. Please try again to add product!!', 'wk-marketplace' ), 'error' );

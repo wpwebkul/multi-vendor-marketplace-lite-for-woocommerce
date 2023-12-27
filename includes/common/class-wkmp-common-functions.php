@@ -469,10 +469,8 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 					} else {
 						$seller_db_obj->wkmp_update_seller_role( $user_id, 'seller' );
 					}
-				} else {
-					if ( ! empty( $seller_id ) ) {
+				} elseif ( ! empty( $seller_id ) ) {
 						$seller_db_obj->wkmp_delete_seller( $seller_id );
-					}
 				}
 			}
 		}
@@ -630,94 +628,99 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 		public function wkmp_process_seller_profile_data( $data, $seller_id ) {
 			$errors = array();
 
-			include_once ABSPATH . 'wp-admin/includes/image.php';
-			include_once ABSPATH . 'wp-admin/includes/file.php';
-			include_once ABSPATH . 'wp-admin/includes/media.php';
+			$nonce = \WK_Caching::wk_get_request_data( 'wkmp-user-nonce', array( 'method' => 'post' ) );
 
-			$args = array( 'method' => 'post' );
+			if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, 'wkmp-user-nonce-action' ) ) {
 
-			$data['fist_name'] = \WK_Caching::wk_get_request_data( 'wkmp_first_name', $args );
-			$data['fist_name'] = $this->wkmp_replace_accents_characters_to_normal( $data['fist_name'] );
-			$data['last_name'] = \WK_Caching::wk_get_request_data( 'wkmp_last_name', $args );
-			$data['last_name'] = $this->wkmp_replace_accents_characters_to_normal( $data['last_name'] );
-			$data['shop_name'] = \WK_Caching::wk_get_request_data( 'wkmp_shop_name', $args );
-			$data['shop_name'] = $this->wkmp_replace_accents_characters_to_normal( $data['shop_name'] );
+				include_once ABSPATH . 'wp-admin/includes/image.php';
+				include_once ABSPATH . 'wp-admin/includes/file.php';
+				include_once ABSPATH . 'wp-admin/includes/media.php';
 
-			$data['billing_country']  = \WK_Caching::wk_get_request_data( 'wkmp_shop_country', $args );
-			$data['billing_postcode'] = \WK_Caching::wk_get_request_data( 'wkmp_shop_postcode', $args );
+				$args = array( 'method' => 'post' );
 
-			$args['filter']     = 'email';
-			$data['user_email'] = \WK_Caching::wk_get_request_data( 'wkmp_seller_email', $args );
+				$data['fist_name'] = \WK_Caching::wk_get_request_data( 'wkmp_first_name', $args );
+				$data['fist_name'] = $this->wkmp_replace_accents_characters_to_normal( $data['fist_name'] );
+				$data['last_name'] = \WK_Caching::wk_get_request_data( 'wkmp_last_name', $args );
+				$data['last_name'] = $this->wkmp_replace_accents_characters_to_normal( $data['last_name'] );
+				$data['shop_name'] = \WK_Caching::wk_get_request_data( 'wkmp_shop_name', $args );
+				$data['shop_name'] = $this->wkmp_replace_accents_characters_to_normal( $data['shop_name'] );
 
-			if ( empty( $data['user_email'] ) ) {
-				$errors['wkmp_seller_email'] = esc_html__( 'Enter the valid E-Mail', 'wk-marketplace' );
-			} else {
-				$seller_info = get_user_by( 'email', $data['user_email'] );
+				$data['billing_country']  = \WK_Caching::wk_get_request_data( 'wkmp_shop_country', $args );
+				$data['billing_postcode'] = \WK_Caching::wk_get_request_data( 'wkmp_shop_postcode', $args );
 
-				if ( $seller_info instanceof \WP_User && ( intval( $seller_id ) !== intval( $seller_info->ID ) ) ) {
-					$errors['wkmp_seller_email'] = esc_html__( 'Email already exists.', 'wk-marketplace' );
-				}
-			}
+				$args['filter']     = 'email';
+				$data['user_email'] = \WK_Caching::wk_get_request_data( 'wkmp_seller_email', $args );
 
-			if ( ! preg_match( '/^[-A-Za-z0-9_\s]{1,40}$/', $data['fist_name'] ) ) {
-				$errors['wkmp_first_name'] = esc_html__( 'Only letters and numbers are allowed.', 'wk-marketplace' );
-			}
-
-			if ( ! empty( $data['last_name'] ) && ! preg_match( '/^[-A-Za-z0-9_\s]{1,40}$/', $data['last_name'] ) ) {
-				$errors['wkmp_last_name'] = esc_html__( 'Only letters and numbers are allowed.', 'wk-marketplace' );
-			}
-
-			$shopname_visibility = get_option( 'wkmp_shop_name_visibility', 'required' );
-
-			if ( 'remove' !== $shopname_visibility ) {
-				if ( ( empty( $data['shop_name'] ) && 'required' === $shopname_visibility ) || ( ! empty( $data['shop_name'] ) && ! preg_match( '/^[-A-Za-z0-9_\s]{1,40}$/', $data['shop_name'] ) ) ) {
-					$errors['wkmp_shop_name'] = esc_html__( 'Enter a valid shop name.', 'wk-marketplace' );
-				}
-			}
-
-			if ( ! empty( $data['wkmp_shop_phone'] ) && ! \WC_Validation::is_phone( $data['wkmp_shop_phone'] ) ) {
-				$errors['wkmp_shop_phone'] = esc_html__( 'Enter the valid phone number', 'wk-marketplace' );
-			} elseif ( ( strlen( $data['wkmp_shop_phone'] ) < 4 || strlen( $data['wkmp_shop_phone'] ) > 15 ) ) {
-				$errors['wkmp_shop_phone'] = esc_html__( 'Enter the valid phone number of required length from 4 to 15 characters.', 'wk-marketplace' );
-			}
-
-			if ( ! empty( $data['billing_postcode'] ) && ! \WC_Validation::is_postcode( $data['billing_postcode'], $data['billing_country'] ) ) {
-				$errors['wkmp_shop_postcode'] = esc_html__( 'Enter the valid post code', 'wk-marketplace' );
-			}
-
-			if ( isset( $_FILES['wkmp_avatar_file'] ) && isset( $_FILES['wkmp_avatar_file']['name'] ) && wc_clean( $_FILES['wkmp_avatar_file']['name'] ) ) {
-				$message = $this->wkmp_validate_image( wc_clean( $_FILES['wkmp_avatar_file'] ) );
-				if ( $message ) {
-					$errors['wkmp_avatar_file'] = $message;
+				if ( empty( $data['user_email'] ) ) {
+					$errors['wkmp_seller_email'] = esc_html__( 'Enter the valid E-Mail', 'wk-marketplace' );
 				} else {
-					$data['_thumbnail_id_avatar'] = intval( media_handle_upload( 'wkmp_avatar_file', $seller_id ) );
-				}
-			}
+					$seller_info = get_user_by( 'email', $data['user_email'] );
 
-			if ( isset( $_FILES['wkmp_logo_file'] ) && isset( $_FILES['wkmp_logo_file']['name'] ) && wc_clean( $_FILES['wkmp_logo_file']['name'] ) ) {
-				$message = $this->wkmp_validate_image( wc_clean( $_FILES['wkmp_logo_file'] ) );
-				if ( $message ) {
-					$errors['wkmp_logo_file'] = $message;
+					if ( $seller_info instanceof \WP_User && ( intval( $seller_id ) !== intval( $seller_info->ID ) ) ) {
+						$errors['wkmp_seller_email'] = esc_html__( 'Email already exists.', 'wk-marketplace' );
+					}
+				}
+
+				if ( ! preg_match( '/^[-A-Za-z0-9_\s]{1,40}$/', $data['fist_name'] ) ) {
+					$errors['wkmp_first_name'] = esc_html__( 'Only letters and numbers are allowed.', 'wk-marketplace' );
+				}
+
+				if ( ! empty( $data['last_name'] ) && ! preg_match( '/^[-A-Za-z0-9_\s]{1,40}$/', $data['last_name'] ) ) {
+					$errors['wkmp_last_name'] = esc_html__( 'Only letters and numbers are allowed.', 'wk-marketplace' );
+				}
+
+				$shopname_visibility = get_option( 'wkmp_shop_name_visibility', 'required' );
+
+				if ( 'remove' !== $shopname_visibility ) {
+					if ( ( empty( $data['shop_name'] ) && 'required' === $shopname_visibility ) || ( ! empty( $data['shop_name'] ) && ! preg_match( '/^[-A-Za-z0-9_\s]{1,40}$/', $data['shop_name'] ) ) ) {
+						$errors['wkmp_shop_name'] = esc_html__( 'Enter a valid shop name.', 'wk-marketplace' );
+					}
+				}
+
+				if ( ! empty( $data['wkmp_shop_phone'] ) && ! \WC_Validation::is_phone( $data['wkmp_shop_phone'] ) ) {
+					$errors['wkmp_shop_phone'] = esc_html__( 'Enter the valid phone number', 'wk-marketplace' );
+				} elseif ( ( strlen( $data['wkmp_shop_phone'] ) < 4 || strlen( $data['wkmp_shop_phone'] ) > 15 ) ) {
+					$errors['wkmp_shop_phone'] = esc_html__( 'Enter the valid phone number of required length from 4 to 15 characters.', 'wk-marketplace' );
+				}
+
+				if ( ! empty( $data['billing_postcode'] ) && ! \WC_Validation::is_postcode( $data['billing_postcode'], $data['billing_country'] ) ) {
+					$errors['wkmp_shop_postcode'] = esc_html__( 'Enter the valid post code', 'wk-marketplace' );
+				}
+
+				if ( isset( $_FILES['wkmp_avatar_file'] ) && isset( $_FILES['wkmp_avatar_file']['name'] ) && wc_clean( $_FILES['wkmp_avatar_file']['name'] ) ) {
+					$message = $this->wkmp_validate_image( wc_clean( $_FILES['wkmp_avatar_file'] ) );
+					if ( $message ) {
+						$errors['wkmp_avatar_file'] = $message;
+					} else {
+						$data['_thumbnail_id_avatar'] = intval( media_handle_upload( 'wkmp_avatar_file', $seller_id ) );
+					}
+				}
+
+				if ( isset( $_FILES['wkmp_logo_file'] ) && isset( $_FILES['wkmp_logo_file']['name'] ) && wc_clean( $_FILES['wkmp_logo_file']['name'] ) ) {
+					$message = $this->wkmp_validate_image( wc_clean( $_FILES['wkmp_logo_file'] ) );
+					if ( $message ) {
+						$errors['wkmp_logo_file'] = $message;
+					} else {
+						$data['_thumbnail_id_company_logo'] = intval( media_handle_upload( 'wkmp_logo_file', $seller_id ) );
+					}
+				}
+
+				if ( isset( $_FILES['wkmp_banner_file'] ) && isset( $_FILES['wkmp_banner_file']['name'] ) && wc_clean( $_FILES['wkmp_banner_file']['name'] ) ) {
+					$message = $this->wkmp_validate_image( wc_clean( $_FILES['wkmp_banner_file'] ) );
+					if ( $message ) {
+						$errors['wkmp_banner_file'] = $message;
+					} else {
+						$data['_thumbnail_id_shop_banner'] = intval( media_handle_upload( 'wkmp_banner_file', $seller_id ) );
+					}
+				}
+
+				if ( empty( $errors ) ) {
+					$data['billing_phone'] = $data['wkmp_shop_phone'];
+					unset( $data['wkmp_shop_phone'] );
+					$this->wkmp_update_seller_profile( $data, $seller_id );
 				} else {
-					$data['_thumbnail_id_company_logo'] = intval( media_handle_upload( 'wkmp_logo_file', $seller_id ) );
+					$_POST['wkmp_errors'] = $errors;
 				}
-			}
-
-			if ( isset( $_FILES['wkmp_banner_file'] ) && isset( $_FILES['wkmp_banner_file']['name'] ) && wc_clean( $_FILES['wkmp_banner_file']['name'] ) ) {
-				$message = $this->wkmp_validate_image( wc_clean( $_FILES['wkmp_banner_file'] ) );
-				if ( $message ) {
-					$errors['wkmp_banner_file'] = $message;
-				} else {
-					$data['_thumbnail_id_shop_banner'] = intval( media_handle_upload( 'wkmp_banner_file', $seller_id ) );
-				}
-			}
-
-			if ( empty( $errors ) ) {
-				$data['billing_phone'] = $data['wkmp_shop_phone'];
-				unset( $data['wkmp_shop_phone'] );
-				$this->wkmp_update_seller_profile( $data, $seller_id );
-			} else {
-				$_POST['wkmp_errors'] = $errors;
 			}
 		}
 
@@ -1031,6 +1034,5 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 
 			return empty( $product_sku ) ? $sell_product_id : $product_sku;
 		}
-
 	}
 }

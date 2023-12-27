@@ -18,8 +18,8 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 
 if ( ! class_exists( 'WKMarketplace' ) ) {
 
-	if ( ! class_exists( 'WKMarketplace_Pro_Globals' ) && file_exists( WP_PLUGIN_DIR . '/wk-woocommerce-marketplace/includes/class-wkmarketplace-pro-globals.php' ) ) {
-		require_once WP_PLUGIN_DIR . '/wk-woocommerce-marketplace/includes/class-wkmarketplace-pro-globals.php';
+	if ( ! class_exists( 'WKMarketplace_Pro_Globals' ) && file_exists( dirname( WKMP_LITE_PLUGIN_FILE ) . '/wk-woocommerce-marketplace/includes/class-wkmarketplace-pro-globals.php' ) ) {
+		require_once dirname( WKMP_LITE_PLUGIN_FILE ) . '/wk-woocommerce-marketplace/includes/class-wkmarketplace-pro-globals.php';
 		/**
 		 * WKMP_Pro_Global_Helper class.
 		 */
@@ -400,7 +400,6 @@ if ( ! class_exists( 'WKMarketplace' ) ) {
 			}
 
 			return ( $seller_user_id > 0 );
-
 		}
 
 		/**
@@ -1058,7 +1057,7 @@ if ( ! class_exists( 'WKMarketplace' ) ) {
 		public static function wkmp_declare_hpos_compatibility_status( $file = '', $status = true ) {
 			add_action(
 				'before_woocommerce_init',
-				function() use ( $file, $status ) {
+				function () use ( $file, $status ) {
 					if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
 						\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', $file, $status );
 					}
@@ -1077,7 +1076,7 @@ if ( ! class_exists( 'WKMarketplace' ) ) {
 		public static function wkmp_declare_cart_checkout_block_compatibility_status( $file = '', $status = false ) {
 			add_action(
 				'before_woocommerce_init',
-				function() use ( $file, $status ) {
+				function () use ( $file, $status ) {
 					if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 						\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', $file, $status );
 					}

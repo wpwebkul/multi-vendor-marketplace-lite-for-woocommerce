@@ -20,8 +20,8 @@ $final_types   = array_intersect_key( $wc_product_types, array_flip( $allowed_ty
 	settings_fields( 'wkmp-product-settings-group' );
 
 	$product_categories = get_terms(
-		'product_cat',
 		array(
+			'taxonomy'   => 'product_cat',
 			'hide_empty' => false,
 		)
 	);

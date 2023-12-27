@@ -124,6 +124,9 @@ if ( ! class_exists( 'WKMP_Notification_Orders' ) ) {
 
 				$interval = $datetime1->diff( $datetime2 );
 
+				$db_content        = empty( $value['content'] ) ? '' : $value['content'];
+				$formatted_content = $this->db_obj->wkmp_get_formatted_notification_content( $db_content );
+
 				if ( $value['context'] ) {
 					if ( $wkmarketplace->wkmp_user_is_seller( get_current_user_id() ) ) {
 						$url = admin_url( 'admin.php?page=order-history&action=view&oid=' . $value['context'] );
@@ -133,16 +136,14 @@ if ( ! class_exists( 'WKMP_Notification_Orders' ) ) {
 
 					$link = '<a href="' . $url . '" target="_blank"> #' . $value['context'] . ' </a>';
 
-					$content = wp_sprintf( /* translators: %1$s: URL, %2%s: Content, %3$s: Days. */ esc_html__( ' %1$s  %2$s %3$d  <strong> day(s) ago </strong>', 'wk-marketplace' ), $link, $value['content'], $interval->days );
+					$content = wp_sprintf( /* translators: %1$s: URL, %2%s: Content, %3$s: Days. */ esc_html__( ' %1$s  %2$s %3$d  <strong> day(s) ago </strong>', 'wk-marketplace' ), $link, $formatted_content, $interval->days );
 				} else {
-					$content = wp_sprintf( /* translators: %1$s: Content, %2%s: Days.  */ esc_html__( ' %1$s %2$d  <strong> day(s) ago </strong>', 'wk-marketplace' ), $value['content'], $interval->days );
+					$content = wp_sprintf( /* translators: %1$s: Content, %2%s: Days.  */ esc_html__( ' %1$s %2$d  <strong> day(s) ago </strong>', 'wk-marketplace' ), $formatted_content, $interval->days );
 				}
 
 				$display[] = array(
 					'content' => $content,
 				);
-
-				$this->db_obj->wkmp_update_notification_read_status( $value );
 			}
 			?>
 			<ul class="mp-notification-list">

@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 						<div class="rating">
 							<span><b><?php esc_html_e( 'Price', 'wk-marketplace' ); ?></b></span>
 							<div class="star-rating">
-								<?php for ( $i = 1; $i <= 5; $i ++ ) { ?>
+								<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
 									<?php if ( $i <= $review->price_r ) { ?>
 										<div class="star star-full" aria-hidden="true"></div>
 									<?php } else { ?>
@@ -31,7 +31,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 						<div class="rating">
 							<span><b><?php esc_html_e( 'Value', 'wk-marketplace' ); ?></b></span>
 							<div class="star-rating">
-								<?php for ( $i = 1; $i <= 5; $i ++ ) { ?>
+								<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
 									<?php if ( $i <= $review->value_r ) { ?>
 										<div class="star star-full" aria-hidden="true"></div>
 									<?php } else { ?>
@@ -43,7 +43,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 						<div>
 							<span><b><?php esc_html_e( 'Quality', 'wk-marketplace' ); ?></b></span>
 							<div class="star-rating">
-								<?php for ( $i = 1; $i <= 5; $i ++ ) { ?>
+								<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
 									<?php if ( $i <= $review->quality_r ) { ?>
 										<div class="star star-full" aria-hidden="true"></div>
 									<?php } else { ?>

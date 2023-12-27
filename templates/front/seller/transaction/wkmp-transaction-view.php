@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 ?>
 <div class="wk-mp-transaction-info-box">
 	<div>
-		<h3><?php echo sprintf( /* translators: %s transaction id */ esc_html__( 'Transaction Id - %s', 'wk-marketplace' ), esc_attr( $transaction_info->transaction_id ) ); ?></h3>
+		<h3><?php printf( /* translators: %s transaction id */ esc_html__( 'Transaction Id - %s', 'wk-marketplace' ), esc_attr( $transaction_info->transaction_id ) ); ?></h3>
 		<div class="box">
 			<div class="box-title">
 				<h3><?php esc_html_e( 'Information', 'wk-marketplace' ); ?></h3>

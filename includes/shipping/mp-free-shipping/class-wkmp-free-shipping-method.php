@@ -128,7 +128,7 @@ if ( ! class_exists( 'WKMP_Free_Shipping_Method' ) ) {
 				}
 			}
 
-			$seller_ids = apply_filters( 'wkmp_shipping_seller_id', $seller_ids, $this->id );
+			$seller_ids = apply_filters( 'wkmp_shipping_seller_id', $seller_ids );
 
 			$country   = strtoupper( wc_clean( $package['destination']['country'] ) );
 			$state     = strtoupper( wc_clean( $package['destination']['state'] ) );
@@ -229,7 +229,7 @@ if ( ! class_exists( 'WKMP_Free_Shipping_Method' ) ) {
 
 					$seller_ids     = array( $seller_id );
 					$check          = get_option( 'wkmp_shipping_option', 'woocommerce' );
-					$seller_details = apply_filters( 'wkmp_shipping_seller_id', $seller_ids, $this->id );
+					$seller_details = apply_filters( 'wkmp_shipping_seller_id', $seller_ids );
 
 					$seller_details = array_map( 'intval', $seller_details );
 					$seller_id      = ( is_array( $seller_details ) && count( $seller_details ) > 0 ) ? $seller_details[0] : 0;
@@ -284,10 +284,8 @@ if ( ! class_exists( 'WKMP_Free_Shipping_Method' ) ) {
 											$seller_cart_amount[ $seller_id ]['amount'] = $values['line_total'];
 											$seller_cart_amount[ $seller_id ]['min']    = $shipping_method->min_amount;
 										}
-									} else {
-										if ( ! empty( $seller_cart_amount[ $seller_id ]['amount'] ) ) {
+									} elseif ( ! empty( $seller_cart_amount[ $seller_id ]['amount'] ) ) {
 											$seller_cart_amount[ $seller_id ]['amount'] += $values['line_total'];
-										}
 									}
 								}
 							}

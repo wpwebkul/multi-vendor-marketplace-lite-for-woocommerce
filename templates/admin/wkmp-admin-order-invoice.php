@@ -161,7 +161,7 @@ foreach ( $get_item as $key => $value ) {
 	<?php
 	foreach ( $order_detail_by_order_id as $product_id => $details ) {
 		$detail_count = count( $details );
-		for ( $i = 0; $i < $detail_count; $i ++ ) {
+		for ( $i = 0; $i < $detail_count; $i++ ) {
 			$total_payment = $total_payment + intval( $details[ $i ]['product_total_price'] );
 			if ( $details[ $i ]['variable_id'] < 1 ) {
 				?>
@@ -216,4 +216,4 @@ foreach ( $get_item as $key => $value ) {
 	</tbody>
 </table>
 <?php
-require_once WKMP_LITE_PLUGIN_FILE . '/templates/common/wkmp-order-invoice-header.php';
+require_once WKMP_LITE_PLUGIN_FILE . '/templates/common/wkmp-order-invoice-footer.php';

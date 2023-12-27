@@ -183,15 +183,11 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 				$allowed_roles[] = 'editor';
 			}
 
-			$return = true;
+			$c_user_id = get_current_user_id();
+			$user      = get_user_by( 'id', $c_user_id );
+			$c_roles   = ( $user instanceof \WP_User ) ? $user->roles : array();
 
-			foreach ( $allowed_roles as $allowed_role ) {
-				if ( current_user_can( $allowed_role ) ) {
-					$return = false;
-					break;
-				}
-			}
-			if ( $return ) {
+			if ( empty( array_intersect( $allowed_roles, $c_roles ) ) ) {
 				return;
 			}
 
@@ -205,7 +201,7 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 				55
 			);
 
-			$sellers  = add_submenu_page(
+			$sellers = add_submenu_page(
 				'wk-marketplace',
 				esc_html__( 'Marketplace', 'wk-marketplace' ) . ' | ' . esc_html__( 'Marketplace', 'wk-marketplace' ),
 				esc_html__( 'Sellers', 'wk-marketplace' ),
@@ -216,6 +212,7 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 					'wkmp_marketplace_sellers',
 				)
 			);
+
 			$products = add_submenu_page(
 				'wk-marketplace',
 				esc_html__( 'Products', 'wk-marketplace' ) . ' | ' . esc_html__( 'Marketplace', 'wk-marketplace' ),
@@ -239,6 +236,7 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 					'wkmp_marketplace_notifications',
 				)
 			);
+
 			add_submenu_page(
 				'wk-marketplace',
 				esc_html__( 'Feedback', 'wk-marketplace' ) . ' | ' . esc_html__( 'Marketplace', 'wk-marketplace' ),
@@ -250,6 +248,7 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 					'wkmp_marketplace_feedback',
 				)
 			);
+
 			add_submenu_page(
 				'wk-marketplace',
 				esc_html__( 'Queries', 'wk-marketplace' ) . ' | ' . esc_html__( 'Marketplace', 'wk-marketplace' ),
@@ -427,6 +426,14 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 
 			$wk_page = \WK_Caching::wk_get_request_data( 'page' );
 
+			if ( ! empty( $url_data['path'] ) && strpos( $url_data['path'], 'page=invoice&order_id' ) > 0 ) {
+				wp_enqueue_style( 'wkmp-invoice-stype', WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/admin/css/invoice-style' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION, 'all' );
+			}
+
+			if ( 'invoice' === $wk_page ) {
+				wp_enqueue_style( 'wkmp-invoice-stype', WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/admin/css/invoice-style' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION, 'all' );
+			}
+
 			if ( 'wk-marketplace-support-services' === $wk_page ) {
 				wp_enqueue_script( 'wkmp-admin-suport-services', 'https://webkul.com/common/modules/wksas.bundle.js', array(), WKMP_LITE_SCRIPT_VERSION, true );
 			}
@@ -445,7 +452,7 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 				'',
 				'Invoice',
 				'Invoice',
-				'administrator',
+				'edit_posts',
 				'invoice',
 				function () {
 				}
@@ -454,6 +461,16 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 				'load-' . $hook,
 				function () {
 					if ( is_user_logged_in() && is_admin() ) {
+						$suffix     = ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) ? '' : '.min';
+						$asset_path = ( defined( 'WKWC_DEV' ) && true === WKWC_DEV ) ? 'build' : 'dist';
+
+						$wk_page       = \WK_Caching::wk_get_request_data( 'page' );
+						$order_id_hash = \WK_Caching::wk_get_request_data( 'order_id' );
+
+						if ( 'invoice' === $wk_page && ! empty( $order_id_hash ) ) {
+							wp_enqueue_style( 'wkmp-invoice-stype', WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/admin/css/invoice-style' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION, 'all' );
+						}
+
 						$order_id = \WK_Caching::wk_get_request_data( 'order_id' );
 						$order_id = base64_decode( $order_id ); //phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 						$this->wkmp_admin_end_invoice( $order_id );
@@ -696,8 +713,10 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 				}
 
 				$categories_ids = get_terms(
-					array( 'product_cat' ),
-					array( 'fields' => 'ids' )
+					array(
+						'taxonomy' => 'product_cat',
+						'fields'   => 'ids',
+					)
 				);
 
 				$allowed_ids = array_diff( $categories_ids, $allowed_cat_ids );
@@ -973,7 +992,6 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 			}
 
 			return $args;
-
 		}
 
 		/**
@@ -986,7 +1004,7 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 		 * @return array
 		 */
 		public function wkmp_remove_seller_from_change_role_to( $editable_roles ) {
-			global $pagenow,$wkmarketplace;
+			global $pagenow, $wkmarketplace;
 
 			$pro_disabled = $wkmarketplace->wkmp_is_pro_module_disabled();
 

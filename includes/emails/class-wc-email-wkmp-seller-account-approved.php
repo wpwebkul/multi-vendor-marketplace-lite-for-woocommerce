@@ -24,6 +24,7 @@ if ( ! class_exists( 'WC_Email_WKMP_Seller_Account_Approved' ) ) {
 	 */
 	class WC_Email_WKMP_Seller_Account_Approved extends \WC_Email {
 		use WC_Email_WKMP_Settings;
+
 		/**
 		 * Constructor of the class.
 		 *

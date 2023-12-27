@@ -208,6 +208,8 @@ if ( ! class_exists( 'WKMP_Notification' ) ) {
 			global $wkmarketplace;
 			$display = array();
 
+			$db_obj = Common\WKMP_Seller_Notification::get_instance();
+
 			foreach ( $notifications['data'] as $value ) {
 				$context_id = isset( $value['context'] ) ? $value['context'] : 0;
 
@@ -241,18 +243,17 @@ if ( ! class_exists( 'WKMP_Notification' ) ) {
 					$link = '<a href="' . esc_url( $url ) . '" target="_blank"> #' . esc_html( get_the_title( $context_id ) ) . ' </a>';
 				}
 
-				$content = sprintf( /* translators: %1$s: URL, %2%s: Content, %3$s: Days. */ esc_html__( ' %1$s  %2$s %3$s', 'wk-marketplace' ), $link, $value['content'], $interval_days );
+				$db_content        = empty( $value['content'] ) ? '' : $value['content'];
+				$formatted_content = $db_obj->wkmp_get_formatted_notification_content( $db_content );
+
+				$content = sprintf( /* translators: %1$s: URL, %2%s: Content, %3$s: Days. */ esc_html__( ' %1$s  %2$s %3$s', 'wk-marketplace' ), $link, $formatted_content, $interval_days );
 
 				if ( 'seller' === $action ) {
-					$user    = get_user_by( 'ID', $context_id );
-					$content = $value['content'];
-					$content = str_replace( 'from', '', $content );
-
+					$user         = get_user_by( 'ID', $context_id );
 					$display_name = $wkmarketplace->wkmp_get_user_display_name( $context_id, $user );
 
 					$link    = '<a href="#">' . esc_html( $display_name ) . ' </a>';
-					$content = sprintf( /* translators: %1$s: URL, %2%s: Content, %3$s: Days. */ esc_html__( ' %1$s  %2$s %3$s.', 'wk-marketplace' ), $value['content'], $link, $interval_days );
-
+					$content = sprintf( /* translators: %1$s: URL, %2%s: Content, %3$s: Days. */ esc_html__( ' %1$s  %2$s %3$s.', 'wk-marketplace' ), $formatted_content, $link, $interval_days );
 				}
 
 				$display[] = array(

@@ -22,6 +22,7 @@ if ( ! class_exists( 'WC_Email_WKMP_Seller_Order_Processing' ) ) {
 	 */
 	class WC_Email_WKMP_Seller_Order_Processing extends \WC_Email {
 		use WC_Email_WKMP_Settings;
+
 		/**
 		 * Constructor of the class.
 		 *

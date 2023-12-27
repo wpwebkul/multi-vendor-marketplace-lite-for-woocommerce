@@ -178,7 +178,7 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 				'wkmpObj',
 				array(
 					'ajax'                    => $ajax_obj,
-					'delete_product_alert'    => esc_html__( 'Are you sure you want to delete product(s)?', 'wk-marketplace' ),
+					'delete_product_alert'    => esc_html__( 'Are you sure you want to delete these entries?', 'wk-marketplace' ),
 					'none_selected'           => esc_html__( 'Please select some data to proceed.', 'wk-marketplace' ),
 					'delete_fav_seller_alert' => esc_html__( 'Are you sure you want to delete favorite seller(s)?', 'wk-marketplace' ),
 					'mkt_tr'                  => $mkt_tr_arr,
@@ -191,7 +191,7 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 
 			if ( $dashboard && array_key_exists( $dashboard, $query_vars ) ) {
 				wp_enqueue_script( 'jquery' );
-				wp_enqueue_script( 'mp_chart_script', WKMP_LITE_PLUGIN_URL . 'assets/dist/common/js/Chart.min.js', array(), WKMP_LITE_SCRIPT_VERSION, false );
+				wp_enqueue_script( 'mp_chart_script', WKMP_LITE_PLUGIN_URL . 'assets/dist/common/js/chart.umd.js', array(), WKMP_LITE_SCRIPT_VERSION, false );
 				wp_enqueue_script( 'mp_graph_loader_script', WKMP_LITE_PLUGIN_URL . 'assets/dist/common/js/loader.js', array(), WKMP_LITE_SCRIPT_VERSION, false );
 			}
 
@@ -205,6 +205,13 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 					wp_enqueue_style( 'wkmp-front-style', WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/front/css/front' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION );
 					wp_enqueue_style( 'select2-css', plugins_url() . '/woocommerce/assets/css/select2.css', array(), WKMP_LITE_SCRIPT_VERSION );
 				}
+			}
+
+			$url_data = wp_parse_url( home_url( $wp->request ) );
+			$keyword  = $wkmarketplace->seller_page_slug . '/invoice';
+
+			if ( ! empty( $url_data['path'] ) && strpos( $url_data['path'], $keyword ) > 0 ) {
+				wp_enqueue_style( 'wkmp-invoice-stype', WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/admin/css/invoice-style' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION, 'all' );
 			}
 
 			// Theme compatibility CSS.
@@ -328,8 +335,8 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 					}
 				}
 
-				if ( empty( $shop_phone ) ) {
-					return new \WP_Error( 'phone-error', esc_html__( 'Please enter your phone number.', 'wk-marketplace' ) );
+				if ( empty( $shop_phone ) || ! \WC_Validation::is_phone( $shop_phone ) || strlen( $shop_phone ) < 4 || strlen( $shop_phone ) > 15 ) {
+					return new \WP_Error( 'phone-error', esc_html__( 'Please enter a valid phone number of 4 to 15 character', 'wk-marketplace' ) );
 				} elseif ( ! preg_match( '/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/', $shop_phone ) ) {
 					return new \WP_Error( 'phone-error', esc_html__( 'Please enter valid phone number.', 'wk-marketplace' ) );
 				}
@@ -432,7 +439,6 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 						}
 						update_user_meta( $user_id, 'wkmp_show_register_notice', esc_html__( 'Registration complete check your mail for password!', 'wk-marketplace' ) );
 					}
-					unset( $_POST ); // wpcs: input var okay; wpcs: csrf okay.
 
 					do_action( 'wkmp_registration_details_to_seller', $data );
 
@@ -761,8 +767,7 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 					$assigned_seller = wc_get_order_item_meta( $item_id, 'assigned_seller', true );
 					$tax_total       = 0;
 
-					$product_id = empty( $item['variation_id'] ) ? $item['product_id'] : $item['variation_id'];
-
+					$product_id      = empty( $item['variation_id'] ) ? $item['product_id'] : $item['variation_id'];
 					$commission_data = $mp_commission->wkmp_calculate_product_commission( $product_id, $item['quantity'], $item['line_total'], $assigned_seller, $tax_total );
 
 					$seller_id        = $commission_data['seller_id'];

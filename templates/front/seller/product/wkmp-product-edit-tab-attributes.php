@@ -50,7 +50,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 					</div>
 				</div>
 				<?php
-				$i ++;
+				++$i;
 			}
 		}
 		?>

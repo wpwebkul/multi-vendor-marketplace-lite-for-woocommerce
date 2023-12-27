@@ -30,7 +30,6 @@ if ( ! class_exists( 'WKMP_Front_Action_Functions' ) ) {
 		 * WKMP_Front_Action_Functions constructor.
 		 */
 		public function __construct() {
-
 		}
 
 		/**

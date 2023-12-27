@@ -157,19 +157,8 @@ if ( ! class_exists( 'WKMP_Seller_Notification' ) ) {
 		 * @param int $seller_id Seller id.
 		 */
 		public function wkmp_seller_panel_notification_count( $seller_id ) {
-			$wpdb_obj = $this->wpdb;
-			$total    = $wpdb_obj->get_results( "SELECT*FROM {$wpdb_obj->prefix}mp_notifications WHERE read_flag = '0' AND author_id = '$seller_id' ", ARRAY_A );
-
-			$total_count = 0;
-
-			if ( ! empty( $total ) ) {
-				foreach ( $total as $value ) {
-					$author_id = empty( $value['author_id'] ) ? 0 : intval( $value['author_id'] );
-					if ( intval( $seller_id ) === $author_id ) {
-						$total_count ++;
-					}
-				}
-			}
+			$wpdb_obj    = $this->wpdb;
+			$total_count = $wpdb_obj->get_var( $wpdb_obj->prepare( "SELECT COUNT(`id`) FROM {$wpdb_obj->prefix}mp_notifications WHERE read_flag = '0' AND author_id = %d", $seller_id ) );
 
 			return apply_filters( 'wkmp_seller_panel_notification_count', $total_count, $seller_id );
 		}
@@ -206,6 +195,40 @@ if ( ! class_exists( 'WKMP_Seller_Notification' ) ) {
 			$total = $wpdb_obj->get_var( $wpdb_obj->prepare( "SELECT COUNT(*) FROM {$this->wpdb->prefix}mp_notifications WHERE type=%s AND author_id=%d", $type, $seller_id ) );
 
 			return apply_filters( 'wkmp_get_seller_notification_count', $total, $type );
+		}
+
+		/**
+		 * Get formatted notification content.
+		 *
+		 * @param string $db_content DB Content.
+		 *
+		 * @return string Actual content.
+		 */
+		public function wkmp_get_formatted_notification_content( $db_content ) {
+			global $wkmarketplace;
+			$content = ( 'wkmp_product_approved' === $db_content ) ? esc_html__( 'has been approved', 'wk-marketplace' ) : $db_content;
+			$content = ( 'wkmp_out_of_stock' === $content ) ? esc_html__( 'Product is out of stock', 'wk-marketplace' ) : $content;
+			$content = ( 'wkmp_order_processing' === $content ) ? esc_html__( 'Order status has been changed to <strong>Processing</strong>', 'wk-marketplace' ) : $content;
+			$content = ( 'wkmp_order_complete' === $content ) ? esc_html__( 'Order status has been changed to <strong>Completed</strong>', 'wk-marketplace' ) : $content;
+			$content = ( 'wkmp_order_complete' === $content ) ? esc_html__( 'New review has been received', 'wk-marketplace' ) : $content;
+
+			if ( 0 === strpos( $content, 'wkmp_new_order_by_customer_id_' ) ) {
+				$customer_id  = intval( $content );
+				$display_name = $wkmarketplace->wkmp_get_user_display_name( $customer_id );
+
+				$content = sprintf( /* Translators: %s: Author name. */ esc_html__( 'Order has been placed by %s', 'wk-marketplace' ), '<strong>' . esc_html( $display_name ) . '</strong>' );
+			}
+
+			if ( 0 === strpos( $content, 'wkmp_new_review_received_' ) ) {
+				$content = esc_html__( 'New review has been received', 'wk-marketplace' );
+			}
+
+			if ( 0 === strpos( $content, 'wkmp_low_stock_' ) ) {
+				$low_stock = intval( $content );
+				$content   = sprintf( /* translators: %s stock quantity. */ esc_html__( 'Product is low in stock. There are %s left', 'wk-marketplace' ), esc_html( $low_stock ) );
+			}
+
+			return $content;
 		}
 	}
 }

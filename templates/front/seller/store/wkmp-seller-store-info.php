@@ -221,7 +221,7 @@ if ( empty( $mp_page_title ) ) {
 							<span><b><?php esc_html_e( 'Price', 'wk-marketplace' ); ?></b></span>
 							<div class="star-rating">
 								<?php
-								for ( $i = 1; $i <= 5; $i ++ ) {
+								for ( $i = 1; $i <= 5; $i++ ) {
 									if ( $i <= $review->price_r ) {
 										?>
 										<div class="star star-full" aria-hidden="true"></div>
@@ -237,7 +237,7 @@ if ( empty( $mp_page_title ) ) {
 							<span><b><?php esc_html_e( 'Value', 'wk-marketplace' ); ?></b></span>
 							<div class="star-rating">
 								<?php
-								for ( $i = 1; $i <= 5; $i ++ ) {
+								for ( $i = 1; $i <= 5; $i++ ) {
 									if ( $i <= $review->value_r ) {
 										?>
 										<div class="star star-full" aria-hidden="true"></div>
@@ -253,7 +253,7 @@ if ( empty( $mp_page_title ) ) {
 							<span><b><?php esc_html_e( 'Quality', 'wk-marketplace' ); ?></b></span>
 							<div class="star-rating">
 								<?php
-								for ( $i = 1; $i <= 5; $i ++ ) {
+								for ( $i = 1; $i <= 5; $i++ ) {
 									if ( $i <= $review->quality_r ) {
 										?>
 										<div class="star star-full" aria-hidden="true"></div>
@@ -274,7 +274,7 @@ if ( empty( $mp_page_title ) ) {
 					</div>
 				</div>
 				<?php
-				$count ++;
+				++$count;
 			}
 			if ( count( $reviews ) > 5 ) {
 				?>

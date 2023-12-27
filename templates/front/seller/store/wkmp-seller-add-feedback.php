@@ -38,7 +38,7 @@ $quality_r = empty( $posted_data['quality_r'] ) ? 0 : $posted_data['quality_r'];
 						<?php } ?>
 						<p class="stars <?php echo empty( $price_r ) ? '' : ' selected'; ?>">
 						<span>
-							<?php for ( $i = 1; $i <= 5; $i ++ ) { ?>
+							<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
 								<?php if ( $price_r === $i ) { ?>
 									<a class="star-<?php echo esc_attr( $i ); ?> active"><?php echo esc_html( $i ); ?></a>
 								<?php } else { ?>
@@ -49,7 +49,7 @@ $quality_r = empty( $posted_data['quality_r'] ) ? 0 : $posted_data['quality_r'];
 						</p>
 						<select name="feed_price" id="feed-price-rating" aria-required="true" style="display:none;">
 							<option value=""></option>
-							<?php for ( $i = 1; $i <= 5; $i ++ ) { ?>
+							<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
 								<?php if ( $price_r === $i ) { ?>
 									<option value="<?php echo esc_attr( $i ); ?>" selected></option>
 								<?php } else { ?>
@@ -67,7 +67,7 @@ $quality_r = empty( $posted_data['quality_r'] ) ? 0 : $posted_data['quality_r'];
 						<p class="stars <?php echo empty( $value_r ) ? '' : ' selected'; ?>">
 						<span>
 							<?php
-							for ( $i = 1; $i <= 5; $i ++ ) {
+							for ( $i = 1; $i <= 5; $i++ ) {
 								if ( $value_r === $i ) {
 									?>
 									<a class="star-<?php echo esc_attr( $i ); ?> active"><?php echo esc_html( $i ); ?></a>
@@ -83,7 +83,7 @@ $quality_r = empty( $posted_data['quality_r'] ) ? 0 : $posted_data['quality_r'];
 						</p>
 						<select name="feed_value" id="feed-value-rating" aria-required="true" style="display:none;">
 							<option value=""></option>
-							<?php for ( $i = 1; $i <= 5; $i ++ ) { ?>
+							<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
 								<?php if ( $value_r === $i ) { ?>
 									<option value="<?php echo esc_attr( $i ); ?>" selected></option>
 								<?php } else { ?>
@@ -100,7 +100,7 @@ $quality_r = empty( $posted_data['quality_r'] ) ? 0 : $posted_data['quality_r'];
 						<?php } ?>
 						<p class="stars <?php echo empty( $quality_r ) ? '' : ' selected'; ?>">
 						<span>
-							<?php for ( $i = 1; $i <= 5; $i ++ ) { ?>
+							<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
 								<?php if ( $quality_r === $i ) { ?>
 									<a class="star-<?php echo esc_attr( $i ); ?> active"><?php echo esc_html( $i ); ?></a>
 								<?php } else { ?>
@@ -111,7 +111,7 @@ $quality_r = empty( $posted_data['quality_r'] ) ? 0 : $posted_data['quality_r'];
 						</p>
 						<select name="feed_quality" id="feed-quality-rating" aria-required="true" style="display:none;">
 							<option value=""></option>
-							<?php for ( $i = 1; $i <= 5; $i ++ ) { ?>
+							<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
 								<?php if ( $quality_r === $i ) { ?>
 									<option value="<?php echo esc_attr( $i ); ?>" selected></option>
 								<?php } else { ?>

@@ -72,7 +72,7 @@ if ( ! is_account_page() ) {
 			?>
 		<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
 			<label for="wkmp-shopphone"><?php esc_html_e( 'Phone Number', 'wk-marketplace' ); ?><span class="required">*</span></label>
-			<input type="text" class="input-text form-control" name="wkmp_shopphone" value="<?php echo esc_attr( $wkmp_shopphone ); ?>" id="wkmp-shopphone"/>
+			<input placeholder="<?php esc_attr_e( 'Enter a valid phone number from 4 to 15 characters.', 'wk-marketplace' ); ?>" type="text" class="input-text form-control" name="wkmp_shopphone" value="<?php echo esc_attr( $wkmp_shopphone ); ?>" id="wkmp-shopphone"/>
 		</p>
 			<?php
 		}

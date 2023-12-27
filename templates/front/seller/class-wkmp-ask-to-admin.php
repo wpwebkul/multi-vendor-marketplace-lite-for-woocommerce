@@ -75,7 +75,7 @@ if ( ! class_exists( 'WKMP_Ask_To_Admin' ) ) {
 		 * @return void
 		 */
 		public function wkmp_seller_queries_list( $seller_id ) {
-			global $wkmarketplace,$wp;
+			global $wkmarketplace, $wp;
 
 			$this->seller_id = empty( $this->seller_id ) ? $seller_id : $this->seller_id;
 			$nonce           = \WK_Caching::wk_get_request_data( 'wkmp-sellerAskQuery-nonce', array( 'method' => 'post' ) );

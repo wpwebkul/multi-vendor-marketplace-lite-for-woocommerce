@@ -111,7 +111,7 @@ if ( ! class_exists( 'WKMP_Commission' ) ) {
 				$sql .= $wpdb_obj->prepare( ' AND seller_id=%d', esc_attr( $seller_id ) );
 
 				if ( $single ) {
-					$commission_info = $wpdb_obj->get_var( $sql, $result_type );
+					$commission_info = $wpdb_obj->get_var( $sql );
 				} else {
 					$commission_info = $wpdb_obj->get_row( $sql, $result_type );
 				}
@@ -120,7 +120,6 @@ if ( ! class_exists( 'WKMP_Commission' ) ) {
 			}
 
 			if ( $seller_id > 0 && ! $single ) {
-
 				if ( ! empty( $commission_info ) && is_iterable( $commission_info ) && 1 === count( $commission_info ) ) {
 					$commission_info = $commission_info[0];
 				}
@@ -255,13 +254,9 @@ if ( ! class_exists( 'WKMP_Commission' ) ) {
 				$admin_commission     = $product_price;
 
 				if ( empty( $commission_on_seller ) ) {
-					if ( ! user_can( $seller_id, 'administrator' ) ) {
-						$default_commission = get_option( '_wkmp_default_commission', 0 );
-						$admin_commission   = ( $product_price / 100 ) * $default_commission;
-						$commission_applied = $default_commission;
-					} else {
-						$comm_type = 'fixed';
-					}
+					$default_commission = get_option( '_wkmp_default_commission', 0 );
+					$admin_commission   = ( $product_price / 100 ) * $default_commission;
+					$commission_applied = $default_commission;
 				} else {
 					$admin_commission   = ( $product_price / 100 ) * $commission_on_seller;
 					$commission_applied = $commission_on_seller;
@@ -705,7 +700,7 @@ if ( ! class_exists( 'WKMP_Commission' ) ) {
 						'paid_status'         => $paid_status[ $i ],
 						'action'              => $action[ $i ],
 					);
-					++ $i;
+					++$i;
 				}
 			}
 

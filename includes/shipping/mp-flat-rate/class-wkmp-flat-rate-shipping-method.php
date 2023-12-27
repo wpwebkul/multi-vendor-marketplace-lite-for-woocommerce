@@ -76,7 +76,7 @@ if ( ! class_exists( 'WKMP_Flat_Rate_Shipping_Method' ) ) {
 			}
 
 			$manage_shipping = Shipping\WKMP_Manage_Shipping::get_instance();
-			$seller_ids      = apply_filters( 'wkmp_shipping_seller_id', $seller_ids, $this->id );
+			$seller_ids      = apply_filters( 'wkmp_shipping_seller_id', $seller_ids );
 
 			$country   = strtoupper( wc_clean( $package['destination']['country'] ) );
 			$state     = strtoupper( wc_clean( $package['destination']['state'] ) );
@@ -183,7 +183,7 @@ if ( ! class_exists( 'WKMP_Flat_Rate_Shipping_Method' ) ) {
 					$check          = get_option( 'wkmp_shipping_option', 'woocommerce' );
 					$seller_details = apply_filters( 'wkmp_validate_product_author', $product_author );
 
-					$seller_ids     = apply_filters( 'wkmp_shipping_seller_id', $seller_details, $this->id );
+					$seller_ids     = apply_filters( 'wkmp_shipping_seller_id', $seller_details );
 					$seller_details = $seller_ids;
 
 					if ( ! empty( $seller_details ) ) {
@@ -601,7 +601,7 @@ if ( ! class_exists( 'WKMP_Flat_Rate_Shipping_Method' ) ) {
 						continue;
 					}
 
-					if ( user_can( $user_id, 'administrator' ) || ( ! empty( $u_shipping_classes ) && in_array( $shipping_class->term_id, $u_shipping_classes, true ) ) ) :
+					if ( user_can( $user_id, 'manage_options' ) || ( ! empty( $u_shipping_classes ) && in_array( $shipping_class->term_id, $u_shipping_classes, true ) ) ) :
 
 						$settings[ 'class_cost_' . $shipping_class->term_id ] = array(
 							/* translators: %s: shipping class name */

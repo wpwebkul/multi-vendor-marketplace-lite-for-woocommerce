@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpcs version="3.8.0">
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/inc/class-wkmp-autoload.php" errors="0" warnings="1" fixable="0">
+    <warning line="70" column="30" source="WordPressVIPMinimum.Files.IncludingFile.UsingVariable" severity="3" fixable="0">File inclusion using variable (`$filepath`). Probably needs manual inspection.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/multi-vendor-marketplace-lite-for-woocommerce.php" errors="0" warnings="1" fixable="0">
+    <warning line="63" column="14" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/woocommerce/templates/emails/plain/wkmp-seller-order-processing.php" errors="0" warnings="1" fixable="0">
+    <warning line="12" column="9" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/woocommerce/templates/emails/plain/wkmp-seller-order-on-hold.php" errors="0" warnings="1" fixable="0">
+    <warning line="14" column="9" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/woocommerce/templates/emails/plain/wkmp-seller-order-completed.php" errors="0" warnings="1" fixable="0">
+    <warning line="11" column="9" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/woocommerce/templates/emails/plain/wkmp-seller-order-refunded.php" errors="0" warnings="1" fixable="0">
+    <warning line="11" column="9" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/class-wk-caching-core-loader.php" errors="1" warnings="1" fixable="0">
+    <error line="96" column="5" source="Generic.Files.OneObjectStructurePerFile.MultipleFound" severity="5" fixable="0">Only one object structure is allowed in a file</error>
+    <warning line="138" column="26" source="WordPressVIPMinimum.Files.IncludingFile.UsingVariable" severity="3" fixable="0">File inclusion using variable (`$get_global_path`). Probably needs manual inspection.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/includes/shipping/mp-local-pickup/class-wkmp-local-pickup-shipping-method.php" errors="0" warnings="1" fixable="0">
+    <warning line="265" column="26" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomFunction" severity="3" fixable="0">File inclusion using custom function ( `WC()` ). Must return local file source, as external URLs are prohibited on WordPress VIP. Probably needs manual inspection.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/includes/shipping/mp-flat-rate/class-wkmp-flat-rate-shipping-method.php" errors="0" warnings="1" fixable="0">
+    <warning line="460" column="26" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomFunction" severity="3" fixable="0">File inclusion using custom function ( `WC()` ). Must return local file source, as external URLs are prohibited on WordPress VIP. Probably needs manual inspection.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/includes/shipping/class-wkmp-manage-shipping.php" errors="2" warnings="8" fixable="0">
+    <warning line="84" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $postcode_locations is never used</warning>
+    <warning line="260" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $raw_methods is never used</warning>
+    <warning line="260" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $allowed_classes is never used</warning>
+    <warning line="260" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $zone_object is never used</warning>
+    <warning line="323" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.Found" severity="5" fixable="0">The method parameter $zone is never used</warning>
+    <warning line="371" column="57" source="WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder" severity="5" fixable="0">Complex placeholders used for values in the query string in $wpdb-&gt;prepare() will NOT be quoted automagically. Found: %1s.</warning>
+    <warning line="382" column="1" source="WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder" severity="5" fixable="0">Complex placeholders used for values in the query string in $wpdb-&gt;prepare() will NOT be quoted automagically. Found: %1s.</warning>
+    <warning line="383" column="1" source="WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder" severity="5" fixable="0">Complex placeholders used for values in the query string in $wpdb-&gt;prepare() will NOT be quoted automagically. Found: %2s.</warning>
+    <error line="388" column="36" source="WordPress.DB.PreparedSQL.NotPrepared" severity="5" fixable="0">Use placeholders and $wpdb-&gt;prepare(); found stripslashes_deep</error>
+    <error line="388" column="55" source="WordPress.DB.PreparedSQL.NotPrepared" severity="5" fixable="0">Use placeholders and $wpdb-&gt;prepare(); found $query</error>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/includes/class-wkmp-install.php" errors="1" warnings="1" fixable="0">
+    <warning line="75" column="28" source="WordPressVIPMinimum.Functions.RestrictedFunctions.get_page_by_path_get_page_by_path" severity="5" fixable="0">get_page_by_path() is highly discouraged due to not being cached; please use wpcom_vip_get_page_by_path() instead.</warning>
+    <error line="124" column="13" source="WordPressVIPMinimum.Functions.RestrictedFunctions.custom_role_add_role" severity="5" fixable="0">Use wpcom_vip_add_role() instead of add_role().</error>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/includes/common/class-wkmp-common-functions.php" errors="0" warnings="4" fixable="0">
+    <warning line="119" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $data is never used</warning>
+    <warning line="382" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $post is never used</warning>
+    <warning line="382" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $update is never used</warning>
+    <warning line="895" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $item is never used</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/includes/admin/class-wkmp-admin-functions.php" errors="1" warnings="15" fixable="0">
+    <error line="167" column="17" source="WordPressVIPMinimum.Functions.RestrictedFunctions.flush_rewrite_rules_flush_rewrite_rules" severity="5" fixable="0">`flush_rewrite_rules` should not be used in any normal circumstances in the theme code.</error>
+    <warning line="197" column="17" source="WordPress.WP.Capabilities.Undetermined" severity="3" fixable="0">Couldn't determine the value passed to the $capability parameter in function call to add_menu_page(). Please check if it matches a valid capability. Found: $capability</warning>
+    <warning line="208" column="17" source="WordPress.WP.Capabilities.Undetermined" severity="3" fixable="0">Couldn't determine the value passed to the $capability parameter in function call to add_submenu_page(). Please check if it matches a valid capability. Found: $capability</warning>
+    <warning line="220" column="17" source="WordPress.WP.Capabilities.Undetermined" severity="3" fixable="0">Couldn't determine the value passed to the $capability parameter in function call to add_submenu_page(). Please check if it matches a valid capability. Found: $capability</warning>
+    <warning line="232" column="17" source="WordPress.WP.Capabilities.Undetermined" severity="3" fixable="0">Couldn't determine the value passed to the $capability parameter in function call to add_submenu_page(). Please check if it matches a valid capability. Found: $capability</warning>
+    <warning line="244" column="17" source="WordPress.WP.Capabilities.Undetermined" severity="3" fixable="0">Couldn't determine the value passed to the $capability parameter in function call to add_submenu_page(). Please check if it matches a valid capability. Found: $capability</warning>
+    <warning line="256" column="17" source="WordPress.WP.Capabilities.Undetermined" severity="3" fixable="0">Couldn't determine the value passed to the $capability parameter in function call to add_submenu_page(). Please check if it matches a valid capability. Found: $capability</warning>
+    <warning line="268" column="17" source="WordPress.WP.Capabilities.Undetermined" severity="3" fixable="0">Couldn't determine the value passed to the $capability parameter in function call to add_submenu_page(). Please check if it matches a valid capability. Found: $capability</warning>
+    <warning line="294" column="17" source="WordPress.WP.Capabilities.Undetermined" severity="3" fixable="0">Couldn't determine the value passed to the $capability parameter in function call to add_submenu_page(). Please check if it matches a valid capability. Found: $capability</warning>
+    <warning line="306" column="17" source="WordPress.WP.Capabilities.Undetermined" severity="3" fixable="0">Couldn't determine the value passed to the $capability parameter in function call to add_submenu_page(). Please check if it matches a valid capability. Found: $capability</warning>
+    <warning line="429" column="58" source="VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable" severity="3" fixable="0">Variable $url_data is undefined.</warning>
+    <warning line="514" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.Found" severity="5" fixable="0">The method parameter $order_id is never used</warning>
+    <warning line="515" column="26" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+    <warning line="550" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.Found" severity="5" fixable="0">The method parameter $user is never used</warning>
+    <warning line="551" column="26" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+    <warning line="731" column="27" source="WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude" severity="5" fixable="0">Using exclusionary parameters, like exclude, in calls to get_posts() should be done with caution, see https://wpvip.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/ for more information.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/includes/emails/trait-wc-email-wkmp-settings.php" errors="0" warnings="1" fixable="0">
+    <warning line="309" column="26" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/includes/front/class-wkmp-front-ajax-functions.php" errors="0" warnings="5" fixable="0">
+    <warning line="465" column="34" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+    <warning line="477" column="39" source="WordPressVIPMinimum.Functions.RestrictedFunctions.get_posts_get_children" severity="3" fixable="0">get_children() is uncached and performs a no limit query. Please use get_posts or WP_Query instead. Please see: https://docs.wpvip.com/technical-references/caching/uncached-functions/</warning>
+    <warning line="497" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $var_id is never used</warning>
+    <warning line="497" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $wk_pro_id is never used</warning>
+    <warning line="498" column="26" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/includes/front/class-wkmp-front-functions.php" errors="1" warnings="4" fixable="0">
+    <error line="258" column="13" source="WordPressVIPMinimum.Functions.RestrictedFunctions.flush_rewrite_rules_flush_rewrite_rules" severity="5" fixable="0">`flush_rewrite_rules` should not be used in any normal circumstances in the theme code.</error>
+    <warning line="859" column="44" source="WordPress.WP.DeprecatedFunctions.get_page_by_titleFound" severity="5" fixable="0">get_page_by_title() has been deprecated since WordPress version 6.2.0. Use WP_Query instead.</warning>
+    <warning line="859" column="44" source="WordPressVIPMinimum.Functions.RestrictedFunctions.get_page_by_title_get_page_by_title" severity="5" fixable="0">get_page_by_title() is uncached, please use wpcom_vip_get_page_by_title() instead.</warning>
+    <warning line="998" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $order is never used</warning>
+    <warning line="1035" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.Found" severity="5" fixable="0">The method parameter $posted_data is never used</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/includes/class-wkmarketplace.php" errors="3" warnings="3" fixable="0">
+    <error line="1" column="1" source="WordPress.Files.FileName.InvalidClassFileName" severity="5" fixable="0">Class file names should be based on the class name with &quot;class-&quot; prepended. Expected class-wkmp-pro-global-helper.php, but found class-wkmarketplace.php.</error>
+    <warning line="31" column="9" source="Generic.Classes.DuplicateClassName.Found" severity="5" fixable="0">Duplicate class name &quot;WkMarketplace\Includes\WKMP_Pro_Global_Helper&quot; found; first defined in /home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/includes/class-wkmarketplace.php on line 26</warning>
+    <error line="31" column="9" source="Generic.Files.OneObjectStructurePerFile.MultipleFound" severity="5" fixable="0">Only one object structure is allowed in a file</error>
+    <error line="37" column="11" source="Generic.Files.OneObjectStructurePerFile.MultipleFound" severity="5" fixable="0">Only one object structure is allowed in a file</error>
+    <warning line="132" column="17" source="Universal.CodeAnalysis.ConstructorDestructorReturn.ReturnValueFound" severity="5" fixable="0">A &quot;__construct()&quot; magic method can not return a value. Found: &quot;return false;&quot;</warning>
+    <warning line="196" column="26" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/templates/admin/wkmp-admin-order-invoice.php" errors="0" warnings="2" fixable="0">
+    <warning line="41" column="18" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+    <warning line="219" column="14" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/templates/admin/settings/wkmp-general-settings-content.php" errors="0" warnings="1" fixable="0">
+    <warning line="195" column="25" source="WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude" severity="5" fixable="0">Using exclusionary parameters, like exclude, in calls to get_posts() should be done with caution, see https://wpvip.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/ for more information.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/templates/front/seller/dashboard/class-wkmp-dashboard-summary.php" errors="0" warnings="1" fixable="0">
+    <warning line="68" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.Found" severity="5" fixable="0">The method parameter $seller_id is never used</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/templates/front/seller/orders/class-wkmp-orders.php" errors="0" warnings="2" fixable="0">
+    <warning line="65" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $invoice is never used</warning>
+    <warning line="65" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $order_id is never used</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/templates/front/seller/orders/wkmp-order-invoice.php" errors="0" warnings="2" fixable="0">
+    <warning line="18" column="14" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+    <warning line="178" column="14" source="WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant" severity="3" fixable="0">File inclusion using custom constant (`WKMP_LITE_PLUGIN_FILE`). Probably needs manual inspection.</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/templates/front/seller/product/class-wkmp-product-form.php" errors="0" warnings="6" fixable="0">
+    <warning line="123" column="21" source="WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude" severity="5" fixable="0">Using exclusionary parameters, like exclude, in calls to get_posts() should be done with caution, see https://wpvip.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/ for more information.</warning>
+    <warning line="249" column="25" source="WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude" severity="5" fixable="0">Using exclusionary parameters, like exclude, in calls to get_posts() should be done with caution, see https://wpvip.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/ for more information.</warning>
+    <warning line="913" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $post is never used</warning>
+    <warning line="936" column="31" source="WordPressVIPMinimum.Functions.RestrictedFunctions.get_posts_get_children" severity="3" fixable="0">get_children() is uncached and performs a no limit query. Please use get_posts or WP_Query instead. Please see: https://docs.wpvip.com/technical-references/caching/uncached-functions/</warning>
+    <warning line="954" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $var_id is never used</warning>
+    <warning line="954" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $wk_pro_id is never used</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/templates/front/seller/store/class-wkmp-seller-store-info.php" errors="0" warnings="1" fixable="0">
+    <warning line="409" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.Found" severity="5" fixable="0">The method parameter $end_point is never used</warning>
+</file>
+<file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/helper/common/class-wkmp-seller-feedback.php" errors="0" warnings="1" fixable="0">
+    <warning line="61" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $seller_id is never used</warning>
+</file>
+</phpcs>
+
