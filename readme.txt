@@ -3,7 +3,7 @@ Contributors: webkul
 Tags: b2c marketplace, marketplace, marketplace for WooCommerce, marketplace plugin, multi-vendor marketplace, seller, sellers, vendor, vendors, WooCommerce marketplace
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 0.9.2
+Stable tag: 1.0.0
 Requires PHP: 7.4
 Tested up to PHP: 8.3
 WC requires at least: 5.0
@@ -241,7 +241,7 @@ For any Query please generate a ticket at https://webkul.com/ticket/
 
 == Changelog ==
 
-= 1.0.0 - 2023-12-29 =
+= 1.0.0 - 2024-01-05 =
 Initial Public release.
 
 = 0.9.2 - 2023-12-13 =
