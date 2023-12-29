@@ -168,18 +168,19 @@ if ( ! class_exists( 'WKMP_Seller_Data' ) ) {
 		/**
 		 * Delete seller by seller id
 		 *
-		 * @param int $seller_id seller id.
+		 * @param int  $seller_id seller id.
+		 * @param bool $delete_user Delete WP User also.
 		 *
 		 * @return void
 		 */
-		public function wkmp_delete_seller( $seller_id ) {
+		public function wkmp_delete_seller( $seller_id, $delete_user = true ) {
 			global $wkmarketplace;
 
 			$commission_helper = Common\WKMP_Commission::get_instance();
 
 			$wpdb_obj = $this->wpdb;
 
-			if ( get_userdata( $seller_id ) instanceof \WP_User ) {
+			if ( $delete_user && get_userdata( $seller_id ) instanceof \WP_User ) {
 				$wpdb_obj->delete( "{$wpdb_obj->base_prefix}users", array( 'ID' => esc_attr( $seller_id ) ), array( '%d' ) );
 				$wpdb_obj->delete( "{$wpdb_obj->base_prefix}usermeta", array( 'user_id' => esc_attr( $seller_id ) ), array( '%d' ) );
 			}

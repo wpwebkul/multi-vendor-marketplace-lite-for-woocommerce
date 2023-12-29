@@ -242,7 +242,7 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 			$filter_int = ( 'float' === $filter ) ? FILTER_SANITIZE_NUMBER_FLOAT : $filter_int;
 			$filter_int = ( 'email' === $filter ) ? FILTER_SANITIZE_EMAIL : $filter_int;
 
-			if ( ! empty( $flag ) ) {
+			if ( ! empty( $flag ) && 'array' === $flag ) {
 				$flag_value = ( 'array' === $flag ) ? FILTER_REQUIRE_ARRAY : FILTER_REQUIRE_SCALAR;
 				$data       = filter_input( $method, $key, $filter_int, $flag_value );
 
@@ -270,6 +270,11 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 			}
 
 			$data = filter_input( $method, $key, $filter_int );
+
+			if ( 520 === $filter_int && 'array' !== $flag ) {
+				$flag_value = ( 'fraction' === $flag ) ? FILTER_FLAG_ALLOW_FRACTION : FILTER_FLAG_ALLOW_THOUSAND;
+				$data       = filter_input( $method, $key, $filter_int, $flag_value );
+			}
 
 			if ( empty( $data ) ) {
 				return $default;
@@ -325,7 +330,7 @@ if ( ! class_exists( 'WK_Caching' ) ) {
 			$show_info = empty( $show_info ) ? 0 : intval( $show_info );
 			if ( 200 === $show_info ) {
 				?>
-			<input type="hidden" data-lwdt="202312271700" data-wk_caching_version="<?php echo esc_attr( WK_CACHING_VERSION ); ?>" data-wk_caching_slug="wk_caching">
+			<input type="hidden" data-lwdt="202312289120" data-wk_caching_version="<?php echo esc_attr( WK_CACHING_VERSION ); ?>" data-wk_caching_slug="wk_caching">
 				<?php
 			}
 		}

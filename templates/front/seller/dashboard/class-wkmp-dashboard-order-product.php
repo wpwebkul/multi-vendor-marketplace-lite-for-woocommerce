@@ -27,13 +27,6 @@ if ( ! class_exists( 'WKMP_Dashboard_Order_Product' ) ) {
 		private $dashboard_db_obj;
 
 		/**
-		 * Marketplace Class Object.
-		 *
-		 * @var object $marketplace Marketplace Object.
-		 */
-		private $marketplace;
-
-		/**
 		 * Seller orders.
 		 *
 		 * @var array $seller_orders Seller orders.
@@ -52,19 +45,18 @@ if ( ! class_exists( 'WKMP_Dashboard_Order_Product' ) ) {
 		 */
 		public function __construct( $db_obj, $marketplace, $seller_orders, $seller_id ) {
 			$this->dashboard_db_obj = $db_obj;
-			$this->marketplace      = $marketplace;
 			$this->seller_orders    = $seller_orders;
-			$this->wkmp_index( $seller_id );
+			$this->wkmp_show_seller_products( $seller_id );
 		}
 
 		/**
-		 * Indexing.
+		 * Showing Seller products.
 		 *
 		 * @param int $seller_id Seller id.
 		 *
 		 * @return void
 		 */
-		public function wkmp_index( $seller_id ) {
+		public function wkmp_show_seller_products( $seller_id ) {
 			$seller_orders  = $this->seller_orders;
 			$order_ids      = $seller_orders['order_id'];
 			$total_products = $this->dashboard_db_obj->wkmp_get_total_products_count( $seller_id );

@@ -20,25 +20,11 @@ if ( ! class_exists( 'WKMP_Dashboard_Summary' ) ) {
 	 */
 	class WKMP_Dashboard_Summary {
 		/**
-		 * Dashboard DB Object.
-		 *
-		 * @var object $dashboard_db_obj Dashboard DB Object.
-		 */
-		private $dashboard_db_obj;
-
-		/**
 		 * Seller orders.
 		 *
 		 * @var object $seller_orders Seller orders.
 		 */
 		private $seller_orders;
-
-		/**
-		 * Marketplace class object.
-		 *
-		 * @var object $marketplace Marketplace class object.
-		 */
-		private $marketplace;
 
 		/**
 		 * Constructor of the class.
@@ -51,21 +37,19 @@ if ( ! class_exists( 'WKMP_Dashboard_Summary' ) ) {
 		 * @param int    $seller_id Seller id.
 		 */
 		public function __construct( $db_obj, $marketplace, $seller_orders, $seller_id ) {
-			$this->dashboard_db_obj = $db_obj;
-			$this->marketplace      = $marketplace;
-			$this->seller_orders    = $seller_orders;
+			$this->seller_orders = $seller_orders;
 
-			$this->wkmp_index( $seller_id );
+			$this->wkmp_seller_dashboard_summary( $seller_id );
 		}
 
 		/**
-		 * Indexing.
+		 * Show seller dashboard summary.
 		 *
 		 * @param int $seller_id Seller id.
 		 *
 		 * @return void
 		 */
-		public function wkmp_index( $seller_id ) {
+		public function wkmp_seller_dashboard_summary( $seller_id ) {
 			$data          = $this->seller_orders;
 			$total_payout  = isset( $data->paid_amount ) ? $data->paid_amount : 0;
 			$total_sales   = isset( $data->seller_total_ammount ) ? $data->seller_total_ammount : 0;

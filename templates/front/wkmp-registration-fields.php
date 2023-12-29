@@ -34,12 +34,12 @@ if ( ! is_account_page() ) {
 		<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
 			<label for="wkmp-firstname"><?php esc_html_e( 'First Name', 'wk-marketplace' ); ?> <span class="required">*</span></label>
 			<input type="text" class="input-text form-control" name="wkmp_firstname" value="<?php echo esc_attr( $wkmp_firstname ); ?>" id="wkmp-firstname"/>
-		<div class="wkmp-error-class" id="wkmp-seller-firstname-error"></div>
+			<div class="wkmp-error-class" id="wkmp-seller-firstname-error"></div>
 		</p>
 		<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
 			<label for="wkmp-lastname"><?php esc_html_e( 'Last Name', 'wk-marketplace' ); ?> <span class="required">*</span></label>
 			<input type="text" class="input-text form-control" name="wkmp_lastname" value="<?php echo esc_attr( $wkmp_lastname ); ?>" id="wkmp-lastname"/>
-		<div class="wkmp-error-class" id="wkmp-seller-lastname-error"></div>
+			<div class="wkmp-error-class" id="wkmp-seller-lastname-error"></div>
 		</p>
 		<?php
 
@@ -48,8 +48,15 @@ if ( ! is_account_page() ) {
 		if ( 'remove' !== $shopname_visibility ) {
 			?>
 			<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-				<label for="wkmp-shopname"><?php esc_html_e( 'Shop Name', 'wk-marketplace' ); ?><?php echo ( 'required' === $shopname_visibility ) ? '<span class="required">*</span>' : ''; ?></label>
-				<input type="text" class="input-text form-control" name="wkmp_shopname" value="<?php echo esc_attr( $wkmp_shopname ); ?>" id="wkmp-shopname"/>
+				<label for="wkmp-shopname"><?php esc_html_e( 'Shop Name', 'wk-marketplace' ); ?><?php echo ( 'required' === $shopname_visibility ) ? '<span class="required">*</span>' : ''; ?>
+				<?php if ( 'required' !== $shopname_visibility ) { ?>
+					<span class="wkmp-front-wc-help-tooltip help">
+						<span class="wkmp-help-tip-sol"><?php esc_html_e( 'If empty, First and Last name will be the Shop Name.', 'wk-marketplace' ); ?></span>
+						<span class="help-tip"></span>
+					</span>
+					<?php } ?>
+				</label>
+				<input data-is_optional="<?php echo ( 'required' !== $shopname_visibility ) ? true : false; ?>" type="text" class="input-text form-control" name="wkmp_shopname" value="<?php echo esc_attr( $wkmp_shopname ); ?>" id="wkmp-shopname"/>
 			</p>
 			<?php
 		}
@@ -59,8 +66,15 @@ if ( ! is_account_page() ) {
 		if ( 'remove' !== $shopurl_visibility ) {
 			?>
 			<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-				<label for="wkmp-shopurl" class="pull-left"><?php esc_html_e( 'Shop URL', 'wk-marketplace' ); ?> <?php echo ( 'required' === $shopurl_visibility ) ? '<span class="required">*</span>' : ''; ?></label>
-				<input type="text" class="input-text form-control" name="wkmp_shopurl" value="<?php echo esc_attr( $wkmp_shopurl ); ?>" id="wkmp-shopurl"/>
+				<label for="wkmp-shopurl" class="pull-left"><?php esc_html_e( 'Shop URL', 'wk-marketplace' ); ?> <?php echo ( 'required' === $shopurl_visibility ) ? '<span class="required">*</span>' : ''; ?>
+				<?php if ( 'required' !== $shopurl_visibility ) { ?>
+					<span class="wkmp-front-wc-help-tooltip help">
+						<span class="wkmp-help-tip-sol"><?php esc_html_e( 'If empty, your username will be the Shop URL.', 'wk-marketplace' ); ?></span>
+						<span class="help-tip"></span>
+					</span>
+					<?php } ?>
+				</label>
+				<input data-is_optional="<?php echo ( 'required' !== $shopurl_visibility ) ? true : false; ?>" type="text" class="input-text form-control" name="wkmp_shopurl" value="<?php echo esc_attr( $wkmp_shopurl ); ?>" id="wkmp-shopurl"/>
 				<strong id="wkmp-shop-url-availability"></strong>
 			</p>
 			<?php

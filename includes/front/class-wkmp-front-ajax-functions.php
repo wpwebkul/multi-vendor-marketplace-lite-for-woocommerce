@@ -149,7 +149,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		public function wkmp_get_seller_state_by_country_code() {
 			$json = array();
 
-			if ( ! check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) || ! current_user_can( 'wk_marketplace_seller' ) ) {
+			if ( ! ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) || check_ajax_referer( 'wkmp-admin-nonce', 'wkmp_nonce', false ) ) || ! current_user_can( 'wk_marketplace_seller' ) ) {
 				$json['error']   = true;
 				$json['message'] = esc_html__( 'Security check failed!', 'wk-marketplace' );
 				wp_send_json( $json );
@@ -161,14 +161,14 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 				$states = WC()->countries->get_states( $country_code );
 				$html   = '';
 				if ( $states ) {
-					$html .= '<select name="billing_state" id="billing-state" class="form-control">';
+					$html .= '<select name="wkmp_shop_state" id="wkmp_shop_state" class="form-control">';
 					$html .= '<option value="">' . esc_html__( 'Select state', 'wk-marketplace' ) . '</option>';
 					foreach ( $states as $key => $state ) {
 						$html .= '<option value="' . esc_attr( $key ) . '">' . esc_html( $state ) . '</option>';
 					}
 					$html .= '</select>';
 				} else {
-					$html .= '<input id="billing-state" type="text" placeholder="' . esc_attr__( 'State', 'wk-marketplace' ) . '" name="billing_state" class="form-control" />';
+					$html .= '<input id="wkmp_shop_state" type="text" placeholder="' . esc_attr__( 'State', 'wk-marketplace' ) . '" name="wkmp_shop_state" class="form-control" />';
 				}
 				$json['success'] = true;
 				$json['html']    = $html;

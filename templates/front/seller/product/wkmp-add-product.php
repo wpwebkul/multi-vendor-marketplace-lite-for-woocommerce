@@ -75,7 +75,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 			?>
 		<div class=" wkmp_profile_input">
 			<label for="product_sku"><?php esc_html_e( 'Product SKU', 'wk-marketplace' ); ?>
-			<span class="help">
+			<span class="wkmp-front-wc-help-tooltip help">
 				<div class="wkmp-help-tip-sol"><?php esc_html_e( 'SKU refers to a Stock-keeping unit, a unique identifier for each distinct product and service that can be purchased.', 'wk-marketplace' ); ?></div>
 				<span class="help-tip"></span>
 			</span>

@@ -215,16 +215,16 @@ if ( ! class_exists( 'WKMP_Seller_Profile_Form' ) ) {
 								$get_states = $countries_obj->get_states( $seller_info['wkmp_shop_country'] );
 							}
 
-							if ( ! empty( $get_states ) || ! empty( $seller_info['wkmp_shop_country'] ) ) {
+							if ( ! empty( $get_states ) && ! empty( $seller_info['wkmp_shop_country'] ) ) {
 								?>
-								<select name="wkmp_shop_state" id="billing-state" class="form-control">
+								<select name="wkmp_shop_state" id="wkmp_shop_state" class="form-control">
 									<option value=""><?php esc_html_e( 'Select state', 'wk-marketplace' ); ?></option>
 									<?php foreach ( is_array( $get_states ) ? $get_states : array() as $key => $state ) { ?>
 											<option value="<?php echo esc_attr( $key ); ?>" <?php echo selected( $key, $seller_info['wkmp_shop_state'], false ); ?>><?php echo esc_html( $state ); ?></option>
 									<?php } ?>
 								</select>
 							<?php } else { ?>
-								<input id="billing-state" type="text" name="billing_state" class="form-control" value="<?php echo esc_attr( $seller_info['wkmp_shop_state'] ); ?>">
+								<input id="wkmp_shop_state" type="text" name="wkmp_shop_state" class="form-control" value="<?php echo esc_attr( $seller_info['wkmp_shop_state'] ); ?>">
 								<?php
 							}
 							?>

@@ -326,9 +326,9 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 				if ( 'remove' !== $shopurl_visibility ) {
 					if ( empty( $shop_url ) && 'required' === $shopurl_visibility ) {
 						return new \WP_Error( 'shopurl-error', esc_html__( 'Please enter valid shop URL.', 'wk-marketplace' ) );
-					} elseif ( preg_match( '/[\'^£$%&*()}{@#~?><>,|=_+¬]/', $shop_url ) ) {
+					} elseif ( ! empty( $shop_url ) && preg_match( '/[\'^£$%&*()}{@#~?><>,|=_+¬]/', $shop_url ) ) {
 						return new \WP_Error( 'shopurl-error', esc_html__( 'You can not use special characters in shop url except HYPHEN(-).', 'wk-marketplace' ) );
-					} elseif ( ctype_space( $shop_url ) ) {
+					} elseif ( ! empty( $shop_url ) && ctype_space( $shop_url ) ) {
 						return new \WP_Error( 'shopurl-error', esc_html__( 'White space(s) aren\'t allowed in shop url.', 'wk-marketplace' ) );
 					} elseif ( $user ) {
 						return new \WP_Error( 'shopurl-error', esc_html__( 'This shop URl already EXISTS, please try different shop url.', 'wk-marketplace' ) );
@@ -367,10 +367,21 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 				if ( 'seller' === $role && $this->query_handler->wkmp_validate_seller_registration() ) {
 					$first_name = \WK_Caching::wk_get_request_data( 'wkmp_firstname', $args );
 					$last_name  = \WK_Caching::wk_get_request_data( 'wkmp_lastname', $args );
-					$shop_name  = \WK_Caching::wk_get_request_data( 'wkmp_shopname', $args );
-					$shop_url   = \WK_Caching::wk_get_request_data( 'wkmp_shopurl', $args );
 					$shop_phone = \WK_Caching::wk_get_request_data( 'wkmp_shopphone', $args );
 					$register   = \WK_Caching::wk_get_request_data( 'register', $args );
+
+					$shop_url = \WK_Caching::wk_get_request_data( 'wkmp_shopurl', $args );
+
+					if ( empty( $shop_url ) ) {
+						$shop_url = explode( '@', $data['user_login'] );
+						$shop_url = preg_replace( '/[^a-zA-Z0-9]+/', '', $shop_url[0] );
+					}
+
+					if ( ! empty( $first_name ) || ! empty( $last_name ) ) {
+						$args['default'] = trim( $first_name . ' ' . $last_name );
+					}
+
+					$shop_name = \WK_Caching::wk_get_request_data( 'wkmp_shopname', $args );
 
 					$data['role']      = $role;
 					$data['firstname'] = $first_name;

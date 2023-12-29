@@ -104,15 +104,14 @@ if ( ! class_exists( 'WKMP_Product_List' ) ) {
 				$posted_data['product_sku']  = \WK_Caching::wk_get_request_data( 'product_sku', $args );
 				$posted_data['product_name'] = \WK_Caching::wk_get_request_data( 'product_name', $args );
 
-				$args['filter']            = 'float';
-				$args['default']           = '';
-				$posted_data['regu_price'] = \WK_Caching::wk_get_request_data( 'regu_price', $args );
-				$posted_data['sale_price'] = \WK_Caching::wk_get_request_data( 'sale_price', $args );
-
+				$args['default']                = '';
 				$args['filter']                 = 'int';
 				$posted_data['seller_id']       = \WK_Caching::wk_get_request_data( 'seller_id', $args );
 				$posted_data['sell_pr_id']      = \WK_Caching::wk_get_request_data( 'sell_pr_id', $args );
 				$posted_data['wk-mp-stock-qty'] = \WK_Caching::wk_get_request_data( 'wk-mp-stock-qty', $args );
+
+				$posted_data['regu_price'] = empty( $_POST['regu_price'] ) ? '' : wc_clean( $_POST['regu_price'] );
+				$posted_data['sale_price'] = empty( $_POST['sale_price'] ) ? '' : wc_clean( $_POST['sale_price'] );
 
 				$product_form = WKMP_Product_Form::get_instance();
 				$errors       = $product_form->wkmp_product_validation( $posted_data );
@@ -224,10 +223,8 @@ if ( ! class_exists( 'WKMP_Product_List' ) ) {
 					'filter'  => 'int',
 				);
 
-				$qty = \WK_Caching::wk_get_request_data( '_wkmp_max_product_qty_limit', $args );
-
-				$args['filter'] = 'float';
-				$amount         = \WK_Caching::wk_get_request_data( '_wkmp_minimum_order_amount', $args );
+				$qty    = \WK_Caching::wk_get_request_data( '_wkmp_max_product_qty_limit', $args );
+				$amount = empty( $_POST['_wkmp_minimum_order_amount'] ) ? '' : wc_clean( $_POST['_wkmp_minimum_order_amount'] );
 
 				$seller_id = $this->seller_id > 0 ? $this->seller_id : get_current_user_id();
 

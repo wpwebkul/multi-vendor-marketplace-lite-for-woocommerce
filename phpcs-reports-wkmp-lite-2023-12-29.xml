@@ -48,7 +48,7 @@
     <warning line="119" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $data is never used</warning>
     <warning line="382" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $post is never used</warning>
     <warning line="382" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $update is never used</warning>
-    <warning line="895" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $item is never used</warning>
+    <warning line="894" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $item is never used</warning>
 </file>
 <file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/includes/admin/class-wkmp-admin-functions.php" errors="1" warnings="15" fixable="0">
     <error line="167" column="17" source="WordPressVIPMinimum.Functions.RestrictedFunctions.flush_rewrite_rules_flush_rewrite_rules" severity="5" fixable="0">`flush_rewrite_rules` should not be used in any normal circumstances in the theme code.</error>
@@ -80,10 +80,10 @@
 </file>
 <file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/includes/front/class-wkmp-front-functions.php" errors="1" warnings="4" fixable="0">
     <error line="258" column="13" source="WordPressVIPMinimum.Functions.RestrictedFunctions.flush_rewrite_rules_flush_rewrite_rules" severity="5" fixable="0">`flush_rewrite_rules` should not be used in any normal circumstances in the theme code.</error>
-    <warning line="859" column="44" source="WordPress.WP.DeprecatedFunctions.get_page_by_titleFound" severity="5" fixable="0">get_page_by_title() has been deprecated since WordPress version 6.2.0. Use WP_Query instead.</warning>
-    <warning line="859" column="44" source="WordPressVIPMinimum.Functions.RestrictedFunctions.get_page_by_title_get_page_by_title" severity="5" fixable="0">get_page_by_title() is uncached, please use wpcom_vip_get_page_by_title() instead.</warning>
-    <warning line="998" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $order is never used</warning>
-    <warning line="1035" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.Found" severity="5" fixable="0">The method parameter $posted_data is never used</warning>
+    <warning line="870" column="44" source="WordPress.WP.DeprecatedFunctions.get_page_by_titleFound" severity="5" fixable="0">get_page_by_title() has been deprecated since WordPress version 6.2.0. Use WP_Query instead.</warning>
+    <warning line="870" column="44" source="WordPressVIPMinimum.Functions.RestrictedFunctions.get_page_by_title_get_page_by_title" severity="5" fixable="0">get_page_by_title() is uncached, please use wpcom_vip_get_page_by_title() instead.</warning>
+    <warning line="1009" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $order is never used</warning>
+    <warning line="1046" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.Found" severity="5" fixable="0">The method parameter $posted_data is never used</warning>
 </file>
 <file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/includes/class-wkmarketplace.php" errors="3" warnings="3" fixable="0">
     <error line="1" column="1" source="WordPress.Files.FileName.InvalidClassFileName" severity="5" fixable="0">Class file names should be based on the class name with &quot;class-&quot; prepended. Expected class-wkmp-pro-global-helper.php, but found class-wkmarketplace.php.</error>
@@ -101,7 +101,7 @@
     <warning line="195" column="25" source="WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude" severity="5" fixable="0">Using exclusionary parameters, like exclude, in calls to get_posts() should be done with caution, see https://wpvip.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/ for more information.</warning>
 </file>
 <file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/templates/front/seller/dashboard/class-wkmp-dashboard-summary.php" errors="0" warnings="1" fixable="0">
-    <warning line="68" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.Found" severity="5" fixable="0">The method parameter $seller_id is never used</warning>
+    <warning line="52" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.Found" severity="5" fixable="0">The method parameter $seller_id is never used</warning>
 </file>
 <file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/templates/front/seller/orders/class-wkmp-orders.php" errors="0" warnings="2" fixable="0">
     <warning line="65" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $invoice is never used</warning>
@@ -113,11 +113,11 @@
 </file>
 <file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/templates/front/seller/product/class-wkmp-product-form.php" errors="0" warnings="6" fixable="0">
     <warning line="123" column="21" source="WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude" severity="5" fixable="0">Using exclusionary parameters, like exclude, in calls to get_posts() should be done with caution, see https://wpvip.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/ for more information.</warning>
-    <warning line="249" column="25" source="WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude" severity="5" fixable="0">Using exclusionary parameters, like exclude, in calls to get_posts() should be done with caution, see https://wpvip.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/ for more information.</warning>
-    <warning line="913" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $post is never used</warning>
-    <warning line="936" column="31" source="WordPressVIPMinimum.Functions.RestrictedFunctions.get_posts_get_children" severity="3" fixable="0">get_children() is uncached and performs a no limit query. Please use get_posts or WP_Query instead. Please see: https://docs.wpvip.com/technical-references/caching/uncached-functions/</warning>
-    <warning line="954" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $var_id is never used</warning>
-    <warning line="954" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $wk_pro_id is never used</warning>
+    <warning line="248" column="25" source="WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude" severity="5" fixable="0">Using exclusionary parameters, like exclude, in calls to get_posts() should be done with caution, see https://wpvip.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/ for more information.</warning>
+    <warning line="918" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $post is never used</warning>
+    <warning line="941" column="31" source="WordPressVIPMinimum.Functions.RestrictedFunctions.get_posts_get_children" severity="3" fixable="0">get_children() is uncached and performs a no limit query. Please use get_posts or WP_Query instead. Please see: https://docs.wpvip.com/technical-references/caching/uncached-functions/</warning>
+    <warning line="959" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $var_id is never used</warning>
+    <warning line="959" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" severity="5" fixable="0">The method parameter $wk_pro_id is never used</warning>
 </file>
 <file name="/home/users/dinesh.yadav/www/html/wkmp-lite/wp-content/plugins/multi-vendor-marketplace-lite-for-woocommerce/templates/front/seller/store/class-wkmp-seller-store-info.php" errors="0" warnings="1" fixable="0">
     <warning line="409" column="16" source="Generic.CodeAnalysis.UnusedFunctionParameter.Found" severity="5" fixable="0">The method parameter $end_point is never used</warning>

@@ -424,7 +424,6 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 		 */
 		public function wkmp_save_extra_user_profile_fields( $user_id ) {
 			if ( current_user_can( 'edit_user', $user_id ) ) {
-
 				$seller_db_obj = Admin\WKMP_Seller_Data::get_instance();
 				$seller_id     = $seller_db_obj->wkmp_get_sellers(
 					array(
@@ -470,7 +469,7 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 						$seller_db_obj->wkmp_update_seller_role( $user_id, 'seller' );
 					}
 				} elseif ( ! empty( $seller_id ) ) {
-						$seller_db_obj->wkmp_delete_seller( $seller_id );
+					$seller_db_obj->wkmp_delete_seller( $seller_id, false );
 				}
 			}
 		}
@@ -589,9 +588,10 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 				$admin_bar->add_menu(
 					array(
 						'id'    => 'wkmp-front-dashboard',
-						'title' => esc_html__( 'Frontend Seller Dashboard', 'wk-marketplace' ),
+						'title' => esc_html__( 'Frontend Dashboard', 'wk-marketplace' ) . '<span class="ab-icon" aria-hidden="true"></span>',
 						'meta'  => array(
-							'title' => esc_html__( 'Frontend Seller Dashboard', 'wk-marketplace' ),
+							'title' => esc_html__( 'Switch to your frontend dashboard', 'wk-marketplace' ),
+
 						),
 						'href'  => '#',
 					)
@@ -602,19 +602,18 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 		/**
 		 * Function to restrict media.
 		 *
-		 * @param object $wp_query_obj Query object.
+		 * @hooked 'ajax_query_attachments_args' filter hook.
+		 *
+		 * @param object $query Query object.
 		 */
-		public static function wkmp_restrict_media_library( $wp_query_obj ) {
-			global $current_user, $pagenow;
+		public static function wkmp_restrict_media_library( $query ) {
+			global $current_user;
 
 			if ( is_a( $current_user, 'WP_User' ) && current_user_can( 'wk_marketplace_seller' ) ) {
-
-				$media_action = \WK_Caching::wk_get_request_data( 'action' );
-
-				if ( 'upload.php' === $pagenow || 'query-attachments' === $media_action ) {
-					$wp_query_obj->set( 'author', $current_user->ID );
-				}
+				$query['author'] = $current_user->ID;
 			}
+
+			return $query;
 		}
 
 		/**

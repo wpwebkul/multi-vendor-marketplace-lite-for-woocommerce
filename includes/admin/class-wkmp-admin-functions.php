@@ -1012,11 +1012,11 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 				unset( $editable_roles['wk_marketplace_seller'] );
 			}
 
-			if ( 'user-edit.php' === $pagenow ) {
+			if ( 'user-edit.php' === $pagenow && array_key_exists( 'wk_marketplace_seller', $editable_roles ) ) {
 				$user_id   = \WK_Caching::wk_get_request_data( 'user_id' );
-				$user_meta = get_userdata( $user_id );
+				$user_data = get_user_by( 'id', $user_id );
 
-				if ( ! in_array( 'wk_marketplace_seller', $user_meta->roles, true ) ) {
+				if ( $user_data instanceof \WP_User && ! in_array( 'wk_marketplace_seller', $user_data->roles, true ) ) {
 					unset( $editable_roles['wk_marketplace_seller'] );
 				}
 			}

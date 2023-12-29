@@ -38,13 +38,6 @@ if ( ! class_exists( 'WKMP_Dashboard_Sale_Order' ) ) {
 		private $seller_orders;
 
 		/**
-		 * Marketplace class object.
-		 *
-		 * @var object $marketplace Marketplace class object.
-		 */
-		private $marketplace;
-
-		/**
 		 * Constructor of the class.
 		 *
 		 * WKMP_Dashboard_Sale_Order constructor.
@@ -56,20 +49,19 @@ if ( ! class_exists( 'WKMP_Dashboard_Sale_Order' ) ) {
 		 */
 		public function __construct( $db_obj, $marketplace, $seller_orders, $seller_id ) {
 			$this->dashboard_db_obj = $db_obj;
-			$this->marketplace      = $marketplace;
 			$this->seller_orders    = $seller_orders;
 
-			$this->wkmp_index( $seller_id );
+			$this->wkmp_show_sale_orders( $seller_id );
 		}
 
 		/**
-		 * Indexing.
+		 * Show sale orders.
 		 *
 		 * @param int $seller_id Seller id.
 		 *
 		 * @return void
 		 */
-		public function wkmp_index( $seller_id ) {
+		public function wkmp_show_sale_orders( $seller_id ) {
 			$order_amount  = '';
 			$seller_orders = $this->seller_orders;
 

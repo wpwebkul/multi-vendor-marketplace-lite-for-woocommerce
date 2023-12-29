@@ -22,25 +22,11 @@ if ( ! class_exists( 'WKMP_Dashboard_Recent_Order' ) ) {
 	 */
 	class WKMP_Dashboard_Recent_Order {
 		/**
-		 * Dashboard DB Object.
-		 *
-		 * @var object $dashboard_db_obj Dashboard DB Object.
-		 */
-		private $dashboard_db_obj;
-
-		/**
 		 * Seller orders.
 		 *
 		 * @var array $seller_orders Seller orders.
 		 */
 		private $seller_orders;
-
-		/**
-		 * Marketplace class object.
-		 *
-		 * @var object $marketplace Marketplace class object.
-		 */
-		private $marketplace;
 
 		/**
 		 * Constructor of the class.
@@ -53,20 +39,18 @@ if ( ! class_exists( 'WKMP_Dashboard_Recent_Order' ) ) {
 		 * @param int    $seller_id Seller id.
 		 */
 		public function __construct( $db_obj, $marketplace, $seller_orders, $seller_id ) {
-			$this->dashboard_db_obj = $db_obj;
-			$this->marketplace      = $marketplace;
-			$this->seller_orders    = $seller_orders;
-			$this->wkmp_index( $seller_id );
+			$this->seller_orders = $seller_orders;
+			$this->wkmp_show_recent_orders( $seller_id );
 		}
 
 		/**
-		 * Indexing.
+		 * Show seller recent orders..
 		 *
 		 * @param int $seller_id Seller id.
 		 *
 		 * @return void
 		 */
-		public function wkmp_index( $seller_id ) {
+		public function wkmp_show_recent_orders( $seller_id ) {
 			$commission = Common\WKMP_Commission::get_instance();
 			$per_page   = apply_filters( 'wkmp_recent_orders_limit', 10 );
 

@@ -120,14 +120,15 @@ if ( empty( $mp_page_title ) ) {
 
 						$address .= empty( $seller_info->billing_address_1 ) ? '' : $seller_info->billing_address_1;
 						$address .= empty( $seller_info->billing_address_2 ) ? '' : ' ' . $seller_info->billing_address_2;
-						$address .= empty( $seller_info->billing_postcode ) ? '' : ' (' . $seller_info->billing_postcode . ') ';
-						$address .= empty( $seller_info->billing_city ) ? '' : $seller_info->billing_city;
+						$address .= empty( $seller_info->billing_city ) ? '' : ' ' . $seller_info->billing_city;
+						$address .= empty( $seller_info->billing_state ) ? '' : '<br>' . $seller_info->billing_state;
 						$address .= empty( $seller_info->billing_country ) ? '' : ' (' . $seller_info->billing_country . ')';
+						$address .= empty( $seller_info->billing_postcode ) ? '' : ' ' . $seller_info->billing_postcode;
 
 						if ( ! empty( $address ) ) {
 							?>
 						<div>
-						<span class="dashicons dashicons-location" style="margin-top:4px;"> </span> <?php echo esc_html( $address ); ?>
+						<span class="dashicons dashicons-location" style="margin-top:4px;"> </span> <?php echo wp_kses( $address, array( 'br' => array() ) ); ?>
 						</div>
 							<?php
 						}
@@ -195,7 +196,7 @@ if ( empty( $mp_page_title ) ) {
 	<!-- About shop -->
 	<div class="mp-about-shop">
 		<p><b><?php esc_html_e( 'About', 'wk-marketplace' ); ?></b></p>
-		<p><?php echo isset( $seller_info->about_shop ) ? wp_kses_post( $seller_info->about_shop ) : ''; ?></p>
+		<p><?php echo isset( $seller_info->about_shop ) ? wp_kses_post( nl2br( $seller_info->about_shop ) ) : ''; ?></p>
 	</div>
 
 	<?php do_action( 'mkt_before_seller_review_data' ); ?>

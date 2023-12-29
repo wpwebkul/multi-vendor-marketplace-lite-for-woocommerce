@@ -55,7 +55,7 @@ if ( ! class_exists( 'WKMP_Common_Hooks' ) ) {
 			add_action( 'edit_user_profile_update', array( $function_handler, 'wkmp_save_extra_user_profile_fields' ) );
 			add_action( 'user_profile_update_errors', array( $function_handler, 'wkmp_validate_extra_profile_fields' ), 10, 3 );
 			add_action( 'admin_bar_menu', array( $function_handler, 'wkmp_add_toolbar_items' ), 100 );
-			add_action( 'pre_get_posts', array( $function_handler, 'wkmp_restrict_media_library' ) );
+			add_action( 'ajax_query_attachments_args', array( $function_handler, 'wkmp_restrict_media_library' ) );
 			add_action( 'woocommerce_init', array( $function_handler, 'wkmp_add_manage_shipping' ) );
 			add_action( 'wkmp_validate_update_seller_profile', array( $function_handler, 'wkmp_process_seller_profile_data' ), 10, 2 );
 			add_action( 'woocommerce_order_status_completed', array( $function_handler, 'wkmp_reset_seller_order_count_cache' ), 10, 1 );

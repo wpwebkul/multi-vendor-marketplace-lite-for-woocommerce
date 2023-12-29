@@ -83,7 +83,7 @@ if ( ! class_exists( 'WKMP_Admin_Ajax_Functions' ) ) {
 					do_action( 'wkmp_seller_query_replied', $seller_email, $query_id, $query_data );
 					$query_db_obj->wkmp_update_seller_reply_status( $query_id );
 					$json['success'] = true;
-					$json['message'] = esc_html__( 'Replied mail send to the seller.', 'wk-marketplace' );
+					$json['message'] = esc_html__( 'Replied mail sent to the seller.', 'wk-marketplace' );
 				} else {
 					$json['success'] = false;
 					$json['message'] = esc_html__( 'Oops, Unable to send mail to the seller.', 'wk-marketplace' );

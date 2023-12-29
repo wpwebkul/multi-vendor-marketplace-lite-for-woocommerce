@@ -201,14 +201,13 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 				$args                       = array( 'method' => 'post' );
 				$posted_data['product_sku'] = \WK_Caching::wk_get_request_data( 'product_sku', $args );
 
-				$args['filter']            = 'float';
-				$posted_data['regu_price'] = \WK_Caching::wk_get_request_data( 'regu_price', $args );
-				$posted_data['sale_price'] = \WK_Caching::wk_get_request_data( 'sale_price', $args );
-
 				$args['filter']                 = 'int';
 				$posted_data['seller_id']       = \WK_Caching::wk_get_request_data( 'seller_id', $args );
 				$posted_data['sell_pr_id']      = \WK_Caching::wk_get_request_data( 'sell_pr_id', $args );
 				$posted_data['wk-mp-stock-qty'] = \WK_Caching::wk_get_request_data( 'wk-mp-stock-qty', $args );
+
+				$posted_data['regu_price'] = empty( $_POST['regu_price'] ) ? '' : wc_clean( $_POST['regu_price'] );
+				$posted_data['sale_price'] = empty( $_POST['sale_price'] ) ? '' : wc_clean( $_POST['sale_price'] );
 
 				$posted_data['product_desc'] = empty( $_POST['product_desc'] ) ? '' : wp_kses_post( $_POST['product_desc'] );
 				$posted_data['short_desc']   = empty( $_POST['short_desc'] ) ? '' : wp_kses_post( $_POST['short_desc'] );
@@ -498,7 +497,7 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 							$args['filter'] = 'int';
 
 							$upsell_ids    = \WK_Caching::wk_get_request_data( 'upsell_ids', $args );
-							$crosssell_ids = \WK_Caching::wk_get_request_data( '_crosssell_ids', $args );
+							$crosssell_ids = \WK_Caching::wk_get_request_data( 'crosssell_ids', $args );
 
 							update_post_meta( $sell_pr_id, '_upsell_ids', $upsell_ids );
 							update_post_meta( $sell_pr_id, '_crosssell_ids', $crosssell_ids );
@@ -625,6 +624,12 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 		 * @return array
 		 */
 		public function wkmp_update_product_variation_data( $posted_data, $var_attr_ids ) {
+			$nonce_update = \WK_Caching::wk_get_request_data( 'wkmp_edit_product_nonce_field', array( 'method' => 'post' ) );
+
+			if ( ! empty( $nonce_update ) && ! wp_verify_nonce( $nonce_update, 'wkmp_edit_product_nonce_action' ) ) {
+				return array();
+			}
+
 			$wpdb_obj               = $this->wpdb;
 			$variation_data         = array();
 			$variation_data['_sku'] = array();
@@ -649,21 +654,20 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 			$download_file_urls  = WK_Caching::wk_get_request_data( '_mp_variation_downloads_files_url', $args );
 			$download_file_names = WK_Caching::wk_get_request_data( '_mp_variation_downloads_files_name', $args );
 
-			$args['filter']   = 'float';
 			$args['default']  = '';
-			$regular_prices   = WK_Caching::wk_get_request_data( 'wkmp_variable_regular_price', $args );
-			$sale_prices      = WK_Caching::wk_get_request_data( 'wkmp_variable_sale_price', $args );
-			$variable_widths  = WK_Caching::wk_get_request_data( 'wkmp_variable_width', $args );
-			$variable_heights = WK_Caching::wk_get_request_data( 'wkmp_variable_height', $args );
-			$variable_lengths = WK_Caching::wk_get_request_data( 'wkmp_variable_length', $args );
-			$variable_weights = WK_Caching::wk_get_request_data( 'wkmp_variable_weight', $args );
-
 			$args['filter']   = 'int';
 			$downloads_expiry = WK_Caching::wk_get_request_data( 'wkmp_variable_download_expiry', $args );
 			$downloads_limit  = WK_Caching::wk_get_request_data( 'wkmp_variable_download_limit', $args );
 			$variable_stocks  = WK_Caching::wk_get_request_data( 'wkmp_variable_stock', $args );
 			$variable_img_ids = WK_Caching::wk_get_request_data( 'upload_var_img', $args );
 			$var_menu_orders  = WK_Caching::wk_get_request_data( 'wkmp_variation_menu_order', $args );
+
+			$regular_prices   = empty( $_POST['wkmp_variable_regular_price'] ) ? array() : wc_clean( $_POST['wkmp_variable_regular_price'] );
+			$sale_prices      = empty( $_POST['wkmp_variable_sale_price'] ) ? array() : wc_clean( $_POST['wkmp_variable_sale_price'] );
+			$variable_widths  = empty( $_POST['wkmp_variable_width'] ) ? array() : wc_clean( $_POST['wkmp_variable_width'] );
+			$variable_heights = empty( $_POST['wkmp_variable_height'] ) ? array() : wc_clean( $_POST['wkmp_variable_height'] );
+			$variable_lengths = empty( $_POST['wkmp_variable_length'] ) ? array() : wc_clean( $_POST['wkmp_variable_length'] );
+			$variable_weights = empty( $_POST['wkmp_variable_weight'] ) ? array() : wc_clean( $_POST['wkmp_variable_weight'] );
 
 			foreach ( $var_attr_ids as $var_id ) {
 				$var_regu_price[ $var_id ] = is_numeric( $regular_prices[ $var_id ] ) ? $regular_prices[ $var_id ] : '';
@@ -674,9 +678,10 @@ if ( ! class_exists( 'WKMP_Product_Form' ) ) {
 					$var_sale_price[ $var_id ] = '';
 				}
 
+				$args['filter'] = '';
+
 				foreach ( $mp_attr_names[ $var_id ] as $variation_type ) {
-					$args['filter'] = '';
-					$attr_names     = WK_Caching::wk_get_request_data( 'attribute_' . $variation_type, $args );
+					$attr_names = WK_Caching::wk_get_request_data( 'attribute_' . $variation_type, $args );
 					$variation_data[ 'attribute_' . sanitize_title( $variation_type ) ][] = trim( $attr_names[ $var_id ] );
 				}
 				$downloadable_variable = 'no';
