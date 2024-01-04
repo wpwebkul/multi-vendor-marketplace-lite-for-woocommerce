@@ -426,14 +426,6 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 
 			$wk_page = \WK_Caching::wk_get_request_data( 'page' );
 
-			if ( ! empty( $url_data['path'] ) && strpos( $url_data['path'], 'page=invoice&order_id' ) > 0 ) {
-				wp_enqueue_style( 'wkmp-invoice-stype', WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/admin/css/invoice-style' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION, 'all' );
-			}
-
-			if ( 'invoice' === $wk_page ) {
-				wp_enqueue_style( 'wkmp-invoice-stype', WKMP_LITE_PLUGIN_URL . 'assets/' . $asset_path . '/admin/css/invoice-style' . $suffix . '.css', array(), WKMP_LITE_SCRIPT_VERSION, 'all' );
-			}
-
 			if ( 'wk-marketplace-support-services' === $wk_page ) {
 				wp_enqueue_script( 'wkmp-admin-suport-services', 'https://webkul.com/common/modules/wksas.bundle.js', array(), WKMP_LITE_SCRIPT_VERSION, true );
 			}
@@ -450,8 +442,8 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 		public function wkmp_virtual_menu_invoice_page() {
 			$hook = add_submenu_page(
 				'',
-				'Invoice',
-				'Invoice',
+				esc_html__( 'Invoice', 'wk-marketplace' ),
+				esc_html__( 'Invoice', 'wk-marketplace' ),
 				'edit_posts',
 				'invoice',
 				function () {
@@ -493,8 +485,8 @@ if ( ! class_exists( 'WKMP_Admin_Functions' ) ) {
 			}
 			$listing_actions = array(
 				'invoice' => array(
-					'name' => 'Invoice',
-					'alt'  => 'Invoice',
+					'name' => esc_html__( 'Invoice', 'wk-marketplace' ),
+					'alt'  => esc_html__( 'Invoice', 'wk-marketplace' ),
 					'url'  => wp_nonce_url( admin_url( 'edit.php?page=invoice&order_id=' . base64_encode( $order->get_id() ) ), 'generate_invoice', 'invoice_nonce' ),
 				),
 			);

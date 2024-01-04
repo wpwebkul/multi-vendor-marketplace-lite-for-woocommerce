@@ -139,6 +139,7 @@ if ( ! class_exists( 'WKMP_Seller_Store_Info' ) ) {
 			$seller_info       = $this->marketplace->wkmp_get_seller_info( $this->seller_id );
 			$validation_errors = array();
 			$posted_data       = array();
+			$review_added      = false;
 
 			if ( ! empty( $seller_info ) ) {
 				$c_user_id = get_current_user_id();
@@ -153,21 +154,15 @@ if ( ! class_exists( 'WKMP_Seller_Store_Info' ) ) {
 				$review_status = isset( $review_check[0]->status ) ? $review_check[0]->status : '3';
 
 				if ( $c_user_id > 0 && 0 !== intval( $review_status ) ) {
-					$args  = array( 'method' => 'post' );
-					$nonce = \WK_Caching::wk_get_request_data( 'wkmp-add-feedback-nonce', $args );
+					$nonce = \WK_Caching::wk_get_request_data( 'wkmp-add-feedback-nonce', array( 'method' => 'post' ) );
 
 					if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, 'wkmp-add-feedback-nonce-action' ) ) {
+						$posted_data['review_summary'] = empty( $_POST['feed_summary'] ) ? '-' : wc_clean( wp_unslash( $_POST['feed_summary'] ) );
+						$posted_data['review_desc']    = empty( $_POST['feed_review'] ) ? '-' : wc_clean( wp_unslash( $_POST['feed_review'] ) );
 
-						$args['default']               = '-';
-						$posted_data['review_summary'] = \WK_Caching::wk_get_request_data( 'feed_summary', $args );
-						$posted_data['review_desc']    = \WK_Caching::wk_get_request_data( 'feed_review', $args );
-
-						$args['filter']  = 'int';
-						$args['default'] = 0;
-
-						$posted_data['price_r']   = \WK_Caching::wk_get_request_data( 'feed_price', $args );
-						$posted_data['value_r']   = \WK_Caching::wk_get_request_data( 'feed_value', $args );
-						$posted_data['quality_r'] = \WK_Caching::wk_get_request_data( 'feed_quality', $args );
+						$posted_data['price_r']   = empty( $_POST['feed_price'] ) ? 0 : wc_clean( wp_unslash( $_POST['feed_price'] ) );
+						$posted_data['value_r']   = empty( $_POST['feed_value'] ) ? 0 : wc_clean( wp_unslash( $_POST['feed_value'] ) );
+						$posted_data['quality_r'] = empty( $_POST['feed_quality'] ) ? 0 : wc_clean( wp_unslash( $_POST['feed_quality'] ) );
 
 						$validation_errors = $this->wkmp_validate_add_feedback_form( $posted_data );
 
@@ -182,6 +177,8 @@ if ( ! class_exists( 'WKMP_Seller_Store_Info' ) ) {
 
 							do_action( 'wkmp_save_seller_feedback', $posted_data, $this->seller_id );
 
+							$review_added = true;
+
 							wc_print_notice( esc_html__( 'Feedback added successfully.', 'wk-marketplace' ), 'success' );
 						}
 					}
@@ -191,12 +188,14 @@ if ( ! class_exists( 'WKMP_Seller_Store_Info' ) ) {
 					wc_print_notice( esc_html__( 'Warning: Please check the form carefully for the errors', 'wk-marketplace' ), 'error' );
 				}
 
-				$add_feed_status = $this->feedback_obj->wkmp_get_seller_feedbacks(
-					array(
-						'filter_seller_id' => $this->seller_id,
-						'filter_user_id'   => $c_user_id,
-					)
-				);
+				if ( $review_added ) {
+					$review_check = $this->feedback_obj->wkmp_get_seller_feedbacks(
+						array(
+							'filter_seller_id' => $this->seller_id,
+							'filter_user_id'   => $c_user_id,
+						)
+					);
+				}
 
 				require_once __DIR__ . '/wkmp-seller-add-feedback.php';
 			} else {

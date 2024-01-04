@@ -61,7 +61,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 			$response = array();
 
 			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) ) {
-				$slug = \WK_Caching::wk_get_request_data( 'shop_slug', array( 'method' => 'post' ) );
+				$slug = empty( $_POST['shop_slug'] ) ? 0 : wc_clean( wp_unslash( $_POST['shop_slug'] ) );
 
 				if ( ! empty( $slug ) ) {
 					$user = $wkmarketplace->wkmp_get_seller_id_by_shop_address( $slug );
@@ -114,13 +114,8 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 				wp_send_json( $json );
 			}
 
-			$args = array(
-				'method' => 'post',
-				'filter' => 'int',
-			);
-
-			$seller_id   = \WK_Caching::wk_get_request_data( 'seller_id', $args );
-			$customer_id = \WK_Caching::wk_get_request_data( 'customer_id', $args );
+			$seller_id   = empty( $_POST['seller_id'] ) ? 0 : intval( wp_unslash( $_POST['seller_id'] ) );
+			$customer_id = empty( $_POST['customer_id'] ) ? 0 : intval( wp_unslash( $_POST['customer_id'] ) );
 
 			if ( $seller_id > 0 && $customer_id > 0 ) {
 				$sellers = get_user_meta( $customer_id, 'favourite_seller', true );
@@ -155,7 +150,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 				wp_send_json( $json );
 			}
 
-			$country_code = \WK_Caching::wk_get_request_data( 'country_code', array( 'method' => 'post' ) );
+			$country_code = empty( $_POST['country_code'] ) ? '' : wc_clean( wp_unslash( $_POST['country_code'] ) );
 
 			if ( ! empty( $country_code ) ) {
 				$states = WC()->countries->get_states( $country_code );
@@ -178,245 +173,6 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		}
 
 		/**
-		 * Add shipping Cost to zone.
-		 */
-		public function wkmp_seller_save_shipping_cost() {
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
-				$ship_cost  = empty( $_POST['ship_cost'] ) ? '' : wc_clean( $_POST['ship_cost'] );
-				$final_data = array();
-				parse_str( $ship_cost, $final_data );
-				$instance_id     = empty( $final_data['instance_id'] ) ? 0 : absint( $final_data['instance_id'] );
-				$shipping_method = \WC_Shipping_Zones::get_shipping_method( $instance_id );
-				$shipping_method->set_post_data( $final_data );
-				$shipping_method->process_admin_options();
-				die;
-			}
-		}
-
-		/**
-		 * Delete shipping Class.
-		 */
-		public function wkmp_seller_delete_shipping_class() {
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
-				$term_id = \WK_Caching::wk_get_request_data( 'get-term', array( 'method' => 'post' ) );
-				$resp    = array( 'success' => true );
-
-				if ( ! empty( $term_id ) ) {
-					$user_id         = get_current_user_id();
-					$term_id         = intval( $term_id );
-					$res             = wp_delete_term( $term_id, 'product_shipping_class' );
-					$resp['success'] = $res;
-
-					$notice_data = array(
-						'wkmp_ship_action' => 'deleted',
-					);
-					update_user_meta( $user_id, '_wkmp_shipping_notice_data', $notice_data );
-					$resp['redirect'] = get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ) . get_option( '_wkmp_shipping_endpoint', 'seller-shippings' ) . '/add';
-
-				}
-				wp_send_json( $resp );
-			}
-		}
-
-		/**
-		 * Add shipping Class.
-		 */
-		public function wkmp_add_shipping_class() {
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
-
-				$data = empty( $_POST['data'] ) ? '' : wc_clean( $_POST['data'] );
-
-				$final_data = array();
-				$arr        = array();
-				$new_arr    = array();
-
-				$json = array(
-					'redirect' => '',
-					'success'  => false,
-				);
-
-				parse_str( $data, $final_data );
-
-				$final_data = empty( $final_data ) ? array() : $final_data;
-				$updated    = 'error';
-
-				foreach ( $final_data as $s_key => $s_value ) {
-					$i = 0;
-					$j = 0;
-					foreach ( $s_value as $main_key => $main_value ) {
-						if ( is_int( $main_key ) ) {
-							$arr[ $i ][ $s_key ] = $main_value;
-							++$i;
-						} else {
-							$new_arr[ $j ][ $s_key ] = $main_value;
-							++$j;
-						}
-					}
-				}
-
-				foreach ( $arr as $arr_value ) {
-					if ( array_key_exists( 'term_id', $arr_value ) ) {
-						$updated = 'updated';
-						wp_update_term( $arr_value['term_id'], 'product_shipping_class', $arr_value );
-					}
-				}
-
-				$user_id = get_current_user_id();
-
-				foreach ( $new_arr as $new_arr_value ) {
-					if ( empty( $new_arr_value['name'] ) ) {
-						$updated = 'empty-name';
-						continue;
-					}
-					$term          = wp_insert_term( $new_arr_value['name'], 'product_shipping_class', $new_arr_value );
-					$seller_sclass = get_user_meta( $user_id, 'shipping-classes', true );
-
-					if ( ! empty( $seller_sclass ) ) {
-						$seller_sclass = maybe_unserialize( $seller_sclass );
-						array_push( $seller_sclass, $term['term_id'] );
-						$seller_sclass_update = maybe_serialize( $seller_sclass );
-						update_user_meta( $user_id, 'shipping-classes', $seller_sclass_update );
-					} else {
-						$term_arr   = array();
-						$term_arr[] = $term['term_id'];
-						$term_arr   = maybe_serialize( $term_arr );
-						add_user_meta( $user_id, 'shipping-classes', $term_arr );
-					}
-					$updated = 'added';
-				}
-
-				$notice_data = array(
-					'wkmp_ship_action' => $updated,
-				);
-
-				update_user_meta( $user_id, '_wkmp_shipping_notice_data', $notice_data );
-
-				$json['redirect'] = get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ) . get_option( '_wkmp_shipping_endpoint', 'seller-shippings' ) . '/add';
-				wp_send_json( $json );
-			}
-		}
-
-		/**
-		 * Add shipping method to zone
-		 */
-		public function wkmp_seller_add_shipping_method() {
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
-				$zone_id     = \WK_Caching::wk_get_request_data( 'zone-id', array( 'method' => 'post' ) );
-				$zone_status = $this->wkmp_is_valid_seller_zone_id( $zone_id );
-				$confirm     = 'unauthorized';
-
-				if ( $zone_status ) {
-					$ship_method  = \WK_Caching::wk_get_request_data( 'ship-method', array( 'method' => 'post' ) );
-					$current_zone = new \WC_Shipping_Zone( $zone_id );
-					$confirm      = $current_zone->add_shipping_method( $ship_method );
-				}
-
-				$result = array( 'success' => $confirm );
-				wp_send_json( $result );
-			}
-		}
-
-		/**
-		 * Get seller id base on zone.
-		 *
-		 * @param int $zon_id zone id.
-		 *
-		 * @return bool
-		 */
-		public function wkmp_is_valid_seller_zone_id( $zon_id ) {
-			$wpdb_obj    = $this->wpdb;
-			$get_data    = $wpdb_obj->get_row( $wpdb_obj->prepare( "Select * from {$wpdb_obj->prefix}mpseller_meta where zone_id = %d ", $zon_id ) );
-			$zon_user_id = empty( $get_data->seller_id ) ? 0 : intval( $get_data->seller_id );
-			$seller_id   = get_current_user_id();
-
-			if ( $seller_id === $zon_user_id ) {
-				return true;
-			}
-
-			return false;
-		}
-
-		/**
-		 * Delete Zone details list ajax.
-		 */
-		public function wkmp_del_zone() {
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
-				$wpdb_obj          = $this->wpdb;
-				$current_seller_id = get_current_user_id();
-				$zone_id           = \WK_Caching::wk_get_request_data( 'zone-id', array( 'method' => 'post' ) );
-
-				$json    = array();
-				$deleted = false;
-
-				if ( ! empty( $zone_id ) ) {
-					$zone_seller_id = $wpdb_obj->get_var( $wpdb_obj->prepare( "SELECT `seller_id` FROM {$wpdb_obj->prefix}mpseller_meta WHERE zone_id = %d", $zone_id ) );
-					if ( intval( $zone_seller_id ) === $current_seller_id ) {
-						// Using where formatting.
-						$zone      = \WC_Shipping_Zones::get_zone( $zone_id );
-						$zone_name = $zone->get_data()['zone_name'];
-
-						$wpdb_obj->delete( $wpdb_obj->prefix . 'mpseller_meta', array( 'zone_id' => $zone_id ), array( '%d' ) );
-						\WC_Shipping_Zones::delete_zone( $zone_id );
-
-						$notice_data = array(
-							'action'    => 'Deleted',
-							'zone_name' => $zone_name,
-						);
-						update_user_meta( $current_seller_id, '_wkmp_shipping_notice_data', $notice_data );
-						$deleted = true;
-					}
-				}
-
-				if ( $deleted ) {
-					$json['message']  = esc_html__( 'Shipping zone has been deleted.', 'wk-marketplace' );
-					$json['redirect'] = wc_get_endpoint_url( get_option( '_wkmp_shipping_endpoint', 'seller-shippings' ), '', wc_get_page_permalink( 'myaccount' ) );
-				} else {
-					$msg             = esc_html__( 'You are not allowed to delete this shipping zone.', 'wk-marketplace' );
-					$json['message'] = $msg;
-					wc_add_notice( $msg, 'error' );
-				}
-
-				wp_send_json( $json );
-			}
-		}
-
-		/**
-		 * Delete Shipping Method.
-		 */
-		public function wkmp_delete_shipping_method() {
-			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
-				$result     = array( 'success' => false );
-				$wpdb_obj   = $this->wpdb;
-				$table_name = $wpdb_obj->prefix . 'woocommerce_shipping_zone_methods';
-				$zone_id    = \WK_Caching::wk_get_request_data( 'zone-id', array( 'method' => 'post' ) );
-
-				$zone_status = $this->wkmp_is_valid_seller_zone_id( $zone_id );
-
-				if ( $zone_status ) {
-					$instance_id = \WK_Caching::wk_get_request_data( 'instance-id', array( 'method' => 'post' ) );
-					$res         = $wpdb_obj->get_row( $wpdb_obj->prepare( "SELECT method_id FROM {$wpdb_obj->prefix}woocommerce_shipping_zone_methods WHERE zone_id = %d AND instance_id = %d", $zone_id, $instance_id ) );
-					$response    = $wpdb_obj->delete(
-						$table_name,
-						array(
-							'zone_id'     => $zone_id,
-							'instance_id' => $instance_id,
-						),
-						array( '%d' )
-					);
-
-					if ( $response ) {
-						delete_option( 'woocommerce_' . $res->method_id . '_' . $instance_id . '_settings' );
-						$result['success'] = true;
-					}
-				} else {
-					$result['success'] = false;
-				}
-
-				wp_send_json( $result );
-			}
-		}
-
-		/**
 		 * Marketplace variation function
 		 *
 		 * @param int $var_id Variable id.
@@ -424,13 +180,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		public function wkmp_marketplace_add_variation_attribute( $var_id ) {
 			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 
-				$wk_pro_id = \WK_Caching::wk_get_request_data(
-					'product',
-					array(
-						'method' => 'post',
-						'filter' => 'int',
-					)
-				);
+				$wk_pro_id = empty( $_POST['product'] ) ? 0 : intval( wp_unslash( $_POST['product'] ) );
 
 				if ( ! empty( $wk_pro_id ) ) {
 					$post_title   = sprintf( /* translators: %d Product id. */ esc_html__( 'Variation # %d of Product', 'wk-marketplace' ), $wk_pro_id );
@@ -508,7 +258,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 			);
 
 			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
-				$var_id = \WK_Caching::wk_get_request_data( 'var_id', array( 'method' => 'post' ) );
+				$var_id = empty( $_POST['var_id'] ) ? '' : intval( wp_unslash( $_POST['var_id'] ) );
 
 				if ( $var_id > 0 ) {
 					wp_delete_post( $var_id );
@@ -525,7 +275,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		public function wkmp_validate_seller_product_sku() {
 			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 				$wpdb_obj = $this->wpdb;
-				$chk_sku  = \WK_Caching::wk_get_request_data( 'psku', array( 'method' => 'post' ) );
+				$chk_sku  = empty( $_POST['psku'] ) ? '' : wc_clean( wp_unslash( $_POST['psku'] ) );
 
 				$response = array(
 					'success' => false,
@@ -563,7 +313,8 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		 */
 		public function wkmp_productgallary_image_delete() {
 			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) ) {
-				$img_id     = \WK_Caching::wk_get_request_data( 'img_id', array( 'method' => 'post' ) );
+				$img_id = empty( $_POST['img_id'] ) ? '' : wc_clean( wp_unslash( $_POST['img_id'] ) );
+
 				$ip         = explode( 'i_', $img_id );
 				$img_id     = get_post_meta( $ip[0], '_product_image_gallery', true );
 				$arr        = array_diff( explode( ',', $img_id ), array( $ip[1] ) );
@@ -578,13 +329,13 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		 */
 		public function wkmp_downloadable_file_add() {
 			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) ) {
-				$y = \WK_Caching::wk_get_request_data( 'var_id', array( 'method' => 'post' ) );
-				$i = \WK_Caching::wk_get_request_data( 'eleme_no', array( 'method' => 'post' ) );
+				$y = empty( $_POST['var_id'] ) ? 0 : intval( wp_unslash( $_POST['var_id'] ) );
+				$i = empty( $_POST['eleme_no'] ) ? 0 : intval( wp_unslash( $_POST['eleme_no'] ) );
 				?>
 				<div class="tr_div">
 					<div>
 						<label for="downloadable_upload_file_name_<?php echo esc_attr( $y ) . '_' . esc_attr( $i ); ?>"><?php esc_html_e( 'File Name', 'wk-marketplace' ); ?></label>
-						<input type="text" class="input_text" placeholder="File Name" id="downloadable_upload_file_name_<?php echo esc_attr( $y ) . '_' . esc_attr( $i ); ?>" name="_mp_variation_downloads_files_name[<?php echo esc_attr( $y ); ?>][<?php echo esc_attr( $i ); ?>]" value="">
+						<input type="text" class="input_text" placeholder="<?php esc_attr_e( 'File Name', 'wk-marketplace' ); ?>" id="downloadable_upload_file_name_<?php echo esc_attr( $y ) . '_' . esc_attr( $i ); ?>" name="_mp_variation_downloads_files_name[<?php echo esc_attr( $y ); ?>][<?php echo esc_attr( $i ); ?>]" value="">
 					</div>
 					<div class="file_url">
 						<label for="downloadable_upload_file_url_<?php echo esc_attr( $y ) . '_' . esc_attr( $i ); ?>"><?php esc_html_e( 'File Url', 'wk-marketplace' ); ?></label>
@@ -608,7 +359,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 				global $wkmarketplace;
 				$data      = array();
-				$change_to = \WK_Caching::wk_get_request_data( 'change_to', array( 'method' => 'post' ) );
+				$change_to = empty( $_POST['change_to'] ) ? '' : wc_clean( wp_unslash( $_POST['change_to'] ) );
 
 				if ( ! empty( $change_to ) ) {
 					$c_user_id    = get_current_user_id();
@@ -637,7 +388,7 @@ if ( ! class_exists( 'WKMP_Front_Ajax_Functions' ) ) {
 		 */
 		public function wkmp_delete_seller_selected_product() {
 			if ( check_ajax_referer( 'wkmp-front-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
-				$product_id = \WK_Caching::wk_get_request_data( 'product_id', array( 'method' => 'post' ) );
+				$product_id = empty( $_POST['product_id'] ) ? 0 : intval( wp_unslash( $_POST['product_id'] ) );
 
 				$resp = array(
 					'success' => false,

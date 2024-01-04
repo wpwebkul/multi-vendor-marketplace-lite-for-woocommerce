@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 <form method="post" id="wkmp-order-list-form">
 	<div class="wkmp-table-action-wrap">
 		<div class="wkmp-action-section left">
-			<input type="text" name="wkmp_search" placeholder="<?php esc_attr_e( 'Search by Order ID', 'wk-marketplace' ); ?>" value="<?php echo esc_attr( $filter_id ); ?>">
+			<input type="text" name="wkmp_search" placeholder="<?php esc_attr_e( 'Search by Order ID', 'wk-marketplace' ); ?>" value="<?php echo esc_attr( $search_order_id ); ?>">
 			<?php wp_nonce_field( 'wkmp_order_search_nonce_action', 'wkmp_order_search_nonce' ); ?>
 			<input type="submit" value="<?php esc_attr_e( 'Search', 'wk-marketplace' ); ?>" data-action="search"/>
 		</div>

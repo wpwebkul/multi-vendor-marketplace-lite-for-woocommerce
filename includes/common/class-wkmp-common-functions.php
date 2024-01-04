@@ -383,7 +383,7 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 			$nonce = \WK_Caching::wk_get_request_data( 'wkmp_seller_meta_box_nonce', array( 'method' => 'post' ) );
 
 			if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, 'wkmp_save_meta_box_seller' ) ) {
-				$seller_id = \WK_Caching::wk_get_request_data( 'seller_id', array( 'method' => 'post' ) );
+				$seller_id = empty( $_POST['seller_id'] ) ? 0 : intval( wp_unslash( $_POST['seller_id'] ) );
 
 				if ( ! empty( $seller_id ) ) {
 					$wpdb_obj   = $this->wpdb;
@@ -401,15 +401,9 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 					}
 				}
 
-				$qty_limit = \WK_Caching::wk_get_request_data(
-					'_wkmp_max_product_qty_limit',
-					array(
-						'filter' => 'int',
-						'method' => 'post',
-					)
-				);
+				$qty_limit = empty( $_POST['_wkmp_max_product_qty_limit'] ) ? -1 : intval( wp_unslash( $_POST['_wkmp_max_product_qty_limit'] ) );
 
-				if ( ! is_null( $qty_limit ) ) {
+				if ( $qty_limit > -1 ) {
 					update_post_meta( $post_id, '_wkmp_max_product_qty_limit', $qty_limit );
 				}
 			}
@@ -435,9 +429,10 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 
 				$seller_id = ( is_iterable( $seller_id ) && 1 === count( $seller_id ) ) ? $seller_id[0] : 0;
 
-				$shop_name  = \WK_Caching::wk_get_request_data( 'shopname', array( 'method' => 'post' ) );
-				$shop_url   = \WK_Caching::wk_get_request_data( 'shopurl', array( 'method' => 'post' ) );
-				$role       = \WK_Caching::wk_get_request_data( 'role', array( 'method' => 'post' ) );
+				$args       = array( 'method' => 'post' );
+				$shop_name  = \WK_Caching::wk_get_request_data( 'shopname', $args );
+				$shop_url   = \WK_Caching::wk_get_request_data( 'shopurl', $args );
+				$role       = \WK_Caching::wk_get_request_data( 'role', $args );
 				$user_roles = array( $role );
 
 				if ( empty( $role ) ) {
@@ -635,20 +630,12 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 				include_once ABSPATH . 'wp-admin/includes/file.php';
 				include_once ABSPATH . 'wp-admin/includes/media.php';
 
-				$args = array( 'method' => 'post' );
-
-				$data['fist_name'] = \WK_Caching::wk_get_request_data( 'wkmp_first_name', $args );
-				$data['fist_name'] = $this->wkmp_replace_accents_characters_to_normal( $data['fist_name'] );
-				$data['last_name'] = \WK_Caching::wk_get_request_data( 'wkmp_last_name', $args );
-				$data['last_name'] = $this->wkmp_replace_accents_characters_to_normal( $data['last_name'] );
-				$data['shop_name'] = \WK_Caching::wk_get_request_data( 'wkmp_shop_name', $args );
-				$data['shop_name'] = $this->wkmp_replace_accents_characters_to_normal( $data['shop_name'] );
-
-				$data['billing_country']  = \WK_Caching::wk_get_request_data( 'wkmp_shop_country', $args );
-				$data['billing_postcode'] = \WK_Caching::wk_get_request_data( 'wkmp_shop_postcode', $args );
-
-				$args['filter']     = 'email';
-				$data['user_email'] = \WK_Caching::wk_get_request_data( 'wkmp_seller_email', $args );
+				$data['fist_name']        = empty( $_POST['wkmp_first_name'] ) ? '' : $this->wkmp_replace_accents_characters_to_normal( wc_clean( wp_unslash( $_POST['wkmp_first_name'] ) ) );
+				$data['last_name']        = empty( $_POST['wkmp_last_name'] ) ? '' : $this->wkmp_replace_accents_characters_to_normal( wc_clean( wp_unslash( $_POST['wkmp_last_name'] ) ) );
+				$data['shop_name']        = empty( $_POST['wkmp_shop_name'] ) ? '' : $this->wkmp_replace_accents_characters_to_normal( wc_clean( wp_unslash( $_POST['wkmp_shop_name'] ) ) );
+				$data['billing_country']  = empty( $_POST['wkmp_shop_country'] ) ? '' : wc_clean( wp_unslash( $_POST['wkmp_shop_country'] ) );
+				$data['billing_postcode'] = empty( $_POST['wkmp_shop_postcode'] ) ? '' : wc_clean( wp_unslash( $_POST['wkmp_shop_postcode'] ) );
+				$data['user_email']       = empty( $_POST['wkmp_seller_email'] ) ? '' : wc_clean( wp_unslash( $_POST['wkmp_seller_email'] ) );
 
 				if ( empty( $data['user_email'] ) ) {
 					$errors['wkmp_seller_email'] = esc_html__( 'Enter the valid E-Mail', 'wk-marketplace' );
@@ -716,6 +703,22 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 				if ( empty( $errors ) ) {
 					$data['billing_phone'] = $data['wkmp_shop_phone'];
 					unset( $data['wkmp_shop_phone'] );
+
+					$data['billing_address_1']         = empty( $_POST['wkmp_shop_address_1'] ) ? '' : wp_strip_all_tags( wc_clean( wp_unslash( $_POST['wkmp_shop_address_1'] ) ) );
+					$data['billing_address_2']         = empty( $_POST['wkmp_shop_address_2'] ) ? '' : wp_strip_all_tags( wc_clean( wp_unslash( $_POST['wkmp_shop_address_2'] ) ) );
+					$data['billing_city']              = empty( $_POST['wkmp_shop_city'] ) ? '' : wp_strip_all_tags( wc_clean( wp_unslash( $_POST['wkmp_shop_city'] ) ) );
+					$data['billing_state']             = empty( $_POST['wkmp_shop_state'] ) ? '' : wp_strip_all_tags( wc_clean( wp_unslash( $_POST['wkmp_shop_state'] ) ) );
+					$data['mp_seller_payment_details'] = empty( $_POST['wkmp_payment_details'] ) ? '' : wp_strip_all_tags( wc_clean( wp_unslash( $_POST['wkmp_payment_details'] ) ) );
+					$data['shop_banner_visibility']    = empty( $_POST['wkmp_display_banner'] ) ? '' : wc_clean( wp_unslash( $_POST['wkmp_display_banner'] ) );
+
+					$social_settings = empty( $_POST['wkmp_settings'] ) ? array() : wc_clean( wp_unslash( $_POST['wkmp_settings'] ) );
+
+					$data['social_facebook']  = empty( $social_settings['social']['fb'] ) ? '' : filter_var( $social_settings['social']['fb'], FILTER_SANITIZE_URL );
+					$data['social_instagram'] = empty( $social_settings['social']['insta'] ) ? '' : filter_var( $social_settings['social']['insta'], FILTER_SANITIZE_URL );
+					$data['social_twitter']   = empty( $social_settings['social']['twitter'] ) ? '' : filter_var( $social_settings['social']['twitter'], FILTER_SANITIZE_URL );
+					$data['social_linkedin']  = empty( $social_settings['social']['linkedin'] ) ? '' : filter_var( $social_settings['social']['linkedin'], FILTER_SANITIZE_URL );
+					$data['social_youtube']   = empty( $social_settings['social']['youtube'] ) ? '' : filter_var( $social_settings['social']['youtube'], FILTER_SANITIZE_URL );
+
 					$this->wkmp_update_seller_profile( $data, $seller_id );
 				} else {
 					$_POST['wkmp_errors'] = $errors;
@@ -746,24 +749,6 @@ if ( ! class_exists( 'WKMP_Common_Functions' ) ) {
 		 * @return void
 		 */
 		public function wkmp_update_seller_profile( $final_data, $seller_id ) {
-			$args = array( 'method' => 'post' );
-
-			$final_data['billing_address_1']         = wp_strip_all_tags( \WK_Caching::wk_get_request_data( 'wkmp_shop_address_1', $args ) );
-			$final_data['billing_address_2']         = wp_strip_all_tags( \WK_Caching::wk_get_request_data( 'wkmp_shop_address_2', $args ) );
-			$final_data['billing_city']              = wp_strip_all_tags( \WK_Caching::wk_get_request_data( 'wkmp_shop_city', $args ) );
-			$final_data['billing_state']             = wp_strip_all_tags( \WK_Caching::wk_get_request_data( 'wkmp_shop_state', $args ) );
-			$final_data['mp_seller_payment_details'] = wp_strip_all_tags( \WK_Caching::wk_get_request_data( 'wkmp_payment_details', $args ) );
-			$final_data['shop_banner_visibility']    = \WK_Caching::wk_get_request_data( 'wkmp_display_banner', $args );
-
-			$args['flag']    = 'array';
-			$social_settings = \WK_Caching::wk_get_request_data( 'wkmp_settings', $args );
-
-			$final_data['social_facebook']  = empty( $social_settings['social']['fb'] ) ? '' : filter_var( $social_settings['social']['fb'], FILTER_SANITIZE_URL );
-			$final_data['social_instagram'] = empty( $social_settings['social']['insta'] ) ? '' : filter_var( $social_settings['social']['insta'], FILTER_SANITIZE_URL );
-			$final_data['social_twitter']   = empty( $social_settings['social']['twitter'] ) ? '' : filter_var( $social_settings['social']['twitter'], FILTER_SANITIZE_URL );
-			$final_data['social_linkedin']  = empty( $social_settings['social']['linkedin'] ) ? '' : filter_var( $social_settings['social']['linkedin'], FILTER_SANITIZE_URL );
-			$final_data['social_youtube']   = empty( $social_settings['social']['youtube'] ) ? '' : filter_var( $social_settings['social']['youtube'], FILTER_SANITIZE_URL );
-
 			if ( $final_data['billing_state'] ) {
 				$country = get_user_meta( $seller_id, 'wkmp_shop_country', true );
 				if ( WC()->countries->get_states( $country ) ) {

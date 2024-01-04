@@ -51,12 +51,12 @@ defined( 'WKMP_LITE_FILE' ) || define( 'WKMP_LITE_FILE', __FILE__ );
 defined( 'WKMP_LITE_PLUGIN_FILE' ) || define( 'WKMP_LITE_PLUGIN_FILE', plugin_dir_path( __FILE__ ) );
 defined( 'WKMP_LITE_PLUGIN_URL' ) || define( 'WKMP_LITE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 defined( 'WKMP_LITE_SCRIPT_VERSION' ) || define( 'WKMP_LITE_SCRIPT_VERSION', '1.0.0' );
-defined( 'WKMP_LITE_VERSION' ) || define( 'WKMP_LITE_VERSION', '1.0.0' );
-defined( 'WKMP_LITE_DB_VERSION' ) || define( 'WKMP_LITE_DB_VERSION', '5.3.4' );
+defined( 'WKMP_LITE_VERSION' ) || define( 'WKMP_LITE_VERSION', '0.9.4' );
+defined( 'WKMP_LITE_DB_VERSION' ) || define( 'WKMP_LITE_DB_VERSION', '5.3.6' );
 defined( 'WKMP_LITE_PLUGIN_BASENAME' ) || define( 'WKMP_LITE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 defined( 'WKMP_LITE_WK_CACHING_VERSION' ) || define( 'WKMP_LITE_WK_CACHING_VERSION', '1.0.8' );
-defined( 'WKMP_PRO_MIN_VERSION' ) || define( 'WKMP_PRO_MIN_VERSION', '5.4.0' );
-defined( 'WKMP_DB_VERSION' ) || define( 'WKMP_DB_VERSION', '5.3.4' );
+defined( 'WKMP_PRO_MIN_VERSION' ) || define( 'WKMP_PRO_MIN_VERSION', '5.4.2' );
+defined( 'WKMP_DB_VERSION' ) || define( 'WKMP_DB_VERSION', '5.3.6' );
 defined( 'WKMP_PRO_MODULE_URL' ) || define( 'WKMP_PRO_MODULE_URL', 'https://store.webkul.com/woocommerce-multivendor-marketplace.html' );
 defined( 'WKMP_PRO_DEMO_URL' ) || define( 'WKMP_PRO_DEMO_URL', 'https://wpdemo.webkul.com/woocommerce-marketplace/' );
 

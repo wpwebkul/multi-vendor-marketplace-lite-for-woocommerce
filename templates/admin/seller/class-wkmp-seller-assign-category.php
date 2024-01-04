@@ -55,16 +55,10 @@ if ( ! class_exists( 'WKMP_Seller_Assign_Category' ) ) {
 			$nonce = \WK_Caching::wk_get_request_data( 'wkmp-admin-seller-misc-nonce-value', array( 'method' => 'post' ) );
 
 			if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, 'wkmp-admin-seller-misc-nonce-action' ) ) {
-				$enable_dynamic_sku = \WK_Caching::wk_get_request_data( '_wkmp_enable_seller_dynamic_sku', array( 'method' => 'post' ) );
-				$dynamic_sku_prefix = \WK_Caching::wk_get_request_data( '_wkmp_dynamic_sku_prefix', array( 'method' => 'post' ) );
-				$allow_translate    = \WK_Caching::wk_get_request_data( '_wkmp_wcml_allow_product_translate', array( 'method' => 'post' ) );
-				$allowed_categories = \WK_Caching::wk_get_request_data(
-					'wkmp_seller_allowed_categories',
-					array(
-						'method' => 'post',
-						'flag'   => 'array',
-					)
-				);
+				$enable_dynamic_sku = empty( $_POST['_wkmp_enable_seller_dynamic_sku'] ) ? '' : wc_clean( wp_unslash( $_POST['_wkmp_enable_seller_dynamic_sku'] ) );
+				$dynamic_sku_prefix = empty( $_POST['_wkmp_dynamic_sku_prefix'] ) ? '' : wc_clean( wp_unslash( $_POST['_wkmp_dynamic_sku_prefix'] ) );
+				$allow_translate    = empty( $_POST['_wkmp_wcml_allow_product_translate'] ) ? '' : wc_clean( wp_unslash( $_POST['_wkmp_wcml_allow_product_translate'] ) );
+				$allowed_categories = empty( $_POST['wkmp_seller_allowed_categories'] ) ? array() : wc_clean( wp_unslash( $_POST['wkmp_seller_allowed_categories'] ) );
 
 				update_user_meta( $this->seller_id, 'wkmp_seller_allowed_categories', $allowed_categories );
 				update_user_meta( $this->seller_id, '_wkmp_enable_seller_dynamic_sku', $enable_dynamic_sku );

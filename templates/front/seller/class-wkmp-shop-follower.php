@@ -132,13 +132,8 @@ if ( ! class_exists( 'WKMP_Shop_Follower' ) ) {
 			$nonce = \WK_Caching::wk_get_request_data( 'wkmp-delete-followers-nonce', array( 'method' => 'post' ) );
 
 			if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, 'wkmp-delete-followers-nonce-action' ) ) {
-				$selected = \WK_Caching::wk_get_request_data(
-					'selected',
-					array(
-						'method' => 'post',
-						'flag'   => 'array',
-					)
-				);
+				$selected = empty( $_POST['selected'] ) ? array() : wc_clean( wp_unslash( $_POST['selected'] ) );
+
 				if ( ! empty( $selected ) ) {
 					$this->wkmp_delete_followers( $selected );
 				}
@@ -147,16 +142,10 @@ if ( ! class_exists( 'WKMP_Shop_Follower' ) ) {
 			$nonce = \WK_Caching::wk_get_request_data( 'wkmp-sendmail-followers-nonce', array( 'method' => 'post' ) );
 
 			if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, 'wkmp-sendmail-followers-nonce-action' ) ) {
-				$customer_ids = \WK_Caching::wk_get_request_data(
-					'customer_ids',
-					array(
-						'method' => 'post',
-						'flag'   => 'array',
-					)
-				);
+				$customer_ids = empty( $_POST['customer_ids'] ) ? array() : wc_clean( wp_unslash( $_POST['customer_ids'] ) );
 
-				$subject  = \WK_Caching::wk_get_request_data( 'subject', array( 'method' => 'post' ) );
-				$feedback = \WK_Caching::wk_get_request_data( 'message', array( 'method' => 'post' ) );
+				$subject  = empty( $_POST['subject'] ) ? '' : wc_clean( wp_unslash( $_POST['subject'] ) );
+				$feedback = empty( $_POST['message'] ) ? '' : wc_clean( wp_unslash( $_POST['message'] ) );
 
 				foreach ( $customer_ids as $user_id ) {
 					$user_info = get_userdata( $user_id );

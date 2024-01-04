@@ -40,10 +40,10 @@ if ( ! class_exists( 'WKMP_Product_Queries' ) ) {
 		 */
 		public function wkmp_get_seller_products( $seller_id, $data = array() ) {
 			$wpdb_obj = $this->wpdb;
-			$sql      = $wpdb_obj->prepare( "SELECT ID, post_title, post_status FROM {$wpdb_obj->prefix}posts WHERE post_type = 'product' AND post_status != 'auto-draft' AND post_author = %d", esc_attr( $seller_id ) );
+			$sql      = $wpdb_obj->prepare( "SELECT ID, post_title, post_status FROM {$wpdb_obj->prefix}posts WHERE post_type = 'product' AND post_status IN ('draft','publish') AND post_author = %d", esc_attr( $seller_id ) );
 
 			if ( isset( $data['filter_name'] ) && $data['filter_name'] ) {
-				$sql .= $wpdb_obj->prepare( ' AND post_title LIKE %s', esc_attr( $data['filter_name'] ) . '%' );
+				$sql .= $wpdb_obj->prepare( ' AND post_title LIKE %s', '%' . esc_attr( $data['filter_name'] ) . '%' );
 			}
 
 			$sql .= $wpdb_obj->prepare( ' ORDER BY ID DESC LIMIT %d, %d', esc_attr( $data['start'] ), esc_attr( $data['limit'] ) );
@@ -63,10 +63,10 @@ if ( ! class_exists( 'WKMP_Product_Queries' ) ) {
 		 */
 		public function wkmp_get_seller_total_products( $seller_id, $data = array() ) {
 			$wpdb_obj = $this->wpdb;
-			$sql      = $wpdb_obj->prepare( "SELECT COUNT(*) FROM {$wpdb_obj->prefix}posts WHERE post_type = 'product' AND post_author = %d", esc_attr( $seller_id ) );
+			$sql      = $wpdb_obj->prepare( "SELECT COUNT(*) FROM {$wpdb_obj->prefix}posts WHERE post_type = 'product' AND post_status IN ('draft','publish') AND post_author = %d", esc_attr( $seller_id ) );
 
 			if ( isset( $data['filter_name'] ) && $data['filter_name'] ) {
-				$sql .= $wpdb_obj->prepare( ' AND post_title LIKE %s', esc_attr( $data['filter_name'] ) . '%' );
+				$sql .= $wpdb_obj->prepare( ' AND post_title LIKE %s', '%' . esc_attr( $data['filter_name'] ) . '%' );
 			}
 
 			$total = $wpdb_obj->get_var( $sql );

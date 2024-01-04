@@ -9,20 +9,16 @@
 
 defined( 'ABSPATH' ) || exit; // Exit if access directly.
 
-$user_role = \WK_Caching::wk_get_request_data(
-	'role',
-	array(
-		'method'  => 'post',
-		'default' => 'customer',
-	)
-);
+$args = array( 'method' => 'post' );
 
-$wkmp_firstname = \WK_Caching::wk_get_request_data( 'wkmp_firstname', array( 'method' => 'post' ) );
-$wkmp_lastname  = \WK_Caching::wk_get_request_data( 'wkmp_lastname', array( 'method' => 'post' ) );
-$wkmp_shopname  = \WK_Caching::wk_get_request_data( 'wkmp_shopname', array( 'method' => 'post' ) );
-$wkmp_shopurl   = \WK_Caching::wk_get_request_data( 'wkmp_shopurl', array( 'method' => 'post' ) );
-$wkmp_shopphone = \WK_Caching::wk_get_request_data( 'wkmp_shopphone', array( 'method' => 'post' ) );
+$wkmp_firstname = \WK_Caching::wk_get_request_data( 'wkmp_firstname', $args );
+$wkmp_lastname  = \WK_Caching::wk_get_request_data( 'wkmp_lastname', $args );
+$wkmp_shopname  = \WK_Caching::wk_get_request_data( 'wkmp_shopname', $args );
+$wkmp_shopurl   = \WK_Caching::wk_get_request_data( 'wkmp_shopurl', $args );
+$wkmp_shopphone = \WK_Caching::wk_get_request_data( 'wkmp_shopphone', $args );
 
+$args['default'] = 'customer';
+$user_role       = \WK_Caching::wk_get_request_data( 'role', $args );
 
 $role_style = ( 'customer' === $user_role ) ? ' style=display:none' : '';
 if ( ! is_account_page() ) {

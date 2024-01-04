@@ -129,12 +129,11 @@ if ( ! class_exists( 'WKMarketplace' ) ) {
 
 			if ( ! $this->is_dependency_exists ) {
 				add_action( 'admin_notices', array( $this, 'wkmp_show_wc_not_installed_notice' ) );
-				return false;
+			} else {
+				$this->wkmp_init_hooks();
+				$this->general_query    = Helper\WKMP_General_Queries::get_instance();
+				$this->seller_page_slug = $this->general_query->wkmp_get_seller_page_slug();
 			}
-
-			$this->wkmp_init_hooks();
-			$this->general_query    = Helper\WKMP_General_Queries::get_instance();
-			$this->seller_page_slug = $this->general_query->wkmp_get_seller_page_slug();
 		}
 
 		/**

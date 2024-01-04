@@ -95,21 +95,19 @@ if ( ! class_exists( 'WKMP_Orders' ) ) {
 
 			$this->seller_id = empty( $seller_id ) ? ( empty( $this->seller_id ) ? get_current_user_id() : $this->seller_id ) : $seller_id;
 
-			$filter_id = '';
-			$args      = array( 'method' => 'post' );
-			$nonce     = \WK_Caching::wk_get_request_data( 'wkmp_order_search_nonce', $args );
+			$search_order_id = '';
+			$nonce           = \WK_Caching::wk_get_request_data( 'wkmp_order_search_nonce', array( 'method' => 'post' ) );
 
 			// Filter Orders.
 			if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, 'wkmp_order_search_nonce_action' ) ) {
-				$args['filter'] = 'int';
-				$filter_id      = \WK_Caching::wk_get_request_data( 'wkmp_search', $args );
+				$search_order_id = empty( $_POST['wkmp_search'] ) ? $search_order_id : intval( wp_unslash( $_POST['wkmp_search'] ) );
 			}
 
 			$limit = apply_filters( 'wkmp_sellers_per_page_orders', 20 );
 
 			$filter_data = array(
 				'user_id'  => $this->seller_id,
-				'search'   => $filter_id,
+				'search'   => $search_order_id,
 				'per_page' => $limit,
 				'page_no'  => $page_no,
 				'offset'   => ( $page_no - 1 ) * $limit,
@@ -152,25 +150,22 @@ if ( ! class_exists( 'WKMP_Orders' ) ) {
 			$order_refund    = Common\WKMP_Order_Refund::get_instance();
 
 			$mp_order_data            = $obj_commission->wkmp_get_seller_final_order_info( $order_id, $this->seller_id );
-			$seller_order_refund_data = $obj_commission->wkmp_get_seller_order_refund_data( $order_id );
+			$seller_order_refund_data = $obj_commission->wkmp_get_seller_order_refund_data( $order_id, $this->seller_id );
 
-			$args         = array( 'method' => 'post' );
-			$nonce_status = \WK_Caching::wk_get_request_data( 'wkmp_add_product_submit_nonce_name', $args );
+			$nonce_status = \WK_Caching::wk_get_request_data( 'wkmp_add_product_submit_nonce_name', array( 'method' => 'post' ) );
 
 			if ( ! empty( $nonce_status ) && wp_verify_nonce( $nonce_status, 'mp_order_status_nonce_action' ) ) {
-				$args['filter']   = 'int';
-				$posted_seller_id = \WK_Caching::wk_get_request_data( 'mp-seller-id', $args );
-				$posted_order_id  = \WK_Caching::wk_get_request_data( 'mp-order-id', $args );
+				$posted_seller_id = empty( $_POST['mp-seller-id'] ) ? 0 : intval( wp_unslash( $_POST['mp-seller-id'] ) );
+				$posted_order_id  = empty( $_POST['mp-order-id'] ) ? 0 : intval( wp_unslash( $_POST['mp-order-id'] ) );
 
 				if ( $posted_seller_id === $this->seller_id && $posted_order_id === $order_id ) {
-					$args['filter']  = '';
-					$mp_order_status = \WK_Caching::wk_get_request_data( 'mp-order-status', $args );
+					$mp_order_status = empty( $_POST['mp-order-status'] ) ? '' : wc_clean( wp_unslash( $_POST['mp-order-status'] ) );
 
 					$posted_data = array(
 						'mp-order-status'     => $mp_order_status,
 						'mp-order-id'         => $posted_order_id,
 						'mp-seller-id'        => $posted_seller_id,
-						'mp-old-order-status' => \WK_Caching::wk_get_request_data( 'mp-old-order-status', $args ),
+						'mp-old-order-status' => empty( $_POST['mp-old-order-status'] ) ? '' : wc_clean( wp_unslash( $_POST['mp-old-order-status'] ) ),
 					);
 
 					if ( ! empty( $mp_order_status ) && 'wc-refunded' === $mp_order_status ) {
@@ -207,29 +202,26 @@ if ( ! class_exists( 'WKMP_Orders' ) ) {
 				$error->add( 'nonce-error', esc_html__( 'Sorry, your nonce did not verify.', 'wk-marketplace' ) );
 			}
 
-			$args['filter'] = '';
-			$nonce_refund   = \WK_Caching::wk_get_request_data( 'wkmp-seller-refund-nonce-value', $args );
+			$nonce_refund = \WK_Caching::wk_get_request_data( 'wkmp-seller-refund-nonce-value', array( 'method' => 'post' ) );
 
 			if ( ! empty( $nonce_refund ) && wp_verify_nonce( $nonce_refund, 'wkmp-seller-refund-nonce-action' ) ) {
-				$args['filter']   = 'int';
-				$posted_seller_id = \WK_Caching::wk_get_request_data( 'mp-seller-id', $args );
-				$posted_order_id  = \WK_Caching::wk_get_request_data( 'mp-order-id', $args );
+				$posted_seller_id = empty( $_POST['mp-seller-id'] ) ? 0 : intval( wp_unslash( $_POST['mp-seller-id'] ) );
+				$posted_order_id  = empty( $_POST['mp-order-id'] ) ? 0 : intval( wp_unslash( $_POST['mp-order-id'] ) );
 
 				if ( $posted_seller_id === $this->seller_id && $posted_order_id === $order_id ) {
 					$line_items = array();
 
-					$restock_refunded_items = \WK_Caching::wk_get_request_data( 'restock_refunded_items', $args );
+					$restock_refunded_items = empty( $_POST['restock_refunded_items'] ) ? 0 : intval( wp_unslash( $_POST['restock_refunded_items'] ) );
 					$restock_refunded_items = ( 1 === $restock_refunded_items );
 
-					$args['filter'] = '';
-					$refund_reason  = \WK_Caching::wk_get_request_data( 'refund_reason', $args );
-					$api_refund     = ! empty( \WK_Caching::wk_get_request_data( 'do_api_refund', $args ) );
+					$refund_reason = empty( $_POST['refund_reason'] ) ? '' : wc_clean( wp_unslash( $_POST['refund_reason'] ) );
+					$api_refund    = empty( $_POST['do_api_refund'] ) ? '' : wc_clean( wp_unslash( $_POST['do_api_refund'] ) );
+					$api_refund    = ! empty( $api_refund );
 
-					$args['flag']           = 'array';
-					$order_items            = \WK_Caching::wk_get_request_data( 'item_refund_amount', $args );
-					$order_item_total       = \WK_Caching::wk_get_request_data( 'refund_line_total', $args );
-					$refund_tax_items       = \WK_Caching::wk_get_request_data( 'refund_line_tax', $args );
-					$refund_line_tax_amount = \WK_Caching::wk_get_request_data( 'refund_line_tax_amount', $args );
+					$order_items            = empty( $_POST['item_refund_amount'] ) ? array() : wc_clean( wp_unslash( $_POST['item_refund_amount'] ) );
+					$order_item_total       = empty( $_POST['refund_line_total'] ) ? array() : wc_clean( wp_unslash( $_POST['refund_line_total'] ) );
+					$refund_tax_items       = empty( $_POST['refund_line_tax'] ) ? array() : wc_clean( wp_unslash( $_POST['refund_line_tax'] ) );
+					$refund_line_tax_amount = empty( $_POST['refund_line_tax_amount'] ) ? array() : wc_clean( wp_unslash( $_POST['refund_line_tax_amount'] ) );
 
 					$total_refund_amount = 0;
 
@@ -264,10 +256,9 @@ if ( ! class_exists( 'WKMP_Orders' ) ) {
 
 						$order_refund->wkmp_set_refund_args( $args );
 						$order_refund->wkmp_process_refund();
-						$seller_order_refund_data = $obj_commission->wkmp_get_seller_order_refund_data( $order_id );
+						$seller_order_refund_data = $obj_commission->wkmp_get_seller_order_refund_data( $order_id, $this->seller_id );
 
 						if ( ! empty( $seller_order_refund_data['refunded_amount'] ) && trim( $seller_order_refund_data['refunded_amount'] ) === trim( $mp_order_data['total_seller_amount'] ) ) {
-
 							$wpdb_obj->update(
 								$wpdb_obj->prefix . 'mpseller_orders',
 								array( 'order_status' => 'wc-refunded' ),
@@ -313,7 +304,7 @@ if ( ! class_exists( 'WKMP_Orders' ) ) {
 				$seller_tax_rate_ids = array_map( 'intval', wp_list_pluck( $seller_tax_rate_ids, 'tax_rate_id' ) );
 			}
 
-			$seller_order_refund_data = $obj_commission->wkmp_get_seller_order_refund_data( $order_id );
+			$seller_order_refund_data = $obj_commission->wkmp_get_seller_order_refund_data( $order_id, $this->seller_id );
 			$order_status             = $wpdb_obj->get_var( $wpdb_obj->prepare( "SELECT order_status from {$wpdb_obj->prefix}mpseller_orders where order_id = %d and seller_id = %d", $order_id, $this->seller_id ) );
 
 			if ( empty( $order_status ) ) {
@@ -520,7 +511,7 @@ if ( ! class_exists( 'WKMP_Orders' ) ) {
 
 			$this->seller_id   = empty( $seller_id ) ? ( empty( $this->seller_id ) ? get_current_user_id() : $this->seller_id ) : $seller_id;
 			$commission_helper = Common\WKMP_Commission::get_instance();
-			$refund_data       = $commission_helper->wkmp_get_seller_order_refund_data( $order_id );
+			$refund_data       = $commission_helper->wkmp_get_seller_order_refund_data( $order_id, $this->seller_id );
 			$seller_order      = new \WC_Order( $order_id );
 
 			$obj_commission = Common\WKMP_Commission::get_instance();

@@ -38,14 +38,7 @@ if ( ! class_exists( 'WKMP_Customer_Favourite_Seller' ) ) {
 			$nonce             = \WK_Caching::wk_get_request_data( 'wkmp-delete-favourite-nonce', array( 'method' => 'post' ) );
 
 			if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, 'wkmp-delete-favourite-nonce-action' ) ) {
-
-				$selected = \WK_Caching::wk_get_request_data(
-					'selected',
-					array(
-						'method' => 'post',
-						'flag'   => 'array',
-					)
-				);
+				$selected = empty( $_POST['selected'] ) ? array() : wc_clean( wp_unslash( $_POST['selected'] ) );
 
 				if ( ! empty( $selected ) ) {
 					// Delete favorite sellers.

@@ -360,28 +360,26 @@ if ( ! class_exists( 'WKMP_Front_Functions' ) ) {
 			if ( ! empty( $nonce_value ) && wp_verify_nonce( $nonce_value, 'woocommerce-register' ) ) {
 				$allowed_roles = array( 'customer', 'seller' );
 
-				$args = array( 'method' => 'post' );
-				$role = \WK_Caching::wk_get_request_data( 'role', $args );
+				$role = empty( $_POST['role'] ) ? '' : wc_clean( wp_unslash( $_POST['role'] ) );
 				$role = ( ! empty( $role ) && in_array( $role, $allowed_roles, true ) ) ? $role : 'customer';
 
 				if ( 'seller' === $role && $this->query_handler->wkmp_validate_seller_registration() ) {
-					$first_name = \WK_Caching::wk_get_request_data( 'wkmp_firstname', $args );
-					$last_name  = \WK_Caching::wk_get_request_data( 'wkmp_lastname', $args );
-					$shop_phone = \WK_Caching::wk_get_request_data( 'wkmp_shopphone', $args );
-					$register   = \WK_Caching::wk_get_request_data( 'register', $args );
-
-					$shop_url = \WK_Caching::wk_get_request_data( 'wkmp_shopurl', $args );
+					$first_name = empty( $_POST['wkmp_firstname'] ) ? '' : wc_clean( wp_unslash( $_POST['wkmp_firstname'] ) );
+					$last_name  = empty( $_POST['wkmp_lastname'] ) ? '' : wc_clean( wp_unslash( $_POST['wkmp_lastname'] ) );
+					$shop_phone = empty( $_POST['wkmp_shopphone'] ) ? '' : wc_clean( wp_unslash( $_POST['wkmp_shopphone'] ) );
+					$register   = empty( $_POST['register'] ) ? '' : wc_clean( wp_unslash( $_POST['register'] ) );
+					$shop_url   = empty( $_POST['wkmp_shopurl'] ) ? '' : wc_clean( wp_unslash( $_POST['wkmp_shopurl'] ) );
 
 					if ( empty( $shop_url ) ) {
 						$shop_url = explode( '@', $data['user_login'] );
 						$shop_url = preg_replace( '/[^a-zA-Z0-9]+/', '', $shop_url[0] );
 					}
 
-					if ( ! empty( $first_name ) || ! empty( $last_name ) ) {
-						$args['default'] = trim( $first_name . ' ' . $last_name );
-					}
+					$shop_name = empty( $_POST['wkmp_shopname'] ) ? '' : wc_clean( wp_unslash( $_POST['wkmp_shopname'] ) );
 
-					$shop_name = \WK_Caching::wk_get_request_data( 'wkmp_shopname', $args );
+					if ( empty( $shop_name ) && ( ! empty( $first_name ) || ! empty( $last_name ) ) ) {
+						$shop_name = trim( $first_name . ' ' . $last_name );
+					}
 
 					$data['role']      = $role;
 					$data['firstname'] = $first_name;

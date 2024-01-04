@@ -66,8 +66,8 @@ if ( ! class_exists( 'WKMP_Admin_Ajax_Functions' ) ) {
 				die();
 			}
 
-			$reply_message = \WK_Caching::wk_get_request_data( 'reply_message', array( 'method' => 'post' ) );
-			$query_id      = \WK_Caching::wk_get_request_data( 'qid', array( 'method' => 'post' ) );
+			$reply_message = empty( $_POST['reply_message'] ) ? '' : wc_clean( wp_unslash( $_POST['reply_message'] ) );
+			$query_id      = empty( $_POST['qid'] ) ? '' : wc_clean( wp_unslash( $_POST['qid'] ) );
 
 			if ( ! empty( $reply_message ) && ! empty( $query_id ) ) {
 				$query_db_obj = Common\WKMP_Seller_Ask_Queries::get_instance();
@@ -99,7 +99,7 @@ if ( ! class_exists( 'WKMP_Admin_Ajax_Functions' ) ) {
 		 */
 		public function wkmp_check_slug_for_seller_shop() {
 			if ( check_ajax_referer( 'wkmp-admin-nonce', 'wkmp_nonce', false ) && current_user_can( 'manage_options' ) ) {
-				$url_slug = \WK_Caching::wk_get_request_data( 'shop_slug', array( 'method' => 'post' ) );
+				$url_slug = empty( $_POST['shop_slug'] ) ? '' : wc_clean( wp_unslash( $_POST['shop_slug'] ) );
 				$check    = false;
 				$user     = get_user_by( 'slug', $url_slug );
 
@@ -125,7 +125,7 @@ if ( ! class_exists( 'WKMP_Admin_Ajax_Functions' ) ) {
 		public function wkmp_change_seller_to_frontend_dashboard() {
 			if ( check_ajax_referer( 'wkmp-admin-nonce', 'wkmp_nonce', false ) && current_user_can( 'wk_marketplace_seller' ) ) {
 				$data      = array();
-				$change_to = \WK_Caching::wk_get_request_data( 'change_to', array( 'method' => 'post' ) );
+				$change_to = empty( $_POST['change_to'] ) ? '' : wc_clean( wp_unslash( $_POST['change_to'] ) );
 
 				if ( ! empty( $change_to ) ) {
 					$c_user_id    = get_current_user_id();
@@ -160,7 +160,7 @@ if ( ! class_exists( 'WKMP_Admin_Ajax_Functions' ) ) {
 				die();
 			}
 
-			$action_ids = \WK_Caching::wk_get_request_data( 'action_data', array( 'method' => 'post' ) );
+			$action_ids = empty( $_POST['action_data'] ) ? '' : wc_clean( wp_unslash( $_POST['action_data'] ) );
 
 			if ( ! empty( $action_ids ) ) {
 				$ids           = explode( '-', $action_ids );

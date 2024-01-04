@@ -55,13 +55,8 @@ if ( ! class_exists( 'WKMP_Product_List' ) ) {
 
 			// Delete multiple product.
 			if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, 'wkmp-delete-product-nonce-action' ) ) {
-				$product_ids = \WK_Caching::wk_get_request_data(
-					'selected',
-					array(
-						'method' => 'post',
-						'flag'   => 'array',
-					)
-				);
+				$product_ids = empty( $_POST['selected'] ) ? array() : wc_clean( wp_unslash( $_POST['selected'] ) );
+
 				$this->wkmp_delete_product( $product_ids );
 			}
 
@@ -100,18 +95,13 @@ if ( ! class_exists( 'WKMP_Product_List' ) ) {
 					'dynamic_sku_prefix'  => get_user_meta( $this->seller_id, '_wkmp_dynamic_sku_prefix', true ),
 				);
 
-				$args                        = array( 'method' => 'post' );
-				$posted_data['product_sku']  = \WK_Caching::wk_get_request_data( 'product_sku', $args );
-				$posted_data['product_name'] = \WK_Caching::wk_get_request_data( 'product_name', $args );
-
-				$args['default']                = '';
-				$args['filter']                 = 'int';
-				$posted_data['seller_id']       = \WK_Caching::wk_get_request_data( 'seller_id', $args );
-				$posted_data['sell_pr_id']      = \WK_Caching::wk_get_request_data( 'sell_pr_id', $args );
-				$posted_data['wk-mp-stock-qty'] = \WK_Caching::wk_get_request_data( 'wk-mp-stock-qty', $args );
-
-				$posted_data['regu_price'] = empty( $_POST['regu_price'] ) ? '' : wc_clean( $_POST['regu_price'] );
-				$posted_data['sale_price'] = empty( $_POST['sale_price'] ) ? '' : wc_clean( $_POST['sale_price'] );
+				$posted_data['product_sku']     = empty( $_POST['product_sku'] ) ? '' : wc_clean( wp_unslash( $_POST['product_sku'] ) );
+				$posted_data['product_name']    = empty( $_POST['product_name'] ) ? '' : wc_clean( wp_unslash( $_POST['product_name'] ) );
+				$posted_data['seller_id']       = empty( $_POST['seller_id'] ) ? '' : intval( wp_unslash( $_POST['seller_id'] ) );
+				$posted_data['sell_pr_id']      = empty( $_POST['sell_pr_id'] ) ? '' : intval( wp_unslash( $_POST['sell_pr_id'] ) );
+				$posted_data['wk-mp-stock-qty'] = empty( $_POST['wk-mp-stock-qty'] ) ? '' : intval( wp_unslash( $_POST['wk-mp-stock-qty'] ) );
+				$posted_data['regu_price']      = empty( $_POST['regu_price'] ) ? '' : wc_clean( $_POST['regu_price'] );
+				$posted_data['sale_price']      = empty( $_POST['sale_price'] ) ? '' : wc_clean( $_POST['sale_price'] );
 
 				$product_form = WKMP_Product_Form::get_instance();
 				$errors       = $product_form->wkmp_product_validation( $posted_data );
@@ -217,13 +207,8 @@ if ( ! class_exists( 'WKMP_Product_List' ) ) {
 			$nonce_min_update = \WK_Caching::wk_get_request_data( 'wkmp-min-order-nonce', array( 'method' => 'post' ) );
 
 			if ( ! empty( $nonce_min_update ) && wp_verify_nonce( $nonce_min_update, 'wkmp-min-order-nonce-action' ) ) {
-				$args = array(
-					'method'  => 'post',
-					'default' => 0,
-					'filter'  => 'int',
-				);
 
-				$qty    = \WK_Caching::wk_get_request_data( '_wkmp_max_product_qty_limit', $args );
+				$qty    = empty( $_POST['_wkmp_max_product_qty_limit'] ) ? 0 : intval( wp_unslash( $_POST['_wkmp_max_product_qty_limit'] ) );
 				$amount = empty( $_POST['_wkmp_minimum_order_amount'] ) ? '' : wc_clean( $_POST['_wkmp_minimum_order_amount'] );
 
 				$seller_id = $this->seller_id > 0 ? $this->seller_id : get_current_user_id();
@@ -251,9 +236,10 @@ if ( ! class_exists( 'WKMP_Product_List' ) ) {
 		 * @return void
 		 */
 		public function wkmp_add_new_product( $posted_data ) {
+			$nonce_add    = \WK_Caching::wk_get_request_data( 'wkmp_add_product_submit_nonce_name', array( 'method' => 'post' ) );
 			$product_name = wp_strip_all_tags( $posted_data['product_name'] );
 
-			if ( ! empty( $product_name ) ) {
+			if ( ! empty( $product_name ) && ! empty( $nonce_add ) && wp_verify_nonce( $nonce_add, 'wkmp_add_product_submit_nonce_action' ) ) {
 				$product_dsc        = empty( $posted_data['product_desc'] ) ? '' : $posted_data['product_desc'];
 				$product_short_desc = empty( $posted_data['short_desc'] ) ? '' : $posted_data['short_desc'];
 
@@ -277,11 +263,7 @@ if ( ! class_exists( 'WKMP_Product_List' ) ) {
 				$sell_pr_id = wp_insert_post( $product_data );
 
 				if ( $sell_pr_id > 0 ) {
-					$args         = array(
-						'method' => 'post',
-						'filter' => 'int',
-					);
-					$thumbnail_id = \WK_Caching::wk_get_request_data( 'product_thumb_image_mp', $args );
+					$thumbnail_id = empty( $_POST['product_thumb_image_mp'] ) ? '' : intval( wp_unslash( $_POST['product_thumb_image_mp'] ) );
 
 					add_post_meta( $sell_pr_id, '_thumbnail_id', $thumbnail_id );
 
@@ -317,21 +299,14 @@ if ( ! class_exists( 'WKMP_Product_List' ) ) {
 							}
 						}
 
-						$args['filter'] = '';
-
-						$downloadable   = \WK_Caching::wk_get_request_data( '_downloadable', $args );
-						$product_status = \WK_Caching::wk_get_request_data( 'mp_product_status', $args );
-						$sale_from      = \WK_Caching::wk_get_request_data( 'sale_from', $args );
-						$sale_to        = \WK_Caching::wk_get_request_data( 'sale_to', $args );
-
-						$args['default'] = 'no';
-						$virtual         = \WK_Caching::wk_get_request_data( '_virtual', $args );
-						$manage_stock    = \WK_Caching::wk_get_request_data( 'wk_stock_management', $args );
-
-						$args['default'] = 'simple';
-						$product_type    = \WK_Caching::wk_get_request_data( 'product_type', $args );
-
-						$simple = ( 'simple' === $product_type ) ? 'yes' : 'no';
+						$downloadable   = empty( $_POST['_downloadable'] ) ? '' : wc_clean( wp_unslash( $_POST['_downloadable'] ) );
+						$product_status = empty( $_POST['mp_product_status'] ) ? '' : wc_clean( wp_unslash( $_POST['mp_product_status'] ) );
+						$sale_from      = empty( $_POST['sale_from'] ) ? '' : wc_clean( wp_unslash( $_POST['sale_from'] ) );
+						$sale_to        = empty( $_POST['sale_to'] ) ? '' : wc_clean( wp_unslash( $_POST['sale_to'] ) );
+						$virtual        = empty( $_POST['_virtual'] ) ? 'no' : wc_clean( wp_unslash( $_POST['_virtual'] ) );
+						$manage_stock   = empty( $_POST['wk_stock_management'] ) ? 'no' : wc_clean( wp_unslash( $_POST['wk_stock_management'] ) );
+						$product_type   = empty( $_POST['product_type'] ) ? 'simple' : wc_clean( wp_unslash( $_POST['product_type'] ) );
+						$simple         = ( 'simple' === $product_type ) ? 'yes' : 'no';
 
 						add_post_meta( $sell_pr_id, '_manage_stock', $manage_stock );
 						add_post_meta( $sell_pr_id, '_sale_price_dates_from', $sale_from );
@@ -358,10 +333,7 @@ if ( ! class_exists( 'WKMP_Product_List' ) ) {
 						wp_set_object_terms( $sell_pr_id, $product_type, 'product_type', false );
 					}
 
-					$args['default'] = '';
-					$args['filter']  = '';
-
-					$product_cats = \WK_Caching::wk_get_request_data( 'product_cate', $args );
+					$product_cats = empty( $_POST['product_cate'] ) ? '' : wc_clean( wp_unslash( $_POST['product_cate'] ) );
 
 					$this->wkmp_add_pro_category( $product_cats, $sell_pr_id );
 					wp_set_object_terms( $sell_pr_id, $product_type, 'product_type', false );

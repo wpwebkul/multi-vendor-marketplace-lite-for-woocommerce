@@ -20,12 +20,17 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 			<label for="upsell_ids"><?php esc_html_e( 'Upsells', 'wk-marketplace' ); ?></label>
 			<select class="wc-product-search" multiple="multiple" style="width: 50%;" id="upsell_ids" name="upsell_ids[]" data-placeholder="<?php esc_attr_e( 'Search&hellip;', 'wk-marketplace' ); ?>">
 				<?php
-				$product_ids = $product->get_upsell_ids( 'edit' );
+				$upsell_ids = $product->get_upsell_ids( 'edit' );
+				$upsell_ids = array_map( 'intval', $upsell_ids );
+
+
 				foreach ( $product_array as $key => $value ) {
-					$item = wc_get_product( $value->ID );
-					if ( is_object( $item ) && intval( $wk_pro_id ) !== intval( $value->ID ) ) {
+					$product_id = empty( $value->ID ) ? 0 : intval( $value->ID );
+					$item       = wc_get_product( $product_id );
+
+					if ( is_object( $item ) && intval( $wk_pro_id ) !== $product_id ) {
 						?>
-						<option value="<?php echo esc_attr( $value->ID ); ?>" <?php echo in_array( intval( $value->ID ), $product_ids, true ) ? 'selected' : ''; ?>> <?php echo wp_kses_post( $item->get_formatted_name() ); ?></option>
+						<option value="<?php echo esc_attr( $value->ID ); ?>" <?php echo in_array( $product_id, $upsell_ids, true ) ? 'selected' : ''; ?>> <?php echo wp_kses_post( $item->get_formatted_name() ); ?></option>
 					<?php } ?>
 				<?php } ?>
 			</select>
@@ -35,14 +40,20 @@ defined( 'ABSPATH' ) || exit; // Exit if access directly.
 				<label for="crosssell_ids"><?php esc_html_e( 'Cross-sells', 'wk-marketplace' ); ?></label>
 				<select class="wc-product-search" multiple="multiple" style="width: 50%;" id="crosssell_ids" name="crosssell_ids[]" data-placeholder="<?php esc_attr_e( 'Search&hellip;', 'wk-marketplace' ); ?>">
 					<?php
-					$product_ids = $product->get_cross_sell_ids( 'edit' );
+					$crosssell_ids = $product->get_cross_sell_ids( 'edit' );
+					$crosssell_ids = array_map( 'intval', $crosssell_ids );
+
 					foreach ( $product_array as $key => $value ) {
-						$item = wc_get_product( $value->ID );
-						if ( is_object( $item ) && intval( $wk_pro_id ) !== intval( $value->ID ) ) {
+						$product_id = empty( $value->ID ) ? 0 : intval( $value->ID );
+						$item       = wc_get_product( $product_id );
+
+						if ( is_object( $item ) && intval( $wk_pro_id ) !== $product_id ) {
 							?>
-							<option value="<?php echo esc_attr( $value->ID ); ?>" <?php echo ( in_array( intval( $value->ID ), $product_ids, true ) ) ? 'selected' : ''; ?>><?php echo wp_kses_post( $item->get_formatted_name() ); ?></option>
-						<?php } ?>
-					<?php } ?>
+							<option value="<?php echo esc_attr( $value->ID ); ?>" <?php echo ( in_array( $product_id, $crosssell_ids, true ) ) ? 'selected' : ''; ?>><?php echo wp_kses_post( $item->get_formatted_name() ); ?></option>
+							<?php
+						}
+					}
+					?>
 				</select>
 			</p>
 		<?php } ?>

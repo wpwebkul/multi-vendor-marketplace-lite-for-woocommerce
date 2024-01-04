@@ -221,7 +221,6 @@ To see list of 50+ Pro Addons [Click Here](https://store.webkul.com/woocommerce-
 
 For detailed blog and tutorials visit our [Blog page](https://webkul.com/blog/wordpress-woocommerce-marketplace/).
 
-
 == Frequently Asked Questions ==
 
 **Will the module works with the WooCommerce themes?**
@@ -241,12 +240,18 @@ For any Query please generate a ticket at https://webkul.com/ticket/
 
 == Changelog ==
 
-= 1.0.0 - 2024-01-05 =
+= 1.0.0 - 2024-01-20 =
 Initial Public release.
 
-= 0.9.2 - 2023-12-13 =
+== 0.9.3 - 2024-01-05 ==
+Added: Back button on seller listing page in admin.
+Updated: Chart UI on seller dashboard with latest updates.
+Fixed: Issue in commission calculations.
 Fixed: Nonce verification and security issues across the plugin.
 Fixed: Issue with variation product not creating properly on seller end.
+Fixed: Regular price was not accepting decimal values.
+Fixed: Refund quantity and refunded amount not showing on seller end.
+Fixed: Shipping tab was not hiding for virtual product on seller end.
 
 = 0.9.1 - 2023-12-06 =
 Fixed: Pro notice sending in admin emails without checking pro plugin.

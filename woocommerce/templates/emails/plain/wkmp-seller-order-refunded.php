@@ -25,7 +25,7 @@ $common_functions = empty( $data['common_functions'] ) ? '' : $data['common_func
 
 $com_data = $commission_obj->wkmp_get_seller_final_order_info( $seller_order->get_id(), $seller_id );
 
-$seller_order_refund_data = $commission_obj->wkmp_get_seller_order_refund_data( $seller_order->get_id() );
+$seller_order_refund_data = $commission_obj->wkmp_get_seller_order_refund_data( $seller_order->get_id(), $seller_id );
 
 $subtotal      = 0;
 $total_tax     = 0;

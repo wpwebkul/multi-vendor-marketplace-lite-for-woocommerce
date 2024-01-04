@@ -81,8 +81,8 @@ if ( ! class_exists( 'WKMP_Ask_To_Admin' ) ) {
 			$nonce           = \WK_Caching::wk_get_request_data( 'wkmp-sellerAskQuery-nonce', array( 'method' => 'post' ) );
 
 			if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, 'wkmp-sellerAskQuery-nonce-action' ) ) {
-				$message = \WK_Caching::wk_get_request_data( 'message', array( 'method' => 'post' ) );
-				$subject = \WK_Caching::wk_get_request_data( 'subject', array( 'method' => 'post' ) );
+				$message = empty( $_POST['message'] ) ? '' : wc_clean( wp_unslash( $_POST['message'] ) );
+				$subject = empty( $_POST['subject'] ) ? '' : wc_clean( wp_unslash( $_POST['subject'] ) );
 
 				if ( empty( $message ) || empty( $subject ) ) {
 					wc_print_notice( esc_html__( 'Invalid (or empty) subject and/or message.', 'wk-marketplace' ), 'error' );

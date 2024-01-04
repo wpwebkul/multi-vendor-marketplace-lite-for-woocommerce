@@ -7,9 +7,8 @@
 
 defined( 'ABSPATH' ) || exit; // Exit if access directly.
 
-$current_user_id = get_current_user_id();
-$mp_page_title   = empty( $seller_info->shop_name ) ? '' : $seller_info->shop_name;
-
+$current_user_id   = get_current_user_id();
+$mp_page_title     = empty( $seller_info->shop_name ) ? '' : $seller_info->shop_name;
 $is_pending_review = false;
 
 foreach ( $review_check as $review_data ) {

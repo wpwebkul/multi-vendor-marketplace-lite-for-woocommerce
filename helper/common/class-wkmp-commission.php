@@ -371,17 +371,17 @@ if ( ! class_exists( 'WKMP_Commission' ) ) {
 		 * Get seller refund data
 		 *
 		 * @param int    $order_id Order id.
-		 * @param string $user_id User id.
+		 * @param string $seller_id Seller id.
 		 *
 		 * @return array|mixed|string
 		 */
-		public function wkmp_get_seller_order_refund_data( $order_id, $user_id = '' ) {
+		public function wkmp_get_seller_order_refund_data( $order_id, $seller_id = '' ) {
 			$wpdb_obj = $this->wpdb;
 
-			$seller_order_refund_data = $wpdb_obj->get_var( $wpdb_obj->prepare( "SELECT meta_value FROM {$wpdb_obj->prefix}mporders_meta WHERE seller_id = %d AND order_id = %d AND meta_key = %s", esc_attr( $user_id ), esc_attr( $order_id ), esc_attr( '_wkmp_refund_status' ) ) );
+			$seller_order_refund_data = $wpdb_obj->get_var( $wpdb_obj->prepare( "SELECT meta_value FROM {$wpdb_obj->prefix}mporders_meta WHERE seller_id = %d AND order_id = %d AND meta_key = %s", esc_attr( $seller_id ), esc_attr( $order_id ), esc_attr( '_wkmp_refund_status' ) ) );
 			$return                   = ! empty( $seller_order_refund_data ) ? maybe_unserialize( $seller_order_refund_data ) : array();
 
-			return apply_filters( 'wkmp_get_seller_order_refund_data', $return, $order_id, $user_id );
+			return apply_filters( 'wkmp_get_seller_order_refund_data', $return, $order_id, $seller_id );
 		}
 
 		/**

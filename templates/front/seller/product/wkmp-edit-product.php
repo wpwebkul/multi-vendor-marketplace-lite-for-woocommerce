@@ -55,15 +55,14 @@ if ( $post_row_data && intval( $product_auth ) === get_current_user_id() ) {
 		<ul id='edit_product_tab'>
 			<li><a id='edit_tab'><?php esc_html_e( 'Edit', 'wk-marketplace' ); ?></a></li>
 			<?php
-			$show      = '';
-			$ship_show = '';
+			$show       = '';
+			$is_virtual = false;
 			if ( in_array( $product->get_type(), array( 'grouped', 'external' ), true ) ) {
-				$show      = "style='display:none;'";
-				$ship_show = "style='display:none;'";
+				$show = "style='display:none;'";
 			}
 
 			if ( 'yes' === $meta_arr['_virtual'] ) {
-				$ship_show = "style='display:none;'";
+				$is_virtual = true;
 			}
 
 			/**
@@ -99,11 +98,11 @@ if ( $post_row_data && intval( $product_auth ) === get_current_user_id() ) {
 			}
 			?>
 			<li <?php echo esc_attr( $show ); ?>><a id='inventorytab'><?php esc_html_e( 'Inventory', 'wk-marketplace' ); ?></a></li>
-			<li <?php echo esc_attr( $ship_show ); ?> ><a id='shippingtab'><?php esc_html_e( 'Shipping', 'wk-marketplace' ); ?></a></li>
+			<li class="<?php echo ( $is_virtual ) ? 'wkmp_hide' : ''; ?>"><a id='shippingtab'><?php esc_html_e( 'Shipping', 'wk-marketplace' ); ?></a></li>
 			<li><a id='linkedtab'><?php esc_html_e( 'Linked Products', 'wk-marketplace' ); ?></a></li>
 			<li><a id='attributestab'><?php esc_html_e( 'Attributes', 'wk-marketplace' ); ?></a></li>
-			<li style="display:none;"><a id='external_affiliate_tab'><?php esc_html_e( 'External/Affiliate', 'wk-marketplace' ); ?></a></li>
-			<li style="display:none;"><a id='avariationtab'><?php esc_html_e( 'Variations', 'wk-marketplace' ); ?></a></li>
+			<li class="wkmp_hide"><a id='external_affiliate_tab'><?php esc_html_e( 'External/Affiliate', 'wk-marketplace' ); ?></a></li>
+			<li class="wkmp_hide"><a id='avariationtab'><?php esc_html_e( 'Variations', 'wk-marketplace' ); ?></a></li>
 			<li><a id='pro_statustab'><?php esc_html_e( 'Product Status', 'wk-marketplace' ); ?></a></li>
 			<?php do_action( 'mp_edit_product_tab_links' ); ?>
 		</ul>
@@ -113,7 +112,6 @@ if ( $post_row_data && intval( $product_auth ) === get_current_user_id() ) {
 			require_once __DIR__ . '/wkmp-product-edit-tab.php';
 
 			// Custom_tab start here.
-
 			if ( ! empty( $tab_content ) ) {
 				foreach ( $tab_content as $tab_content_key => $tab_content_value ) {
 					?>

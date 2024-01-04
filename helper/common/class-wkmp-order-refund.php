@@ -26,11 +26,11 @@ if ( ! class_exists( 'WKMP_Order_Refund' ) ) {
 		protected $refund_args = array();
 
 		/**
-		 * User id.
+		 * Seller id.
 		 *
-		 * @var array|int user id.
+		 * @var array|int seller id.
 		 */
-		protected $user_id = array();
+		protected $seller_id = array();
 
 		/**
 		 * WPDB Objet.
@@ -71,7 +71,7 @@ if ( ! class_exists( 'WKMP_Order_Refund' ) ) {
 			global $wpdb;
 			$this->wpdb                = $wpdb;
 			$this->refund_args         = $args;
-			$this->user_id             = get_current_user_id();
+			$this->seller_id           = get_current_user_id();
 			$this->mporders_meta_table = $wpdb->prefix . 'mporders_meta';
 			$this->order_db_obj        = Admin\WKMP_Seller_Order_Data::get_instance();
 		}
@@ -141,12 +141,12 @@ if ( ! class_exists( 'WKMP_Order_Refund' ) ) {
 		/**
 		 * Set Seller id
 		 *
-		 * @param int $user_id User id.
+		 * @param int $seller_id User id.
 		 *
 		 * @return void
 		 */
-		public function wkmp_set_seller_id( $user_id = '' ) {
-			$this->user_id = $user_id;
+		public function wkmp_set_seller_id( $seller_id = '' ) {
+			$this->seller_id = $seller_id;
 		}
 
 		/**
@@ -155,7 +155,7 @@ if ( ! class_exists( 'WKMP_Order_Refund' ) ) {
 		 * @return string $email
 		 */
 		public function wkmp_get_seller_email() {
-			return get_userdata( $this->user_id )->user_email;
+			return get_userdata( $this->seller_id )->user_email;
 		}
 
 		/**
@@ -164,13 +164,13 @@ if ( ! class_exists( 'WKMP_Order_Refund' ) ) {
 		 * @return void
 		 */
 		public function wkmp_set_seller_order_refund_data() {
-			$wpdb_obj      = $this->wpdb;
-			$order_id      = $this->refund_args['order_id'];
-			$this->user_id = apply_filters( 'wkmp_modify_order_refund_user_id', $this->user_id, $order_id );
+			$wpdb_obj        = $this->wpdb;
+			$order_id        = $this->refund_args['order_id'];
+			$this->seller_id = apply_filters( 'wkmp_modify_order_refund_user_id', $this->seller_id, $order_id );
 
 			$commission_helper = Common\WKMP_Commission::get_instance();
 
-			$seller_order_refund_data = $commission_helper->wkmp_get_seller_order_refund_data( $order_id );
+			$seller_order_refund_data = $commission_helper->wkmp_get_seller_order_refund_data( $order_id, $this->seller_id );
 
 			if ( empty( $seller_order_refund_data ) ) {
 				$seller_order_refund_data = array(
@@ -181,7 +181,7 @@ if ( ! class_exists( 'WKMP_Order_Refund' ) ) {
 				$wpdb_obj->insert(
 					$this->mporders_meta_table,
 					array(
-						'seller_id'  => $this->user_id,
+						'seller_id'  => $this->seller_id,
 						'order_id'   => $order_id,
 						'meta_key'   => '_wkmp_refund_status',
 						'meta_value' => maybe_serialize( $seller_order_refund_data ),
@@ -227,7 +227,7 @@ if ( ! class_exists( 'WKMP_Order_Refund' ) ) {
 					$this->mporders_meta_table,
 					array( 'meta_value' => maybe_serialize( $seller_order_refund_data ) ),
 					array(
-						'seller_id' => $this->user_id,
+						'seller_id' => $this->seller_id,
 						'order_id'  => $order_id,
 						'meta_key'  => '_wkmp_refund_status',
 					),
@@ -246,10 +246,10 @@ if ( ! class_exists( 'WKMP_Order_Refund' ) ) {
 		public function wkmp_update_refund_data_in_seller_sales() {
 			$commission_helper = Common\WKMP_Commission::get_instance();
 
-			$sales_data = $commission_helper->wkmp_get_seller_commission_info( $this->user_id, 'seller_total_ammount, paid_amount, total_refunded_amount', ARRAY_A );
+			$sales_data = $commission_helper->wkmp_get_seller_commission_info( $this->seller_id, 'seller_total_ammount, paid_amount, total_refunded_amount', ARRAY_A );
 			$order_id   = $this->refund_args['order_id'];
 
-			$paid_status     = $this->order_db_obj->wkmp_get_order_pay_status( $this->user_id, $order_id );
+			$paid_status     = $this->order_db_obj->wkmp_get_order_pay_status( $this->seller_id, $order_id );
 			$exchange_rate   = apply_filters( 'wkmp_order_currency_exchange_rate', 1, $order_id );
 			$exchange_rate   = empty( $exchange_rate ) ? 1 : $exchange_rate;
 			$refunded_amount = $this->refund_args['amount'] / $exchange_rate;
@@ -268,7 +268,7 @@ if ( ! class_exists( 'WKMP_Order_Refund' ) ) {
 			}
 
 			$commission_helper->wkmp_update_seller_commission_info(
-				$this->user_id,
+				$this->seller_id,
 				$commission_data
 			);
 		}
